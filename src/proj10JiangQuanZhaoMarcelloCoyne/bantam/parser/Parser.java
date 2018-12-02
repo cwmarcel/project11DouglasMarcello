@@ -147,7 +147,7 @@ public class Parser
             Expr returnExpr = parseExpression();
             stmt = new ReturnStmt(position, returnExpr);
         }
-        
+
         return stmt;
     }
 
@@ -155,7 +155,12 @@ public class Parser
     /*
 	 * BreakStmt> ::= BREAK ;
      */
-	private Stmt parseBreak() { }
+	private Stmt parseBreak() {
+	    Stmt stmt;
+	    int position = this.currentToken.position;
+	    stmt = new BreakStmt(position);
+	    return stmt;
+    }
 
 
     /*
