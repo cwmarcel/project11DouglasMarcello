@@ -179,7 +179,7 @@ public class Parser
 	private Stmt parseDeclStmt() {
 	    int position = this.currentToken.position;
 	    String name = this.currentToken.spelling;
-	    this.currentToken = scanner.scan();     // "="
+	    this.currentToken = scanner.scan();     // pass "="
         Expr expr = parseExpression();
 	    return new DeclStmt(position, name, expr);
 
@@ -192,7 +192,18 @@ public class Parser
      * <Terminate> ::= EMPTY | <Expression>
      * <Increment> ::= EMPTY | <Expression>
      */
-	private Stmt parseFor() { }
+	private Stmt parseFor() {
+//        Expr init;
+//	    this.currentToken = scanner.scan();     // pass "("
+//        if (this.currentToken.spelling == ";"){
+//            init = null;
+//        }
+//        else {
+//            init = parseExpression();
+//        }
+
+
+    }
 
 
     /*
