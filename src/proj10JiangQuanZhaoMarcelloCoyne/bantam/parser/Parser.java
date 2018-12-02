@@ -11,9 +11,11 @@
  */
 package proj10JiangQuanZhaoMarcelloCoyne.bantam.parser;
 
+import org.antlr.v4.runtime.atn.SemanticContext;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.*;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
-import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.EOF;
+
+import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.*;
 
 /**
  * This class constructs an AST from a legal Bantam Java program.  If the
@@ -394,7 +396,11 @@ public class Parser
 	 * <Formal> ::= <Type> <Identifier>
      */
 	private Formal parseFormal() {
-
+        int position = currentToken.position;
+        String type = parseType();
+        String id = parseIdentifier();
+        //String identifier = scanner.scan().getSpelling();
+        return (new Formal(position, type, id));
     }
 
 
@@ -402,26 +408,90 @@ public class Parser
 	 * <Type> ::= <Identifier> <Brackets>
      * <Brackets> ::= EMPTY | [ ]
      */
-     */
-	private String parseType() { }
+	private String parseType() {
+        int position = currentToken.position;
+        String id = parseIdentifier();
+        return currentToken.getSpelling();
+    }
 
 
     //----------------------------------------
     //Terminals
+    // I'M NOT SURE ABOUT THESE AT ALL
+    // JUST BEST GUESS
 
-	private String parseOperator() { }
+    //definitely not done or right
+	private String parseOperator() {
+	    switch (currentToken.getSpelling()) {
+            case "&&":
+                currentToken.kind = BINARYLOGIC;
+                break;
+            case "||":
+                currentToken.kind = BINARYLOGIC;
+                break;
+            case "+":
+                currentToken.kind = PLUSMINUS;
+                break;
+            case "-":
+                currentToken.kind = PLUSMINUS;
+                break;
+            case "*":
+                currentToken.kind = MULDIV;
+                break;
+            case "/":
+                currentToken.kind = MULDIV;
+                break;
+            case "==":
+                currentToken.kind = COMPARE;
+                break;
+            case "!=":
+                currentToken.kind = COMPARE;
+                break;
+            case "<":
+                currentToken.kind = COMPARE;
+                break;
+            case "<=":
+                currentToken.kind = COMPARE;
+                break;
+            case ">":
+                currentToken.kind = COMPARE;
+                break;
+            case ">=":
+                currentToken.kind = COMPARE;
+                break;
+            case "++":
+                currentToken.kind = UNARYINCR;
+                break;
+            case "--":
+                currentToken.kind = UNARYDECR;
+                break;
+        }
+	    return currentToken.getSpelling();
+    }
 
 
-    private String parseIdentifier() { }
+    private String parseIdentifier() {
+	    currentToken.kind = IDENTIFIER;
+	    return currentToken.getSpelling();
+    }
 
 
-    private ConstStringExpr parseStringConst() { }
+    private ConstStringExpr parseStringConst() {
+        currentToken.kind = STRCONST;
+        return new ConstStringExpr(currentToken.position, currentToken.getSpelling());
+    }
 
 
-    private ConstIntExpr parseIntConst() { }
+    private ConstIntExpr parseIntConst() {
+        currentToken.kind = INTCONST;
+        return new ConstIntExpr(currentToken.position, currentToken.getSpelling());
+    }
 
 
-    private ConstBooleanExpr parseBoolean() { }
+    private ConstBooleanExpr parseBoolean() {
+        currentToken.kind = BOOLEAN;
+        return new ConstBooleanExpr(currentToken.position, currentToken.getSpelling());
+    }
 
 }
 
