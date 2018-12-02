@@ -13,6 +13,7 @@ package proj10JiangQuanZhaoMarcelloCoyne.bantam.parser;
 
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.*;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
+import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.EOF;
 
 /**
  * This class constructs an AST from a legal Bantam Java program.  If the
@@ -49,6 +50,7 @@ public class Parser
         ClassList classList = new ClassList(position);
 
         while (currentToken.kind != EOF) {
+
             Class_ aClass = parseClass();
             classList.addElement(aClass);
         }
@@ -62,7 +64,7 @@ public class Parser
      * <ExtendsClause> ::= EXTENDS <Identifier> | EMPTY
      * <MemberList> ::= EMPTY | <Member> <MemberList>
      */
-    private Class_ parseClass() { }
+    private Class_ parseClass() {  }
 
 
     /* Fields and Methods
@@ -315,20 +317,64 @@ public class Parser
 	 * <Arguments> ::= EMPTY | <Expression> <MoreArgs>
      * <MoreArgs>  ::= EMPTY | , <Expression> <MoreArgs>
      */
-	private ExprList parseArguments() { }
+	private ExprList parseArguments() {
+        int position = currentToken.position;
+        ExprList args = new ExprList(position);
+
+        //checks for the empty arguments case
+        if ( this.currentToken.spelling.equals(")") ) {
+            return args;
+        }
+
+        //if not empty, parse the first argument
+        Expr arg = parseExpression();
+        args.addElement(arg);
+
+        //continue parsing arguments
+        while (this.currentToken.spelling.equals(",")) {
+            this.currentToken = scanner.scan();
+            arg = parseExpression();
+            args.addElement(arg);
+        }
+
+        return args;
+    }
 
 
     /*
 	 * <Parameters>  ::= EMPTY | <Formal> <MoreFormals>
      * <MoreFormals> ::= EMPTY | , <Formal> <MoreFormals
      */
-	private FormalList parseParameters() { }
+	private FormalList parseParameters() {
+        int position = currentToken.position;
+        FormalList params = new FormalList(position);
+
+        //checks for the empty parameters case
+        if ( this.currentToken.spelling.equals(")") ) {
+            return params;
+        }
+
+        //if not empty, parse the first parameter and add it
+        Formal param = parseFormal();
+        params.addElement(param);
+
+        //continue parsing parameters and adding them to the list
+        while (this.currentToken.spelling.equals(",")) {
+            this.currentToken = scanner.scan();
+            param = parseFormal();
+            params.addElement(param);
+        }
+
+        return params;
+    }
 
 
     /*
 	 * <Formal> ::= <Type> <Identifier>
      */
-	private Formal parseFormal() { }
+	private Formal parseFormal() {
+
+    }
 
 
     /*
