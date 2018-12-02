@@ -27,7 +27,7 @@ class SourceFile {
     static final char eof = '\u0000';     // end of file character
 
     private Reader sourceReader;   // the reader of the file
-    private int currentLineNumber; // for bantam.error messages
+    private int currentLineNumber; // for proj10JiangQuanZhaoMarcelloCoyne.bantam.error messages
     private int prevChar;          // the previous character read
     private String filename;       // the file currently being scanned.
 
