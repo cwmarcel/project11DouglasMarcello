@@ -3,72 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fd676c23-174a-42b1-a33e-6328b04f2458" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ASTNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ArrayAssignExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ArrayAssignExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ArrayExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ArrayExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/AssignExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/AssignExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryArithDivideExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryArithDivideExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryArithExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryArithExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryArithMinusExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryArithMinusExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryArithModulusExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryArithModulusExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryArithPlusExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryArithPlusExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryArithTimesExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryArithTimesExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompEqExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompEqExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompGeqExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompGeqExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompGtExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompGtExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompLeqExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompLeqExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompLtExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompLtExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryCompNeExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryCompNeExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryLogicAndExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryLogicAndExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryLogicExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryLogicExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BinaryLogicOrExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BinaryLogicOrExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BlockStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BlockStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/BreakStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/BreakStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/CastExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/CastExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ClassList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ClassList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Class_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Class_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ConstBooleanExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ConstBooleanExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ConstExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ConstExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ConstIntExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ConstIntExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ConstStringExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ConstStringExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/DeclStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/DeclStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/DispatchExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/DispatchExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Expr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ExprList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ExprList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ExprStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ExprStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ForStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ForStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Formal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Formal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/FormalList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/FormalList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/IfStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/IfStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/InstanceofExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/InstanceofExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ListNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/MemberList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/MemberList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Method.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Method.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/NewArrayExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/NewArrayExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/NewExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/NewExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Program.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/ReturnStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ReturnStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/Stmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/StmtList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/StmtList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/UnaryDecrExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/UnaryDecrExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/UnaryExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/UnaryExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/UnaryIncrExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/UnaryIncrExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/UnaryNegExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/UnaryNegExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/UnaryNotExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/UnaryNotExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/VarExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/VarExpr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/ast/WhileStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/WhileStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/Drawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/DrawerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/DrawerFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/DrawerPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/DrawerPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/DrawingTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/DrawingTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/LayoutVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/LayoutVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/Polygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/Polygon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bantam/treedrawer/Polyline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/treedrawer/Polyline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/SourceFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/SourceFile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -93,28 +27,28 @@
         <counts>
           <entry key="css" value="3" />
           <entry key="fxml" value="4" />
-          <entry key="java" value="69" />
+          <entry key="java" value="70" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="JAVA" value="69" />
+          <entry key="JAVA" value="70" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="fxml" value="2" />
-          <entry key="java" value="150" />
-          <entry key="txt" value="34" />
+          <entry key="java" value="181" />
+          <entry key="txt" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="150" />
-          <entry key="PLAIN_TEXT" value="34" />
+          <entry key="JAVA" value="181" />
+          <entry key="PLAIN_TEXT" value="35" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -141,6 +75,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/Token.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1125">
+              <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/visitor/Visitor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
@@ -152,20 +95,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="270" column="35" selection-start-line="270" selection-start-column="35" selection-end-line="270" selection-end-column="35" />
+            <state relative-caret-position="279">
+              <caret line="254" column="19" selection-start-line="254" selection-start-column="8" selection-end-line="254" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ArrayAssignExpr.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1225">
-              <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -218,6 +152,12 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Primary</find>
+      <find>UnaryPostfix</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -253,12 +193,13 @@
         <option value="$PROJECT_DIR$/src/bantam/visitor/Visitor.java" />
         <option value="$PROJECT_DIR$/src/bantam/parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/ArrayAssignExpr.java" />
+        <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="609" />
-    <option name="y" value="91" />
+    <option name="x" value="-216" />
+    <option name="y" value="-34" />
     <option name="width" value="2275" />
     <option name="height" value="1008" />
   </component>
@@ -308,6 +249,41 @@
               <item name="bantam" type="462c0819:PsiDirectoryNode" />
               <item name="parser" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="fxml" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="Java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="Scanner" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -315,7 +291,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543777372534" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543782582447" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -371,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543777388083</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="package names">
+      <created>1543778417321</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1543778417321</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -412,7 +395,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="package name cleaning" />
-    <option name="LAST_COMMIT_MESSAGE" value="package name cleaning" />
+    <MESSAGE value="package names" />
+    <option name="LAST_COMMIT_MESSAGE" value="package names" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/proj9JiangQuanZhaoMarcelloCoyne/Main.java" />
@@ -666,13 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/ErrorHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -737,10 +714,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1125">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="270" column="35" selection-start-line="270" selection-start-column="35" selection-end-line="270" selection-end-column="35" />
+        <state relative-caret-position="279">
+          <caret line="254" column="19" selection-start-line="254" selection-start-column="8" selection-end-line="254" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
