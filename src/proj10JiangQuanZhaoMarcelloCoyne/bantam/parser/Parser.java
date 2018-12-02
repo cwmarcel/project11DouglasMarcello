@@ -117,8 +117,9 @@ public class Parser
      * <WhileStmt> ::= WHILE ( <Expression> ) <Stmt>
      */
     private Stmt parseWhile() {
-        int position = currentToken.position;
         Stmt stmt;
+        int position = this.currentToken.position;
+
         this.currentToken = scanner.scan();     // left paren
         Expr preExpr = parseExpression();
         this.currentToken = scanner.scan();     // right paren
@@ -133,7 +134,22 @@ public class Parser
     /*
      * <ReturnStmt> ::= RETURN <Expression> ; | RETURN ;
      */
-	private Stmt parseReturn() { }
+	private Stmt parseReturn() {
+	    Stmt stmt;
+	    int position = this.currentToken.position;
+
+	    this.currentToken = this.scanner.scan();
+
+	    if (this.currentToken.spelling.equals(";")){
+	        stmt = new ReturnStmt(position, null);
+        }
+        else{
+            Expr returnExpr = parseExpression();
+            stmt = new ReturnStmt(position, returnExpr);
+        }
+        
+        return stmt;
+    }
 
 
     /*
