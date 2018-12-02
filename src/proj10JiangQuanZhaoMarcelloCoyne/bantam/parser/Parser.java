@@ -158,24 +158,34 @@ public class Parser
 	 * BreakStmt> ::= BREAK ;
      */
 	private Stmt parseBreak() {
-	    Stmt stmt;
 	    int position = this.currentToken.position;
-	    stmt = new BreakStmt(position);
-	    return stmt;
+	    return new BreakStmt(position);
     }
 
 
     /*
 	 * <ExpressionStmt> ::= <Expression> ;
      */
-	private ExprStmt parseExpressionStmt() { }
+	private ExprStmt parseExpressionStmt() {
+	    int position = this.currentToken.position;
+	    Expr expr = parseExpression();
+	    return new ExprStmt(position, expr);
+
+    }
 
 
     /*
 	 * <DeclStmt> ::= VAR <Identifier> = <Expression> ;
      * every local variable must be initialized
      */
-	private Stmt parseDeclStmt() { }
+	private Stmt parseDeclStmt() {
+	    int position = this.currentToken.position;
+	    String name = this.currentToken.spelling;
+	    this.currentToken = scanner.scan();     // pass "="
+        Expr expr = parseExpression();
+	    return new DeclStmt(position, name, expr);
+
+    }
 
 
     /*
@@ -184,7 +194,18 @@ public class Parser
      * <Terminate> ::= EMPTY | <Expression>
      * <Increment> ::= EMPTY | <Expression>
      */
-	private Stmt parseFor() { }
+	private Stmt parseFor() {
+//        Expr init;
+//	    this.currentToken = scanner.scan();     // pass "("
+//        if (this.currentToken.spelling == ";"){
+//            init = null;
+//        }
+//        else {
+//            init = parseExpression();
+//        }
+
+
+    }
 
 
     /*
