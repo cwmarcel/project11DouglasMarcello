@@ -1,0 +1,280 @@
+/*
+ * File: Main.css
+ * F18 CS361 Project 9
+ * Names: Liwei Jiang, Tracy Quan, Danqing Zhao, Chris Marcello, Michael Coyne
+ * Cascading Style Sheet for Main.java, defining the design styles of the GUI elements.
+ * Date: 10/30/2018
+ */
+
+/* style of Compile button */
+#compileButton {
+	/* set button color to green */
+    -fx-background-color:#afeeee;
+    /* set button border to black */
+    -fx-border-color: black;
+    /* set rounded corners */
+    -fx-border-radius: 5;
+}
+
+/* style of CompileRun button */
+#compileRunButton {
+	/* set button color to red */
+    -fx-background-color:#98FB98;
+    /* set button border to black */
+    -fx-border-color: black;
+    /* set rounded corners */
+    -fx-border-radius: 5;
+}
+
+/* style of Stop button */
+#stopButton {
+	/* set button color to red */
+    -fx-background-color:#ffab99;
+    /* set button border to black */
+    -fx-border-color: black;
+    /* set rounded corners */
+    -fx-border-radius: 5;
+}
+
+/* style of CompileRun button */
+#scanButton {
+	/* set button color to red */
+    -fx-background-color:#98FB98;
+    /* set button border to black */
+    -fx-border-color: black;
+    /* set rounded corners */
+    -fx-border-radius: 5;
+}
+
+/* style of keywords */
+.keyword {
+    -fx-fill: purple;
+    -fx-font-weight: bold;
+}
+
+/* style of semicolons */
+.semicolon {
+    -fx-font-weight: bold;
+}
+
+/* style of parenthesis */
+.paren {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+
+/* style of brackets */
+.bracket {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+
+/* style of braces */
+.brace {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+
+/* style of strings */
+.string {
+    -fx-fill: blue;
+}
+
+/* style of integers */
+.integer{
+    -fx-fill: firebrick;
+}
+
+/* style of comments */
+.comment {
+	-fx-fill: cadetblue;
+}
+
+/* style of paragraph boxes */
+.paragraph-box:has-caret {
+    -fx-background-color: #f2f9fc;
+}
+
+/* style of find/replace results */
+.find {
+    -fx-fill: OrangeRed;
+    -fx-font-weight: bold;
+    -fx-font-style: oblique;
+}
+
+/* style of context menu */
+.contextMenu {
+    -fx-text-base-color: black;
+}
+
+/* style of add/delete Tab buttons */
+.tabPaneButton {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+
+/* style for user guide title */
+.guideTitle {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 30;
+    -fx-text-alignment: CENTER;
+    -fx-stroke-width: 4;
+}
+
+/* style for user guide text */
+.guideText {
+    -fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-text-alignment: LEFT;
+    -fx-border-color: grey;
+    -fx-stroke-width: 2;
+}
+
+/* style for console error message */
+.err {
+    -fx-fill: red;
+}
+
+/* style for console info message */
+.cons {
+    -fx-fill: green;
+}
+
+/* style for console regular message */
+.normal{
+    -fx-fill: black;
+}
+
+/* preference setting styles */
+.keyword-purple {
+    -fx-fill: purple;
+    -fx-font-weight: bold;
+}
+
+.keyword-black {
+    -fx-fill: black;
+    -fx-font-weight: bold;
+}
+
+.keyword-blue {
+    -fx-fill: royalblue;
+    -fx-font-weight: bold;
+}
+
+.keyword-green {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+
+.keyword-yellow {
+    -fx-fill: orange;
+    -fx-font-weight: bold;
+}
+
+.keyword-pink {
+    -fx-fill: orchid;
+    -fx-font-weight: bold;
+}
+
+.keyword-red {
+    -fx-fill: firebrick;
+    -fx-font-weight: bold;
+}
+
+.paren-purple {
+    -fx-fill: purple;
+    -fx-font-weight: bold;
+}
+
+.paren-black {
+    -fx-fill: black;
+    -fx-font-weight: bold;
+}
+
+.paren-blue {
+    -fx-fill: royalblue;
+    -fx-font-weight: bold;
+}
+
+.keyword-green {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+
+.paren-yellow {
+    -fx-fill: orange;
+    -fx-font-weight: bold;
+}
+
+.paren-pink {
+    -fx-fill: orchid;
+    -fx-font-weight: bold;
+}
+
+.paren-red {
+    -fx-fill: firebrick;
+    -fx-font-weight: bold;
+}
+
+.str-purple {
+    -fx-fill: purple;
+}
+
+.str-black {
+    -fx-fill: black;
+}
+
+.str-blue {
+    -fx-fill: royalblue;
+}
+
+.str-green {
+    -fx-fill: teal;
+}
+
+.str-yellow {
+    -fx-fill: orange;
+}
+
+.str-pink {
+    -fx-fill: orchid;
+}
+
+.str-red {
+    -fx-fill: firebrick;
+}
+
+.int-purple {
+    -fx-fill: purple;
+}
+
+.int-black {
+    -fx-fill: black;
+}
+
+.int-blue {
+    -fx-fill: royalblue;
+}
+
+.int-green {
+    -fx-fill: teal;
+}
+
+.int-yellow {
+    -fx-fill: orange;
+}
+
+.int-pink{
+    -fx-fill: orchid;
+}
+
+.int-red {
+    -fx-fill: firebrick;
+}
