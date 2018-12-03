@@ -200,7 +200,46 @@ public class Parser
      * <Terminate> ::= EMPTY | <Expression>
      * <Increment> ::= EMPTY | <Expression>
      */
-	private Stmt parseFor() { }
+	private Stmt parseFor() {
+	    int position = this.currentToken.position;
+
+	    this.currentToken = this.scanner.scan();        // "("
+        this.currentToken = this.scanner.scan();        // <Start> or ";"
+
+        Expr initExpr;
+        if (this.currentToken.spelling == ";"){
+            initExpr = null;
+        }
+        else {
+            initExpr = parseExpression();
+            this.currentToken = this.scanner.scan();        // ";"
+        }
+
+        this.currentToken = this.scanner.scan();        // <Terminate> or ";"
+        Expr predExpr;
+        if (this.currentToken.spelling == ";"){
+            predExpr = null;
+        }
+        else{
+            predExpr = parseExpression();
+            this.currentToken = this.scanner.scan();        // ";"
+        }
+
+        this.currentToken = this.scanner.scan();        // <Increment> or ")"
+        Expr updateExpr;
+        if (this.currentToken.spelling == ")"){
+            updateExpr = null;
+        }
+        else{
+            updateExpr = parseExpression();
+            this.currentToken = this.scanner.scan();        // ")"
+        }
+
+        this.currentToken = this.scanner.scan();        //<STMT>
+        Stmt bodyStmt = parseStatement();
+
+        return new ForStmt(position, initExpr, predExpr, updateExpr, bodyStmt);
+    }
 
 
     /*
