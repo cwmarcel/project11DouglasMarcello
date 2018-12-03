@@ -150,7 +150,7 @@ public class Parser
         }
         else{
             Expr returnExpr = parseExpression();
-            stmt = new ReturnStmt(position, returnExpr); 
+            stmt = new ReturnStmt(position, returnExpr);
         }
 
         return stmt;
@@ -171,6 +171,7 @@ public class Parser
      */
 	private ExprStmt parseExpressionStmt() {
 	    int position = this.currentToken.position;
+	    this.currentToken = this.scanner.scan();        // <Expression>
 	    Expr expr = parseExpression();
 	    return new ExprStmt(position, expr);
 
@@ -183,8 +184,10 @@ public class Parser
      */
 	private Stmt parseDeclStmt() {
 	    int position = this.currentToken.position;
+	    this.currentToken = this.scanner.scan();        // <Identifier>
 	    String name = this.currentToken.spelling;
 	    this.currentToken = scanner.scan();     // "="
+        this.currentToken = scanner.scan();     // <Expression>
         Expr expr = parseExpression();
 	    return new DeclStmt(position, name, expr);
 
