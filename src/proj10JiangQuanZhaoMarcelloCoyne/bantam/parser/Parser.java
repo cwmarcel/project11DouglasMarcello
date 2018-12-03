@@ -14,9 +14,7 @@ package proj10JiangQuanZhaoMarcelloCoyne.bantam.parser;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.*;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
 
-import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.COMMA;
-import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.DOT;
-import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.EOF;
+import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.*;
 
 /**
  * This class constructs an AST from a legal Bantam Java program.  If the
@@ -125,8 +123,10 @@ public class Parser
         int position = this.currentToken.position;
 
         this.currentToken = scanner.scan();     // left paren
+        this.currentToken = scanner.scan();     // <Expression>
         Expr preExpr = parseExpression();
         this.currentToken = scanner.scan();     // right paren
+        this.currentToken = scanner.scan();     // <Stmt>
         Stmt bodyStmt = parseStatement();
 
         stmt = new WhileStmt(position, preExpr, bodyStmt);
@@ -142,14 +142,15 @@ public class Parser
 	    Stmt stmt;
 	    int position = this.currentToken.position;
 
-	    this.currentToken = this.scanner.scan();
+	    this.currentToken = this.scanner.scan();    // <Expression> or ;
 
+        // if return expression is empty, set expression to null
 	    if (this.currentToken.spelling.equals(";")){
 	        stmt = new ReturnStmt(position, null);
         }
         else{
             Expr returnExpr = parseExpression();
-            stmt = new ReturnStmt(position, returnExpr);
+            stmt = new ReturnStmt(position, returnExpr); 
         }
 
         return stmt;
@@ -209,7 +210,18 @@ public class Parser
     /*
 	 * <IfStmt> ::= IF ( <Expr> ) <Stmt> | IF ( <Expr> ) <Stmt> ELSE <Stmt>
      */
-	private Stmt parseIf() { }
+	private Stmt parseIf() {
+	    int position = this.currentToken.position;
+	    this.currentToken = this.scanner.scan();    // pass "("
+        Expr predExpr = parseExpression();
+        Stmt thenStmt = parseStatement();
+        Stmt elseStmt = null;
+        if (this.currentToken.kind == ELSE){
+            elseStmt = parseStatement();
+        }
+        return new IfStmt(position, predExpr, thenStmt, elseStmt);
+
+    }
 
 
     //-----------------------------------------
