@@ -11,11 +11,12 @@
  */
 package proj10JiangQuanZhaoMarcelloCoyne.bantam.parser;
 
-import org.antlr.v4.runtime.atn.SemanticContext;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.*;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
 
-import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.*;
+import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.COMMA;
+import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.DOT;
+import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.EOF;
 
 /**
  * This class constructs an AST from a legal Bantam Java program.  If the
@@ -52,7 +53,6 @@ public class Parser
         ClassList classList = new ClassList(position);
 
         while (currentToken.kind != EOF) {
-
             Class_ aClass = parseClass();
             classList.addElement(aClass);
         }
@@ -66,7 +66,7 @@ public class Parser
      * <ExtendsClause> ::= EXTENDS <Identifier> | EMPTY
      * <MemberList> ::= EMPTY | <Member> <MemberList>
      */
-    private Class_ parseClass() {  }
+    private Class_ parseClass() { }
 
 
     /* Fields and Methods
@@ -183,7 +183,7 @@ public class Parser
 	private Stmt parseDeclStmt() {
 	    int position = this.currentToken.position;
 	    String name = this.currentToken.spelling;
-	    this.currentToken = scanner.scan();     // pass "="
+	    this.currentToken = scanner.scan();     // "="
         Expr expr = parseExpression();
 	    return new DeclStmt(position, name, expr);
 
@@ -196,18 +196,7 @@ public class Parser
      * <Terminate> ::= EMPTY | <Expression>
      * <Increment> ::= EMPTY | <Expression>
      */
-	private Stmt parseFor() {
-//        Expr init;
-//	    this.currentToken = scanner.scan();     // pass "("
-//        if (this.currentToken.spelling == ";"){
-//            init = null;
-//        }
-//        else {
-//            init = parseExpression();
-//        }
-
-
-    }
+	private Stmt parseFor() { }
 
 
     /*
@@ -256,18 +245,7 @@ public class Parser
 	 * <LogicalAND> ::= <ComparisonExpr> <LogicalANDRest>
      * <LogicalANDRest> ::= EMPTY |  && <ComparisonExpr> <LogicalANDRest>
      */
-	private Expr parseAndExpr() {
-        int position = currentToken.position;
-
-        Expr left = parseEqualityExpr();
-        while (this.currentToken.spelling.equals("&&")) {
-            this.currentToken = scanner.scan();
-            Expr right = parseEqualityExpr();
-            left = new BinaryLogicAndExpr(position, left, right);
-        }
-
-        return left;
-    }
+	private Expr parseAndExpr() { }
 
 
     /*
@@ -343,7 +321,58 @@ public class Parser
      * <DispatchExprPrefix> ::= <Primary> . | EMPTY
      */
 	private Expr parsePrimary() {
+        int position = currentToken.position;
+        Expr expr;
+        switch (currentToken.kind){
+            case INTCONST:
+                expr = parseIntConst();
+                break;
+            case STRCONST:
+                expr = parseStringConst();
+                break;
+            case BOOLEAN:
+                expr = parseBoolean();
+                break;
+            default:
+                Expr ref = null;
+                if(currentToken.spelling.equals("this")||currentToken.spelling.equals("super")){
+                    ref = new VarExpr(position, null, currentToken.spelling);
+                    this.currentToken=scanner.scan(); //"this." or "super."
+                    if(!currentToken.spelling.equals(".")){ //"this" or "super"
+                        expr = ref;
+                        return expr;
+                    }
+                }
+                this.currentToken = scanner.scan();
+                String name = parseIdentifier();
+                if (!currentToken.spelling.equals("(")) {//not dispatch
+                    if (!currentToken.spelling.equals("[")) {//not array member
+                        expr = new VarExpr(position, ref, name);
+                    } else {//array member
+                        this.currentToken = scanner.scan();
+                        Expr index = parseExpression();
+                        expr = new ArrayExpr(position, ref, name, index);
+                        this.currentToken = scanner.scan();
+                        if(!this.currentToken.spelling.equals("]")){
+                            //TODO: Throw compilation error
+                        }
+                    }
 
+                } else {//dispatch
+                    this.currentToken = scanner.scan();
+                    ExprList paraList = new ExprList(position);
+                    while(this.currentToken.spelling.equals(",")){//parse parameters
+                        this.currentToken = scanner.scan();
+                        paraList.addElement(parseExpression());
+                    }
+                    if(!this.currentToken.spelling.equals((")"))){
+                        //TODO: Throw compilation error
+                    }
+                    expr = new DispatchExpr(position, ref, name, paraList);
+                }
+                return expr;
+
+        }
     }
 
 
@@ -351,158 +380,46 @@ public class Parser
 	 * <Arguments> ::= EMPTY | <Expression> <MoreArgs>
      * <MoreArgs>  ::= EMPTY | , <Expression> <MoreArgs>
      */
-	private ExprList parseArguments() {
-        int position = currentToken.position;
-        ExprList args = new ExprList(position);
-
-        //checks for the empty arguments case
-        if ( this.currentToken.spelling.equals(")") ) {
-            return args;
-        }
-
-        //if not empty, parse the first argument
-        Expr arg = parseExpression();
-        args.addElement(arg);
-
-        //continue parsing arguments
-        while (this.currentToken.spelling.equals(",")) {
-            this.currentToken = scanner.scan();
-            arg = parseExpression();
-            args.addElement(arg);
-        }
-
-        return args;
-    }
+	private ExprList parseArguments() { }
 
 
     /*
 	 * <Parameters>  ::= EMPTY | <Formal> <MoreFormals>
      * <MoreFormals> ::= EMPTY | , <Formal> <MoreFormals
      */
-	private FormalList parseParameters() {
-        int position = currentToken.position;
-        FormalList params = new FormalList(position);
-
-        //checks for the empty parameters case
-        if ( this.currentToken.spelling.equals(")") ) {
-            return params;
-        }
-
-        //if not empty, parse the first parameter and add it
-        Formal param = parseFormal();
-        params.addElement(param);
-
-        //continue parsing parameters and adding them to the list
-        while (this.currentToken.spelling.equals(",")) {
-            this.currentToken = scanner.scan();
-            param = parseFormal();
-            params.addElement(param);
-        }
-
-        return params;
-    }
+	private FormalList parseParameters() { }
 
 
     /*
 	 * <Formal> ::= <Type> <Identifier>
      */
-	private Formal parseFormal() {
-        int position = currentToken.position;
-        String type = parseType();
-        String id = parseIdentifier();
-        //String identifier = scanner.scan().getSpelling();
-        return (new Formal(position, type, id));
-    }
+	private Formal parseFormal() { }
 
 
     /*
 	 * <Type> ::= <Identifier> <Brackets>
      * <Brackets> ::= EMPTY | [ ]
      */
-	private String parseType() {
-        int position = currentToken.position;
-        String id = parseIdentifier();
-        return currentToken.getSpelling();
-    }
+     */
+	private String parseType() { }
 
 
     //----------------------------------------
     //Terminals
-    // I'M NOT SURE ABOUT THESE AT ALL
-    // JUST BEST GUESS
 
-    //definitely not done or right
-	private String parseOperator() {
-	    switch (currentToken.getSpelling()) {
-            case "&&":
-                currentToken.kind = BINARYLOGIC;
-                break;
-            case "||":
-                currentToken.kind = BINARYLOGIC;
-                break;
-            case "+":
-                currentToken.kind = PLUSMINUS;
-                break;
-            case "-":
-                currentToken.kind = PLUSMINUS;
-                break;
-            case "*":
-                currentToken.kind = MULDIV;
-                break;
-            case "/":
-                currentToken.kind = MULDIV;
-                break;
-            case "==":
-                currentToken.kind = COMPARE;
-                break;
-            case "!=":
-                currentToken.kind = COMPARE;
-                break;
-            case "<":
-                currentToken.kind = COMPARE;
-                break;
-            case "<=":
-                currentToken.kind = COMPARE;
-                break;
-            case ">":
-                currentToken.kind = COMPARE;
-                break;
-            case ">=":
-                currentToken.kind = COMPARE;
-                break;
-            case "++":
-                currentToken.kind = UNARYINCR;
-                break;
-            case "--":
-                currentToken.kind = UNARYDECR;
-                break;
-        }
-	    return currentToken.getSpelling();
-    }
+	private String parseOperator() { }
 
 
-    private String parseIdentifier() {
-	    currentToken.kind = IDENTIFIER;
-	    return currentToken.getSpelling();
-    }
+    private String parseIdentifier() { }
 
 
-    private ConstStringExpr parseStringConst() {
-        currentToken.kind = STRCONST;
-        return new ConstStringExpr(currentToken.position, currentToken.getSpelling());
-    }
+    private ConstStringExpr parseStringConst() { }
 
 
-    private ConstIntExpr parseIntConst() {
-        currentToken.kind = INTCONST;
-        return new ConstIntExpr(currentToken.position, currentToken.getSpelling());
-    }
+    private ConstIntExpr parseIntConst() { }
 
 
-    private ConstBooleanExpr parseBoolean() {
-        currentToken.kind = BOOLEAN;
-        return new ConstBooleanExpr(currentToken.position, currentToken.getSpelling());
-    }
+    private ConstBooleanExpr parseBoolean() { }
 
 }
 
