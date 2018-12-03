@@ -246,7 +246,22 @@ public class Parser
 	 * <BlockStmt> ::= { <Body> }
      * <Body> ::= EMPTY | <Stmt> <Body>
      */
-	private Stmt parseBlock() { }
+	private Stmt parseBlock() {
+	    int position = this.currentToken.position;      // current toke: "{"
+
+        this.currentToken = this.scanner.scan();        //<Body>
+        StmtList stmtList;
+        if (this.currentToken.spelling == "}"){
+            stmtList = null;
+        }
+        else{
+            int stmtListPos = this.currentToken.position;
+            stmtList = new StmtList(stmtListPos);
+        }
+
+        return  new BlockStmt(position, stmtList);
+    }
+    
 
 
     /*
