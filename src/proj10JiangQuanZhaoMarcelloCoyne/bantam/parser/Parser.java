@@ -352,7 +352,7 @@ public class Parser
 	private Expr parseEqualityExpr() {
 	    int position = this.currentToken.position;     // <RelationalExpr>
 
-        Expr left = parseExpression();
+        Expr left = parseRelationalExpr();
         Expr right;
         if (this.currentToken.spelling.equals("==")){
             this.currentToken = this.scanner.scan();
@@ -373,7 +373,40 @@ public class Parser
 	 * <RelationalExpr> ::=<AddExpr> | <AddExpr> <ComparisonOp> <AddExpr>
      * <ComparisonOp> ::=  < | > | <= | >= | INSTANCEOF
      */
-	private Expr parseRelationalExpr() { return null; }
+	private Expr parseRelationalExpr() {
+	    int position = this.currentToken.position;      // <AddExpr>
+
+        Expr left = parseAddExpr();
+        Expr right;
+        if (this.currentToken.spelling.equals("<")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompLtExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals(">")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompGtExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals("<=")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompLeqExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals(">=")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompGeqExpr(position, left, right);
+        }
+        else if (this.currentToken.kind == INSTANCEOF){
+            this.currentToken = this.scanner.scan();
+            String type = this.currentToken.spelling;
+            left = new InstanceofExpr(position, left, type);
+        }
+
+        return left;
+
+    }
 
 
     /*
