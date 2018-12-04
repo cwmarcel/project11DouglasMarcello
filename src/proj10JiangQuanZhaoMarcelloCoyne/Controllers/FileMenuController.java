@@ -324,14 +324,14 @@ public class FileMenuController {
     }
 
     /**
-     * Checks whether a file embedded in the specified tab should be saved before Scanning.
-     * Pops up a dialog asking whether the user wants to save the file before compiling.
+     * Checks whether a file embedded in the specified tab should be saved before Scanning or Parsing.
+     * Pops up a dialog asking whether the user wants to save the file.
      * Saves the file if the user agrees so.
      *
      * @return 0 if user clicked NO button; 1 if user clicked OK button;
      *         2 is user clicked Cancel button; -1 is no saving is needed
      */
-    public int checkSaveBeforeScan() {
+    public int checkSaved() {
         Tab currentTab = this.tabPane.getSelectionModel().getSelectedItem();
         // if the file has not been saved or has been changed
         if (this.tabNeedsSaving(currentTab, true)) {
