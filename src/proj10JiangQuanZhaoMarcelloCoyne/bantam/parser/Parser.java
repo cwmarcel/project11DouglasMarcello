@@ -539,7 +539,7 @@ public class Parser
         }
 
         return new CastExpr(position, type, expr);
-        
+
 	}
 
 
@@ -547,14 +547,34 @@ public class Parser
 	 * <UnaryPrefix> ::= <PrefixOp> <UnaryPrefix> | <UnaryPostfix>
      * <PrefixOp> ::= - | ! | ++ | --
      */
-	private Expr parseUnaryPrefix() { return null; }
+	private Expr parseUnaryPrefix() {
+	    int position = this.currentToken.position;      // <PrefixOp>
+
+        Expr expr;
+
+        // TODO
+
+    }
 
 
     /*
 	 * <UnaryPostfix> ::= <Primary> <PostfixOp>
      * <PostfixOp> ::= ++ | -- | EMPTY
      */
-	private Expr parseUnaryPostfix() { return null; }
+	private Expr parseUnaryPostfix() {
+	    int position = this.currentToken.position;      // <Primary>
+        Expr expr = parsePrimary();
+
+        if (this.currentToken.spelling.equals("++")){
+            return new UnaryIncrExpr(position, expr, true);
+        }
+        else if (this.currentToken.spelling.equals("--")){
+            return new UnaryDecrExpr(position, expr, true);
+        }
+        else{
+            return expr;        // TODO: THIS MAY NOT BE CORRECT
+        }
+    }
 
 
     /*
