@@ -513,7 +513,34 @@ public class Parser
     /*
 	 * <CastExpression> ::= CAST ( <Type> , <Expression> )
      */
-	private Expr parseCast() { return null; }
+	private Expr parseCast() {
+	    int position = this.currentToken.position;      // CAST
+        this.currentToken = this.scanner.scan();        // "("
+        if ( !this.currentToken.spelling.equals("(") ){
+            // TODO: ILLEGAL
+        }
+
+        this.currentToken = this.scanner.scan();        // <Type>
+        if ( this.currentToken.kind != STRCONST ){
+            // TODO: ILLEGAL
+        }
+        String type = this.currentToken.spelling;
+
+        this.currentToken = this.scanner.scan();        // ","
+        if ( !this.currentToken.spelling.equals(",") ){
+            // TODO: ILLEGAL
+        }
+
+        this.currentToken = this.scanner.scan();        // <Expression>
+        Expr expr = parseExpression();
+
+        if (!this.currentToken.spelling.equals(")")){
+            // TODO: ILLEGAL
+        }
+
+        return new CastExpr(position, type, expr);
+        
+	}
 
 
     /*
