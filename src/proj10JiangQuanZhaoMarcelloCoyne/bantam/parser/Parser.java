@@ -211,7 +211,7 @@ public class Parser
         this.currentToken = this.scanner.scan();        // <Start> or ";"
 
         Expr initExpr;
-        if (this.currentToken.spelling == ";"){
+        if (this.currentToken.spelling.equals(";")){
             initExpr = null;
         }
         else {
@@ -221,7 +221,7 @@ public class Parser
 
         this.currentToken = this.scanner.scan();        // <Terminate> or ";"
         Expr predExpr;
-        if (this.currentToken.spelling == ";"){
+        if (this.currentToken.spelling.equals(";")){
             predExpr = null;
         }
         else{
@@ -231,7 +231,7 @@ public class Parser
 
         this.currentToken = this.scanner.scan();        // <Increment> or ")"
         Expr updateExpr;
-        if (this.currentToken.spelling == ")"){
+        if (this.currentToken.spelling.equals(")")){
             updateExpr = null;
         }
         else{
@@ -570,7 +570,7 @@ public class Parser
 
             }
         }
-
+        return null;
     }
 
 
