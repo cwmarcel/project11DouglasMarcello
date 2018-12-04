@@ -305,6 +305,7 @@ public class Parser
 
         }
 
+        return null;
 
     }
 
@@ -413,7 +414,26 @@ public class Parser
 	 * <AddExpr>::＝ <MultExpr> <MoreMultExpr>
      * <MoreMultExpr> ::= EMPTY | + <MultExpr> <MoreMultExpr> | - <MultExpr> <MoreMultExpr>
      */
-	private Expr parseAddExpr() { return null; }
+	private Expr parseAddExpr() {
+	    int position = this.currentToken.position;      // <MultExpr>
+
+        Expr left = parseMultExpr();
+        Expr right;
+        while (this.currentToken.spelling.equals("+") || this.currentToken.spelling.equals("-") ){
+            if (this.currentToken.spelling.equals("+")){
+                this.currentToken = this.scanner.scan();
+                right = parseMultExpr();
+                left = new BinaryArithPlusExpr(position, left, right);
+            }
+            if (this.currentToken.spelling.equals("-")){
+                this.currentToken = this.scanner.scan();
+                right = parseMultExpr();
+                left = new BinaryArithMinusExpr(position, left, right);
+            }
+        }
+
+        return left;
+    }
 
 
     /*
