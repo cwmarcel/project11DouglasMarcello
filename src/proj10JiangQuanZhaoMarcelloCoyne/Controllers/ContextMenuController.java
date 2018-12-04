@@ -182,7 +182,7 @@ public class ContextMenuController {
      * @param console StyleClassedTextArea console being clicked on
      */
     public void setupConsoleContextMenuHandler(StyleClassedTextArea console, ReadOnlyBooleanProperty ifScanning,
-                                               BooleanBinding ifTabPaneEmpty) {
+                                               ReadOnlyBooleanProperty ifParsing, BooleanBinding ifTabPaneEmpty) {
         ContextMenu rightClickMenu = new ContextMenu();
 
         MenuItem ClearAllItem = new MenuItem("ClearAll");

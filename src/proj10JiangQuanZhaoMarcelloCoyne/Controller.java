@@ -78,9 +78,13 @@ public class Controller {
      */
     private StructureViewController structureViewController;
     /**
-     * Stop button defined in Main.fxml
+     * Scan button defined in Main.fxml
      */
     @FXML private Button scanButton;
+    /**
+     * Parse button defined in Main.fxml
+     */
+    @FXML private Button parseButton;
     /**
      * DeleteTab button defined in Main.fxml
      */
@@ -143,14 +147,23 @@ public class Controller {
     private Map<Tab,File> tabFileMap = new HashMap<Tab,File>();
 
     /**
-     * a CompileWorker that compiles and runs a java file in a separate thread
+     * a CompileWorker that scans a java file in a separate thread
      */
     private ToolBarController.ScanWorker scanWorker;
+
+    /**
+     * a CompileWorker that parses a java file in a separate thread
+     */
+    private ToolBarController.ParseWorker parseWorker;
 
     /**
      * a ReadOnlyBooleanProperty indicating if scanning
      */
     ReadOnlyBooleanProperty ifScanning;
+    /**
+     * a ReadOnlyBooleanProperty indicating if scanning
+     */
+    ReadOnlyBooleanProperty ifParsing;
     /**
      * a BooleanBinding indicating if the tab pane is empty
      */
@@ -165,6 +178,7 @@ public class Controller {
         this.toolbarController.setFileMenuController(this.fileMenuController);
         this.toolbarController.initialize();
         this.scanWorker = this.toolbarController.getScanWorker();
+        this.parseWorker = this.toolbarController.getParseWorker();
         this.toolbarController.setTabPane(this.tabPane);
         this.toolbarController.setTabFileMap(this.tabFileMap);
     }
@@ -199,7 +213,7 @@ public class Controller {
 
         this.console.setOnContextMenuRequested(event ->
                 this.contextMenuController.setupConsoleContextMenuHandler(this.console,
-                        this.ifScanning, this.ifTabPaneEmpty)
+                        this.ifScanning, this.ifParsing, this.ifTabPaneEmpty)
         );
     }
 
@@ -272,8 +286,9 @@ public class Controller {
      */
     private void setupBinding() {
         this.ifTabPaneEmpty = Bindings.isEmpty(tabPane.getTabs());
-        System.out.println(this.scanWorker);
+        //System.out.println(this.scanWorker);
         this.ifScanning = this.scanWorker.runningProperty();
+        this.ifParsing = this.parseWorker.runningProperty();
         BooleanProperty ifNightModeSelected = this.darkModeMenuItem.selectedProperty();
 
         this.closeMenuItem.disableProperty().bind(this.ifTabPaneEmpty);
@@ -284,6 +299,7 @@ public class Controller {
         this.findMenu.disableProperty().bind(this.ifTabPaneEmpty);
 
         this.scanButton.disableProperty().bind(this.ifScanning.or(this.ifTabPaneEmpty));
+        this.parseButton.disableProperty().bind(this.ifParsing.or(this.ifTabPaneEmpty));
 
         this.colorPreferenceMenu.disableProperty().bind(ifNightModeSelected);
     }
@@ -313,6 +329,16 @@ public class Controller {
     @FXML private void handleScanButtonAction(Event event) {
         Tab selectedTab = this.tabPane.getSelectionModel().getSelectedItem();
         this.toolbarController.handleScanButtonAction(event, this.tabFileMap.get(selectedTab));
+    }
+
+    /**
+     * Calls the method that handles the Parse button action from the toolbarController.
+     *
+     * @param event Event object
+     */
+    @FXML private void handleParseButtonAction(Event event) {
+        Tab selectedTab = this.tabPane.getSelectionModel().getSelectedItem();
+        this.toolbarController.handleParseButtonAction(event, this.tabFileMap.get(selectedTab));
     }
 
     /**

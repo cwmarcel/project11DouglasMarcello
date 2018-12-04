@@ -28,6 +28,8 @@ import proj10JiangQuanZhaoMarcelloCoyne.Java.JavaTabPane;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.Error;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.ErrorHandler;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.Scanner;
+import proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser;
+import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
 
 /**
  * ToolbarController handles Toolbar related actions.
@@ -68,9 +70,21 @@ public class ToolBarController {
      */
     private Scanner scanner;
     /**
+     * A ParseWorker object to parse a Java file in a separate thread.
+     */
+    private ParseWorker parseWorker;
+    /**
+     * A Parser object to parse a Java file into a program.
+     */
+    private Parser parser;
+    /**
      * A String to store the list of tokens.
      */
     private String tokenStr;
+    /**
+     * A Program to store the parsed program.
+     */
+    private Program program;
 
     /**
      * Initializes the ToolBarController controller.
@@ -80,6 +94,7 @@ public class ToolBarController {
     public void initialize() {
         this.mutex = new Semaphore(1);
         this.scanWorker = new ScanWorker();
+        this.parseWorker = new ParseWorker();
         this.disableConsoleFocusMove();
     }
 
@@ -152,6 +167,13 @@ public class ToolBarController {
     public ScanWorker getScanWorker() { return this.scanWorker; }
 
     /**
+     * Gets the ParseWorker.
+     *
+     * @return ParseWorker object
+     */
+    public ParseWorker getParseWorker() { return this.parseWorker; }
+
+    /**
      * Helper method for displaying the list of tokens into a new tab.
      */
     private void outputToNewTab(String tokenStr) throws java.lang.InterruptedException {
@@ -168,14 +190,14 @@ public class ToolBarController {
     /**
      * Helper method for displaying the errors in the console.
      */
-    private void errorToConsole(List<Error> errorList) throws java.lang.InterruptedException {
+    private void errorToConsole(List<Error> errorList, String runType) throws java.lang.InterruptedException {
         this.mutex.tryAcquire();
         Platform.runLater(() ->{
             for (Error err: errorList){
                 this.console.appendText(err.toString()+"\n");
             }
             if (errorList.size()==0){
-                this.console.appendText("Scanning was successful!");
+                this.console.appendText(runType + " was successful!");
                 this.console.setStyleClass(0, this.console.getText().length(), "cons");
             }
             else if (errorList.size()==1){
@@ -233,6 +255,47 @@ public class ToolBarController {
     }
 
     /**
+     * A ParseWorker subclass handling Java program parsing in a separated thread in the background.
+     * ParseWorker extends the javafx Service class.
+     */
+    public class ParseWorker extends Service<Boolean> {
+        /**
+         * the file embedded in the selected tab.
+         */
+        private File file;
+
+        /**
+         * Sets the selected tab and the associating file.
+         *
+         * @param file the file to be parsed embedded in the selected tab.
+         */
+        private void setFile(File file) { this.file = file; }
+
+        /**
+         * Overrides the createTask method in Service class.
+         *parses the file embedded in the selected tab, if appropriate.
+         *
+         * @return true if parses the program successfully;
+         *         false otherwise.
+         */
+        @Override protected Task<Boolean> createTask() {
+            return new Task<Boolean>() {
+                /**
+                 * Called when we execute the start() method of a CompileRunWorker object
+                 * Scans the file.
+                 *
+                 * @return true if the program compiles successfully;
+                 *         false otherwise.
+                 */
+                @Override protected Boolean call() {
+                    Boolean parseResult = parseJavaFile(file);
+                    return parseResult;
+                }
+            };
+        }
+    }
+
+    /**
      * Helper method for running Java scanning in a separate thread.
      */
     private boolean scanJavaFile(File file) {
@@ -245,11 +308,34 @@ public class ToolBarController {
             this.scanner = new Scanner( filename, errorHandler);
             this.tokenStr = this.scanner.scanFile();
             this.outputToNewTab(this.tokenStr);
-            this.errorToConsole(errorHandler.getErrorList());
+            this.errorToConsole(errorHandler.getErrorList(), "Scanning");
             return true;
         } catch (Throwable e) {
             Platform.runLater(() -> {
                 this.fileMenuController.createErrorDialog("File Scanning", "Error scanning.\nPlease try again with another valid Java File.");
+            });
+            return false;
+        }
+    }
+
+    /**
+     * Helper method for running Java parseing in a separate thread.
+     */
+    private boolean parseJavaFile(File file) {
+        try {
+            Platform.runLater(() -> {
+                this.console.clear();
+            });
+            String filename = file.getPath(); // get the filename(path) of the file
+            ErrorHandler errorHandler = new ErrorHandler();
+            this.parser = new Parser(errorHandler);
+            this.program = this.parser.parse(filename); //TODO - test this once the parse works
+            this.outputToNewTab("Something got parsed i tell you hwat.");
+            this.errorToConsole(errorHandler.getErrorList(), "Parsing");
+            return true;
+        } catch (Throwable e) {
+            Platform.runLater(() -> {
+                this.fileMenuController.createErrorDialog("File Parsing", "Error parsing.\nPlease try again with another valid Java File.");
             });
             return false;
         }
@@ -268,7 +354,7 @@ public class ToolBarController {
      */
     public void handleScanButtonAction(Event event, File file) {
         // if the user chooses cancel
-        int checkIfSaved = this.fileMenuController.checkSaveBeforeScan();
+        int checkIfSaved = this.fileMenuController.checkSaved();
         File scanFile = file;
         if (checkIfSaved==2){
             event.consume();
@@ -279,6 +365,26 @@ public class ToolBarController {
             }
             this.scanWorker.setFile(scanFile);
             this.scanWorker.restart();
+        }
+    }
+    /**
+     * Handles the Parse button action.
+     *
+     * @param event Event object
+     * @param file the file associated to the Selected tab
+     */
+    public void handleParseButtonAction(Event event, File file) {
+        int checkIfSaved = this.fileMenuController.checkSaved();
+        File parseFile = file;
+        if (checkIfSaved==2){
+            event.consume();
+        }
+        else{
+            if(checkIfSaved==1) {
+                parseFile = this.tabFileMap.get( this.tabPane.getSelectionModel().getSelectedItem());
+            }
+            this.parseWorker.setFile(parseFile);
+            this.parseWorker.restart();
         }
     }
 }
