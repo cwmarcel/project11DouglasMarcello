@@ -297,8 +297,18 @@ public class Parser
      * <OptionalAssignment> ::= EMPTY | = <Expression>
      */
 	private Expr parseExpression() {
-	    // TODO NEED TO ADD CODE
-	    return null;
+        int position = this.currentToken.position;
+
+        String name = this.currentToken.spelling;
+        Expr left = parseOrExpr();
+
+        while (this.currentToken.spelling.equals("=")){
+            this.currentToken = this.scanner.scan();    // <LogicalOrExpr>
+            Expr right = parseOrExpr();
+            left = new AssignExpr(position, null, name, right);
+        }
+
+        return left;
 	}
 
 
@@ -548,11 +558,18 @@ public class Parser
      * <PrefixOp> ::= - | ! | ++ | --
      */
 	private Expr parseUnaryPrefix() {
-	    int position = this.currentToken.position;      // <PrefixOp>
 
         Expr expr;
 
-        // TODO
+        // if this.currentToken is <PrefixOp>
+        while (this.currentToken.spelling.equals("-") || this.currentToken.spelling.equals("!")
+                || this.currentToken.spelling.equals("++") || this.currentToken.spelling.equals("--")){
+
+            if (this.currentToken.spelling.equals("-")){
+                this.currentToken = this.scanner.scan();
+
+            }
+        }
 
     }
 
