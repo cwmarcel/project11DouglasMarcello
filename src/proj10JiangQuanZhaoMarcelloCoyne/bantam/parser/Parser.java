@@ -255,7 +255,7 @@ public class Parser
 
         this.currentToken = this.scanner.scan();        //<Body>
         StmtList stmtList;
-        if (this.currentToken.spelling == "}"){
+        if (this.currentToken.spelling.equals("}")){
             stmtList = null;
         }
         else{
@@ -273,11 +273,14 @@ public class Parser
      */
 	private Stmt parseIf() {
 	    int position = this.currentToken.position;
-	    this.currentToken = this.scanner.scan();    // pass "("
+	    this.currentToken = this.scanner.scan();    // "("
+        this.currentToken = this.scanner.scan();    // <Expr>
         Expr predExpr = parseExpression();
+        this.currentToken = this.scanner.scan();    // <Stmt>
         Stmt thenStmt = parseStatement();
         Stmt elseStmt = null;
         if (this.currentToken.kind == ELSE){
+            this.currentToken = this.scanner.scan();    // <Stmt>
             elseStmt = parseStatement();
         }
         return new IfStmt(position, predExpr, thenStmt, elseStmt);
@@ -293,7 +296,17 @@ public class Parser
 	 * <Expression> ::= <LogicalOrExpr> <OptionalAssignment>
      * <OptionalAssignment> ::= EMPTY | = <Expression>
      */
-	private Expr parseExpression() { return null; }
+	private Expr parseExpression() {
+	    int position = this.currentToken.position;
+
+	    Expr logicalOrExpr = parseOrExpr();
+	    if (this.currentToken.spelling.equals("=")){
+	        this.currentToken = this.scanner.scan();    // <Expression>
+
+        }
+
+
+    }
 
 
     /*
@@ -318,7 +331,17 @@ public class Parser
 	 * <LogicalAND> ::= <ComparisonExpr> <LogicalANDRest>
      * <LogicalANDRest> ::= EMPTY |  && <ComparisonExpr> <LogicalANDRest>
      */
-	private Expr parseAndExpr() { return null; }
+	private Expr parseAndExpr() {
+	    int position = this.currentToken.position;   // <ComparisonExpr>
+	    Expr left = parseExpression();
+	    while (this.currentToken.spelling.equals("&&")) {
+	        this.currentToken = this.scanner.scan();
+	        Expr right = parseExpression();
+	        left = new BinaryLogicAndExpr(position, left, right);
+        }
+
+        return left;
+    }
 
 
     /*
@@ -326,7 +349,24 @@ public class Parser
      *                     <RelationalExpr>
      * <equalOrNotEqual> ::=  == | !=
      */
-	private Expr parseEqualityExpr() { return null; }
+	private Expr parseEqualityExpr() {
+	    int position = this.currentToken.position;     // <RelationalExpr>
+
+        Expr left = parseExpression();
+        Expr right;
+        if (this.currentToken.spelling.equals("==")){
+            this.currentToken = this.scanner.scan();
+            right = parseExpression();
+            left = new BinaryCompEqExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals("!=")){
+            this.currentToken = this.scanner.scan();
+            right = parseExpression();
+            left = new BinaryCompNeExpr(position, left, right);
+        }
+
+        return left;
+    }
 
 
     /*
