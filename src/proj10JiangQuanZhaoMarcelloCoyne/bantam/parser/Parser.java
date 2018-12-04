@@ -452,13 +452,16 @@ public class Parser
     private ExprList parseArguments() {
         int position = currentToken.position;
         ExprList args = new ExprList(position);
+
         //checks for the empty arguments case
         if ( this.currentToken.spelling.equals(")") ) {
             return args;
         }
+
         //if not empty, parse the first argument
         Expr arg = parseExpression();
         args.addElement(arg);
+
         //continue parsing arguments
         while (this.currentToken.spelling.equals(",")) {
             this.currentToken = scanner.scan();
@@ -474,13 +477,16 @@ public class Parser
     private FormalList parseParameters() {
         int position = currentToken.position;
         FormalList params = new FormalList(position);
+
         //checks for the empty parameters case
         if ( this.currentToken.spelling.equals(")") ) {
             return params;
         }
+
         //if not empty, parse the first parameter and add it
         Formal param = parseFormal();
         params.addElement(param);
+
         //continue parsing parameters and adding them to the list
         while (this.currentToken.spelling.equals(",")) {
             this.currentToken = scanner.scan();
@@ -503,10 +509,9 @@ public class Parser
      * <Type> ::= <Identifier> <Brackets>
      * <Brackets> ::= EMPTY | [ ]
      */
+    //TODO - BRACKETS - how do
     private String parseType() {
-        int position = currentToken.position;
-        String id = parseIdentifier();
-        return currentToken.getSpelling();
+        return parseIdentifier();
     }
     //----------------------------------------
     //Terminals
@@ -561,19 +566,39 @@ public class Parser
         return currentToken.getSpelling();
     }
     private String parseIdentifier() {
-        currentToken.kind = IDENTIFIER;
+        if (currentToken.kind != IDENTIFIER) {
+            //TODO - how to access sourceFile and what the error message should be
+            //idea: scanner.sourceFile.getFilename()
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+                                        "Non-Identifier Found where Identifier expected.");
+        }
         return currentToken.getSpelling();
     }
     private ConstStringExpr parseStringConst() {
-        currentToken.kind = STRCONST;
+        if (currentToken.kind != STRCONST) {
+            //TODO - how to access sourceFile and what the error message should be
+            //idea: scanner.sourceFile.getFilename()
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+                    "Non-String Found where String Literal Expected");
+        }
         return new ConstStringExpr(currentToken.position, currentToken.getSpelling());
     }
     private ConstIntExpr parseIntConst() {
-        currentToken.kind = INTCONST;
+        if (currentToken.kind != INTCONST) {
+            //TODO - how to access sourceFile and what the error message should be
+            //idea: scanner.sourceFile.getFilename()
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+                    "Non-Integer Found where Integer Literal Expected");
+        }
         return new ConstIntExpr(currentToken.position, currentToken.getSpelling());
     }
     private ConstBooleanExpr parseBoolean() {
-        currentToken.kind = BOOLEAN;
+        if (currentToken.kind != BOOLEAN) {
+            //TODO - how to access sourceFile and what the error message should be
+            //idea: scanner.sourceFile.getFilename()
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+                    "Non-Boolean Found where Boolean Expected");
+        }
         return new ConstBooleanExpr(currentToken.position, currentToken.getSpelling());
     }
 }
