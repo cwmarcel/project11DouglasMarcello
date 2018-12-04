@@ -296,7 +296,10 @@ public class Parser
 	 * <Expression> ::= <LogicalOrExpr> <OptionalAssignment>
      * <OptionalAssignment> ::= EMPTY | = <Expression>
      */
-	private Expr parseExpression() { return null; }
+	private Expr parseExpression() {
+	    // TODO NEED TO ADD CODE
+	    return null;
+	}
 
 
     /*
@@ -431,18 +434,80 @@ public class Parser
      *               % <NewCastOrUnary> <MoreNCU> |
      *               EMPTY
      */
-	private Expr parseMultExpr() { return null; }
+	private Expr parseMultExpr() {
+	    int position = this.currentToken.position;      // <NewCastOrUnary>
+
+        Expr left = parseNewCastOrUnary();
+        Expr right;
+
+        while (this.currentToken.spelling.equals("*") || this.currentToken.spelling.equals("/")
+                                                        || this.currentToken.spelling.equals("%")){
+            if (this.currentToken.spelling.equals("*")){
+                this.currentToken = this.scanner.scan();
+                right = parseNewCastOrUnary();
+                left = new BinaryArithTimesExpr(position, left, right);
+            }
+            else if (this.currentToken.spelling.equals("/")){
+                this.currentToken = this.scanner.scan();
+                right = parseNewCastOrUnary();
+                left = new BinaryArithDivideExpr(position, left, right);
+            }
+            else if (this.currentToken.spelling.equals("%")){
+                this.currentToken = this.scanner.scan();
+                right = parseNewCastOrUnary();
+                left = new BinaryArithModulusExpr(position, left, right);
+            }
+        }
+
+        if (!this.currentToken.spelling.equals("*") && !this.currentToken.spelling.equals("/") && !this.currentToken.spelling.equals("%")){
+            // TODO- ILLEGAL TOKEN
+        }
+
+        return left;
+
+    }
 
     /*
 	 * <NewCastOrUnary> ::= < NewExpression> | <CastExpression> | <UnaryPrefix>
      */
-	private Expr parseNewCastOrUnary() { return null; }
+	private Expr parseNewCastOrUnary() {
+	    //int position = this.currentToken.position;
+        Expr expr;
+
+        switch (currentToken.kind) {
+            case NEW:
+                expr = parseNew();
+                break;
+            case CAST:
+                expr = parseCast();
+                break;
+            default:
+                expr = parseUnaryPrefix();
+                break;
+                // TODO KIND CHECK UNARY PREFIX?
+        }
+
+        return expr;
+    }
 
 
     /*
 	 * <NewExpression> ::= NEW <Identifier> ( ) | NEW <Identifier> [ <Expression> ]
      */
-	private Expr parseNew() { return null; }
+	private Expr parseNew() {
+	    int position = this.currentToken.position;      // NEW
+        this.currentToken = this.scanner.scan();        // <identifier>
+
+        String type = parseIdentifier();
+
+        // if there is <Expression>
+        if (this.currentToken.spelling.equals("[")){
+            this.currentToken = this.scanner.scan();        // <Expression>
+            Expr expr = parseExpression();
+        }
+
+        return new NewExpr(position,type);
+    }
 
 
     /*
