@@ -559,7 +559,7 @@ public class Parser
      */
 	private Expr parseUnaryPrefix() {
 
-        Expr expr;
+        Expr expr = null;
 
         // if this.currentToken is <PrefixOp>
         while (this.currentToken.spelling.equals("-") || this.currentToken.spelling.equals("!")
@@ -567,10 +567,23 @@ public class Parser
 
             if (this.currentToken.spelling.equals("-")){
                 this.currentToken = this.scanner.scan();
-
+                expr = new UnaryNegExpr(this.currentToken.position, parseUnaryPrefix());
+            }
+            else if (this.currentToken.spelling.equals("!")){
+                this.currentToken = this.scanner.scan();
+                expr = new UnaryNotExpr(this.currentToken.position, parseUnaryPrefix());
+            }
+            else if (this.currentToken.spelling.equals("++")){
+                this.currentToken = this.scanner.scan();
+                expr = new UnaryIncrExpr(this.currentToken.position, parseUnaryPrefix(), false);
+            }
+            else if (this.currentToken.spelling.equals("--")){
+                this.currentToken = this.scanner.scan();
+                expr = new UnaryDecrExpr(this.currentToken.position, parseUnaryPrefix(), false);
             }
         }
-        return null;
+
+        return expr;
     }
 
 
@@ -589,7 +602,7 @@ public class Parser
             return new UnaryDecrExpr(position, expr, true);
         }
         else{
-            return expr;        // TODO: THIS MAY NOT BE CORRECT
+            return expr;        // TODO: NOT SURE
         }
     }
 
