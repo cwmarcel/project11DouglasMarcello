@@ -142,15 +142,15 @@ public class Parser
     /*
      * <ReturnStmt> ::= RETURN <Expression> ; | RETURN ;
      */
-	private Stmt parseReturn() {
-	    Stmt stmt;
-	    int position = this.currentToken.position;
+    private Stmt parseReturn() {
+        Stmt stmt;
+        int position = this.currentToken.position;
 
-	    this.currentToken = this.scanner.scan();    // <Expression> or ;
+        this.currentToken = this.scanner.scan();    // <Expression> or ;
 
         // if return expression is empty, set expression to null
-	    if (this.currentToken.spelling.equals(";")){
-	        stmt = new ReturnStmt(position, null);
+        if (this.currentToken.spelling.equals(";")){
+            stmt = new ReturnStmt(position, null);
         }
         else{
             Expr returnExpr = parseExpression();
@@ -162,52 +162,52 @@ public class Parser
 
 
     /*
-	 * BreakStmt> ::= BREAK ;
+     * BreakStmt> ::= BREAK ;
      */
-	private Stmt parseBreak() {
-	    int position = this.currentToken.position;
-	    return new BreakStmt(position);
+    private Stmt parseBreak() {
+        int position = this.currentToken.position;
+        return new BreakStmt(position);
     }
 
 
     /*
-	 * <ExpressionStmt> ::= <Expression> ;
+     * <ExpressionStmt> ::= <Expression> ;
      */
-	private ExprStmt parseExpressionStmt() {
-	    int position = this.currentToken.position;
-	    this.currentToken = this.scanner.scan();        // <Expression>
-	    Expr expr = parseExpression();
-	    return new ExprStmt(position, expr);
+    private ExprStmt parseExpressionStmt() {
+        int position = this.currentToken.position;
+        this.currentToken = this.scanner.scan();        // <Expression>
+        Expr expr = parseExpression();
+        return new ExprStmt(position, expr);
 
     }
 
 
     /*
-	 * <DeclStmt> ::= VAR <Identifier> = <Expression> ;
+     * <DeclStmt> ::= VAR <Identifier> = <Expression> ;
      * every local variable must be initialized
      */
-	private Stmt parseDeclStmt() {
-	    int position = this.currentToken.position;
-	    this.currentToken = this.scanner.scan();        // <Identifier>
-	    String name = this.currentToken.spelling;
-	    this.currentToken = scanner.scan();     // "="
+    private Stmt parseDeclStmt() {
+        int position = this.currentToken.position;
+        this.currentToken = this.scanner.scan();        // <Identifier>
+        String name = this.currentToken.spelling;
+        this.currentToken = scanner.scan();     // "="
         this.currentToken = scanner.scan();     // <Expression>
         Expr expr = parseExpression();
-	    return new DeclStmt(position, name, expr);
+        return new DeclStmt(position, name, expr);
 
     }
 
 
     /*
-	 * <ForStmt> ::= FOR ( <Start> ; <Terminate> ; <Increment> ) <STMT>
+     * <ForStmt> ::= FOR ( <Start> ; <Terminate> ; <Increment> ) <STMT>
      * <Start>     ::= EMPTY | <Expression>
      * <Terminate> ::= EMPTY | <Expression>
      * <Increment> ::= EMPTY | <Expression>
      */
-	private Stmt parseFor() {
-	    int position = this.currentToken.position;
+    private Stmt parseFor() {
+        int position = this.currentToken.position;
 
-	    this.currentToken = this.scanner.scan();        // "("
+        this.currentToken = this.scanner.scan();        // "("
         this.currentToken = this.scanner.scan();        // <Start> or ";"
 
         Expr initExpr;
@@ -247,15 +247,15 @@ public class Parser
 
 
     /*
-	 * <BlockStmt> ::= { <Body> }
+     * <BlockStmt> ::= { <Body> }
      * <Body> ::= EMPTY | <Stmt> <Body>
      */
-	private Stmt parseBlock() {
-	    int position = this.currentToken.position;      // current toke: "{"
+    private Stmt parseBlock() {
+        int position = this.currentToken.position;      // current toke: "{"
 
         this.currentToken = this.scanner.scan();        //<Body>
         StmtList stmtList;
-        if (this.currentToken.spelling == "}"){
+        if (this.currentToken.spelling.equals("}")){
             stmtList = null;
         }
         else{
@@ -269,15 +269,18 @@ public class Parser
 
 
     /*
-	 * <IfStmt> ::= IF ( <Expr> ) <Stmt> | IF ( <Expr> ) <Stmt> ELSE <Stmt>
+     * <IfStmt> ::= IF ( <Expr> ) <Stmt> | IF ( <Expr> ) <Stmt> ELSE <Stmt>
      */
-	private Stmt parseIf() {
-	    int position = this.currentToken.position;
-	    this.currentToken = this.scanner.scan();    // pass "("
+    private Stmt parseIf() {
+        int position = this.currentToken.position;
+        this.currentToken = this.scanner.scan();    // "("
+        this.currentToken = this.scanner.scan();    // <Expr>
         Expr predExpr = parseExpression();
+        this.currentToken = this.scanner.scan();    // <Stmt>
         Stmt thenStmt = parseStatement();
         Stmt elseStmt = null;
         if (this.currentToken.kind == ELSE){
+            this.currentToken = this.scanner.scan();    // <Stmt>
             elseStmt = parseStatement();
         }
         return new IfStmt(position, predExpr, thenStmt, elseStmt);
@@ -318,7 +321,17 @@ public class Parser
 	 * <LogicalAND> ::= <ComparisonExpr> <LogicalANDRest>
      * <LogicalANDRest> ::= EMPTY |  && <ComparisonExpr> <LogicalANDRest>
      */
-	private Expr parseAndExpr() { return null; }
+	private Expr parseAndExpr() {
+        int position = this.currentToken.position;   // <ComparisonExpr>
+        Expr left = parseExpression();
+        while (this.currentToken.spelling.equals("&&")) {
+            this.currentToken = this.scanner.scan();
+            Expr right = parseExpression();
+            left = new BinaryLogicAndExpr(position, left, right);
+        }
+
+        return left;
+    }
 
 
     /*
@@ -326,21 +339,89 @@ public class Parser
      *                     <RelationalExpr>
      * <equalOrNotEqual> ::=  == | !=
      */
-	private Expr parseEqualityExpr() { return null; }
+	private Expr parseEqualityExpr() {
+        int position = this.currentToken.position;     // <RelationalExpr>
+
+        Expr left = parseRelationalExpr();
+        Expr right;
+        if (this.currentToken.spelling.equals("==")){
+            this.currentToken = this.scanner.scan();
+            right = parseExpression();
+            left = new BinaryCompEqExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals("!=")){
+            this.currentToken = this.scanner.scan();
+            right = parseExpression();
+            left = new BinaryCompNeExpr(position, left, right);
+        }
+
+        return left;
+    }
 
 
     /*
 	 * <RelationalExpr> ::=<AddExpr> | <AddExpr> <ComparisonOp> <AddExpr>
      * <ComparisonOp> ::=  < | > | <= | >= | INSTANCEOF
      */
-	private Expr parseRelationalExpr() { return null; }
+	private Expr parseRelationalExpr() {
+        int position = this.currentToken.position;      // <AddExpr>
+
+        Expr left = parseAddExpr();
+        Expr right;
+        if (this.currentToken.spelling.equals("<")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompLtExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals(">")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompGtExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals("<=")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompLeqExpr(position, left, right);
+        }
+        else if (this.currentToken.spelling.equals(">=")){
+            this.currentToken = this.scanner.scan();
+            right = parseAddExpr();
+            left = new BinaryCompGeqExpr(position, left, right);
+        }
+        else if (this.currentToken.kind == INSTANCEOF){
+            this.currentToken = this.scanner.scan();
+            String type = this.currentToken.spelling;
+            left = new InstanceofExpr(position, left, type);
+        }
+
+        return left;
+    }
 
 
     /*
 	 * <AddExpr>::＝ <MultExpr> <MoreMultExpr>
      * <MoreMultExpr> ::= EMPTY | + <MultExpr> <MoreMultExpr> | - <MultExpr> <MoreMultExpr>
      */
-	private Expr parseAddExpr() { return null; }
+	private Expr parseAddExpr() {
+        int position = this.currentToken.position;      // <MultExpr>
+
+        Expr left = parseMultExpr();
+        Expr right;
+        while (this.currentToken.spelling.equals("+") || this.currentToken.spelling.equals("-") ){
+            if (this.currentToken.spelling.equals("+")){
+                this.currentToken = this.scanner.scan();
+                right = parseMultExpr();
+                left = new BinaryArithPlusExpr(position, left, right);
+            }
+            if (this.currentToken.spelling.equals("-")){
+                this.currentToken = this.scanner.scan();
+                right = parseMultExpr();
+                left = new BinaryArithMinusExpr(position, left, right);
+            }
+        }
+
+        return left;
+    }
 
 
     /*
