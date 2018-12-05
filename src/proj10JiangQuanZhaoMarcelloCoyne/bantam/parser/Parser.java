@@ -816,23 +816,19 @@ public class Parser
                 System.out.println("parsePrimary-Dispatch2 : " + currentToken.spelling +" print stmt ");
                 ExprList paraList = parseArguments();
                 System.out.println("parsePrimary-afterParseArg: " + currentToken.spelling);
-                if (!this.currentToken.spelling.equals((")"))) {
-                    this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
-                            "Non-Primary Found where Primary Expected");
-                }
                 expr = new DispatchExpr(position, ref, name, paraList);
-                this.currentToken = this.scanner.scan();
                 if(this.currentToken.spelling.equals(".")){
                     while(this.currentToken.spelling.equals(".")){
+                        this.currentToken = this.scanner.scan();
                         ref = new DispatchExpr(position, ref, name, paraList);
                         name = parseIdentifier();
-                        paraList = parseArguments();
-                        if (!this.currentToken.spelling.equals((")"))) {
+                        if (!this.currentToken.spelling.equals(("("))) {
                             this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
                                     "Non-Primary Found where Primary Expected");
                         }
-                        expr = new DispatchExpr(position, ref, name, paraList);
                         this.currentToken = this.scanner.scan();
+                        paraList = parseArguments();
+                        expr = new DispatchExpr(position, ref, name, paraList);
                     }
                 }
             }
@@ -851,6 +847,7 @@ public class Parser
 
         //checks for the empty arguments case
         if ( this.currentToken.spelling.equals(")") ) {
+            this.currentToken = scanner.scan();
             return args;
         }
 
@@ -864,6 +861,12 @@ public class Parser
             arg = parseExpression();
             args.addElement(arg);
         }
+
+        if (!this.currentToken.spelling.equals((")"))) {
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, this.currentToken.position,
+                    "Expected pairness didn't found");
+        }
+        this.currentToken = this.scanner.scan();
         return args;
     }
     /*

@@ -1,1 +1,1 @@
-class Main{int i;int x = 4; int y = 6; void foo(int somenum, int y){ var t = 0; this.i = y; for (t = 0; t < 5; t++) print("Hello test for loop"); while (t<5) print("Test while loop");} void main(){ this.i.foo(this.x, y); var i = 0; }}
+class Main{int i;int x = 4; int y = 6; void foo(int somenum, int y){ var t = 0; this.i = y; for (t = 0; t < 5; t++) print("Hello test for loop"); while (t<5) print("Test while loop");} void main(){ this.i.foo(this.x, y).add(this.y); var i = 0; }}
