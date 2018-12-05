@@ -142,7 +142,7 @@ public class Parser
              // if there is an initial value
              if (this.currentToken.spelling.equals("=")){
                  this.currentToken = this.scanner.scan();       // <InitialValue>
-                 System.out.println("1: " + currentToken.spelling);
+                 System.out.println("Parse Member 1: " + currentToken.spelling);
                  Expr init = parseExpression();
                  System.out.println("2: " + currentToken.spelling);
                  if (!this.currentToken.equals(";")){
@@ -175,6 +175,7 @@ public class Parser
      *              | <ExpressionStmt> | <ForStmt> | <BlockStmt> | <IfStmt>
      */
      private Stmt parseStatement() {
+         System.out.println("parseStatement---");
             Stmt stmt;
 
             switch (currentToken.kind) {
@@ -200,10 +201,10 @@ public class Parser
                     stmt = parseBreak();
                     break;
                 default:
+                    System.out.println("ExprStmt");
                     stmt = parseExpressionStmt();
             }
 
-            this.currentToken = this.scanner.scan();
             return stmt;
     }
 
@@ -267,10 +268,11 @@ public class Parser
      * <ExpressionStmt> ::= <Expression> ;
      */
     private ExprStmt parseExpressionStmt() {
+        System.out.println("parseExpressionStmt---");
         int position = this.currentToken.position;
-        this.currentToken = this.scanner.scan();        // <Expression>
+        System.out.println("parseExpressionStmt 1: " + currentToken.spelling);
         Expr expr = parseExpression();
-        this.currentToken = this.scanner.scan();
+
         return new ExprStmt(position, expr);
 
     }
@@ -357,8 +359,10 @@ public class Parser
 
         StmtList stmtList = new StmtList(position);
         if (!this.currentToken.spelling.equals("}")){
+            System.out.println("YAS");
             while (!this.currentToken.spelling.equals("}")){
                 Stmt stmt = parseStatement();
+                System.out.println("parseBlock 3:" + currentToken.spelling);
                 stmtList.addElement(stmt);
             }
         }
@@ -410,6 +414,7 @@ public class Parser
         while (this.currentToken.spelling.equals("=")){
             System.out.println(currentToken.spelling);
             this.currentToken = this.scanner.scan();    // <LogicalOrExpr>
+
             Expr right = parseOrExpr();
             left = new AssignExpr(position, null, name, right);
         }
@@ -489,9 +494,11 @@ public class Parser
      * <ComparisonOp> ::=  < | > | <= | >= | INSTANCEOF
      */
 	private Expr parseRelationalExpr() {
+        System.out.println("parseRelationalExpr---");
         int position = this.currentToken.position;      // <AddExpr>
 
         Expr left = parseAddExpr();
+        System.out.println("Relational: " + currentToken.spelling);
         Expr right;
         if (this.currentToken.spelling.equals("<")){
             this.currentToken = this.scanner.scan();
@@ -528,6 +535,7 @@ public class Parser
      * <MoreMultExpr> ::= EMPTY | + <MultExpr> <MoreMultExpr> | - <MultExpr> <MoreMultExpr>
      */
 	private Expr parseAddExpr() {
+	    System.out.println("parseAddExpr---");
         int position = this.currentToken.position;      // <MultExpr>
 
         Expr left = parseMultExpr();
@@ -557,6 +565,7 @@ public class Parser
      *               EMPTY
      */
 	private Expr parseMultExpr() {
+        System.out.println("parseMultExpr---");
 	    int position = this.currentToken.position;      // <NewCastOrUnary>
 
         Expr left = parseNewCastOrUnary();
@@ -594,6 +603,7 @@ public class Parser
      */
 	private Expr parseNewCastOrUnary() {
 	    //int position = this.currentToken.position;
+        System.out.println("parseNewCastExpr---");
         Expr expr;
 
         switch (currentToken.kind) {
@@ -670,7 +680,7 @@ public class Parser
      * <PrefixOp> ::= - | ! | ++ | --
      */
 	private Expr parseUnaryPrefix() {
-
+        System.out.println("parseUnaryPrefix---");
         Expr expr = null;
 
         // if this.currentToken is <PrefixOp>
@@ -707,10 +717,14 @@ public class Parser
      * <PostfixOp> ::= ++ | -- | EMPTY
      */
 	private Expr parseUnaryPostfix() {
+        System.out.println("parseUnaryPostfix---");
 	    int position = this.currentToken.position;      // <Primary>
+        System.out.println("parsePostfix1: " + currentToken.spelling);
         Expr expr = parsePrimary();
+        System.out.println("parsePostfix2: " + currentToken.spelling);
 
         if (this.currentToken.spelling.equals("++")){
+
             return new UnaryIncrExpr(position, expr, true);
         }
         else if (this.currentToken.spelling.equals("--")){
@@ -749,8 +763,9 @@ public class Parser
                     expr = ref;
                     return expr;
                 }
+                this.currentToken = scanner.scan();
             }
-            this.currentToken = scanner.scan();
+
             String name = parseIdentifier(); //parse name (variable or method)
             if (!currentToken.spelling.equals("(") && !currentToken.spelling.equals(("."))) {
                 if (!currentToken.spelling.equals("[")) {//not array member. like this.a
@@ -798,6 +813,7 @@ public class Parser
                 }
             }
         }
+
         return expr;
     }
 

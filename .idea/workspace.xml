@@ -61,14 +61,15 @@
     <session id="131692475">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="btm" value="116" />
-          <entry key="java" value="3548" />
+          <entry key="btm" value="193" />
+          <entry key="java" value="3859" />
+          <entry key="txt" value="81" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3548" />
-          <entry key="PLAIN_TEXT" value="116" />
+          <entry key="JAVA" value="3859" />
+          <entry key="PLAIN_TEXT" value="274" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -97,13 +98,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1161">
-              <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
+            <state relative-caret-position="321">
+              <caret line="765" column="51" selection-start-line="765" selection-start-column="51" selection-end-line="765" selection-end-column="51" />
               <folding>
                 <element signature="e#6304#6889#0" />
                 <element signature="e#6896#7478#0" />
                 <element signature="e#7485#7654#0" />
-                <element signature="e#7661#7973#0" />
                 <element signature="e#7980#8518#0" />
                 <element signature="e#8525#10063#0" />
                 <element signature="e#10646#11346#0" />
@@ -117,8 +117,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+            <state relative-caret-position="120">
+              <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -135,8 +135,22 @@
       <find>parseIdentifier</find>
       <find>parseArgu</find>
       <find>scanner.scan();</find>
-      <find>parseExpression()</find>
       <find>parseBlock()</find>
+      <find>parseBlock()</find>
+      <find>parseEquality</find>
+      <find>parseBlock</find>
+      <find>&quot;1: &quot;</find>
+      <find>parseBloc</find>
+      <find>parseStatement</find>
+      <find>parseStatement()</find>
+      <find>parseBl</find>
+      <find>parseExpressionSt</find>
+      <find>parseExpression</find>
+      <find>parseExpression()</find>
+      <find>parseIn</find>
+      <find>parsePri</find>
+      <find>parseId</find>
+      <find>parsePrimary()</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -251,7 +265,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543982814341" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543985843204" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -337,7 +351,7 @@
       <option name="presentableId" value="Default" />
       <updated>1543703888177</updated>
       <workItem from="1543892299328" duration="4085000" />
-      <workItem from="1543976796022" duration="5894000" />
+      <workItem from="1543976796022" duration="9556000" />
     </task>
     <task id="LOCAL-00001" summary="package name cleaning">
       <created>1543777388083</created>
@@ -402,11 +416,18 @@
       <option name="project" value="LOCAL" />
       <updated>1543982089329</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="class decl working, field test working, empty method working">
+      <created>1543982874019</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1543982874019</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14719000" />
+    <option name="totallyTimeSpent" value="18381000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="725" extended-state="6" />
@@ -457,14 +478,15 @@
     <MESSAGE value="test function with dale's drawer" />
     <MESSAGE value="parse method" />
     <MESSAGE value="Test Main method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test Main method" />
+    <MESSAGE value="class decl working, field test working, empty method working" />
+    <option name="LAST_COMMIT_MESSAGE" value="class decl working, field test working, empty method working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java</url>
-          <line>618</line>
+          <line>628</line>
           <properties class="proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser" method="parseNew">
             <option name="EMULATED" value="true" />
           </properties>
@@ -472,7 +494,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java</url>
-          <line>708</line>
+          <line>718</line>
           <properties class="proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser" method="parseUnaryPostfix">
             <option name="EMULATED" value="true" />
           </properties>
@@ -821,13 +843,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1161">
-          <caret line="134" column="39" selection-start-line="134" selection-start-column="39" selection-end-line="134" selection-end-column="39" />
+        <state relative-caret-position="321">
+          <caret line="765" column="51" selection-start-line="765" selection-start-column="51" selection-end-line="765" selection-end-column="51" />
           <folding>
             <element signature="e#6304#6889#0" />
             <element signature="e#6896#7478#0" />
             <element signature="e#7485#7654#0" />
-            <element signature="e#7661#7973#0" />
             <element signature="e#7980#8518#0" />
             <element signature="e#8525#10063#0" />
             <element signature="e#10646#11346#0" />
@@ -839,8 +860,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        <state relative-caret-position="120">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
         </state>
       </provider>
     </entry>
