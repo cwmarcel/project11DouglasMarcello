@@ -4,7 +4,6 @@
     <list default="true" id="fd676c23-174a-42b1-a33e-6328b04f2458" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,30 +29,30 @@
           <entry key="btm" value="2" />
           <entry key="css" value="3" />
           <entry key="fxml" value="4" />
-          <entry key="java" value="147" />
+          <entry key="java" value="150" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="JAVA" value="147" />
+          <entry key="JAVA" value="150" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="btm" value="147" />
+          <entry key="btm" value="359" />
           <entry key="fxml" value="2" />
-          <entry key="java" value="2862" />
-          <entry key="txt" value="108" />
+          <entry key="java" value="3035" />
+          <entry key="txt" value="223" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2862" />
-          <entry key="PLAIN_TEXT" value="255" />
+          <entry key="JAVA" value="3035" />
+          <entry key="PLAIN_TEXT" value="582" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -61,49 +60,76 @@
     <session id="131692475">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="btm" value="974" />
-          <entry key="java" value="4631" />
+          <entry key="btm" value="682" />
+          <entry key="java" value="4499" />
           <entry key="txt" value="81" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4631" />
-          <entry key="PLAIN_TEXT" value="1055" />
+          <entry key="JAVA" value="4499" />
+          <entry key="PLAIN_TEXT" value="763" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="btm" value="2" />
+          <entry key="btm" value="1" />
           <entry key="java" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="17" />
-          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="538" column="42" selection-start-line="538" selection-start-column="42" selection-end-line="538" selection-end-column="42" />
+            <state relative-caret-position="157">
+              <caret line="1026" column="38" selection-start-line="1026" selection-start-column="38" selection-end-line="1026" selection-end-column="38" />
               <folding>
-                <element signature="e#33477#33478#0" expanded="true" />
-                <element signature="e#33517#33518#0" expanded="true" />
+                <element signature="e#33590#33591#0" expanded="true" />
+                <element signature="e#33630#33631#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/ErrorHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2225">
+              <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/SourceFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="339">
+              <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/Scanner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="726">
+              <caret line="459" column="32" selection-start-line="459" selection-start-column="28" selection-end-line="459" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -111,17 +137,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/AssignExpr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
+            <state relative-caret-position="273">
               <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+            <state>
+              <caret column="231" selection-start-column="231" selection-end-column="231" />
             </state>
           </provider>
         </entry>
@@ -130,6 +156,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>parseBlo</find>
+      <find>Non-Identifier Found where Identifi</find>
       <find>parseExpressionSt</find>
       <find>parseBl</find>
       <find>parseSt</find>
@@ -142,6 +170,7 @@
       <find>;</find>
       <find>parseBlock</find>
       <find>parseStat</find>
+      <find>parseIf</find>
       <find>parseState</find>
       <find>parseWhil</find>
       <find>parseFor</find>
@@ -153,13 +182,9 @@
       <find>parseExpressionStm</find>
       <find>parseExpression</find>
       <find>parseUnaryPostfix()</find>
-      <find>parseArguments</find>
       <find>parseExpressionStmt</find>
-      <find>parseCast</find>
-      <find>parseIf</find>
-      <find>Non-Primary Found where Primary Expected</find>
-      <find>ArrayEx</find>
-      <find>INSTANCEOF</find>
+      <find>afterParseArg</find>
+      <find>parseArguments</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -199,8 +224,8 @@
         <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/SourceFile.java" />
         <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/Scanner.java" />
         <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test/test.btm" />
-        <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm" />
+        <option value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" />
       </list>
     </option>
   </component>
@@ -210,9 +235,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
-    <option name="width" value="1098" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="24" />
+    <option name="width" value="817" />
     <option name="height" value="725" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -222,64 +247,175 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="CS361Project10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CS361Project10" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CS361Project10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CS361Project10" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CS361Project10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CS361Project10" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CS361Project10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CS361Project10" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
               <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
-              <item name="bantam" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CS361Project10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CS361Project10" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
               <item name="bantam" type="462c0819:PsiDirectoryNode" />
-              <item name="ast" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="CS361Project10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CS361Project10" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
               <item name="bantam" type="462c0819:PsiDirectoryNode" />
               <item name="parser" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="b2602c69:ProjectViewProjectNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="proj10JiangQuanZhaoMarcelloCoyne" type="462c0819:PsiDirectoryNode" />
+              <item name="Scanner" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544049733706" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544050723415" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        <PATH vcs="Git" revision="">$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm</PATH>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -312,7 +448,7 @@
     <configuration name="Parser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser" />
       <module name="proj10JiangQuanZhaoMarcelloCoyne" />
-      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;C:\Users\Danqing Zhao\Desktop\CS361\proj10\proj10JiangQuanZhaoMarcelloCoyne\src\proj10JiangQuanZhaoMarcelloCoyne\bantam\test.btm&quot;" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.*" />
@@ -361,7 +497,6 @@
       <updated>1543703888177</updated>
       <workItem from="1543892299328" duration="4085000" />
       <workItem from="1543976796022" duration="20865000" />
-      <workItem from="1544042011268" duration="3466000" />
     </task>
     <task id="LOCAL-00001" summary="package name cleaning">
       <created>1543777388083</created>
@@ -454,30 +589,38 @@
       <option name="project" value="LOCAL" />
       <updated>1544038279851</updated>
     </task>
-    <task id="LOCAL-00014" summary="class decl working, field test working, empty method working">
-      <created>1544047025567</created>
+    <task id="LOCAL-00014" summary="edit parameter parsing">
+      <created>1544048553632</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1544047025567</updated>
+      <updated>1544048553632</updated>
     </task>
-    <task id="LOCAL-00015" summary="class decl working, field test working, empty method working">
-      <created>1544048652209</created>
+    <task id="LOCAL-00015" summary="nice parse primary supporting foo().foo()">
+      <created>1544050310475</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1544048652209</updated>
+      <updated>1544050310475</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="nice parse primary supporting foo().foo()">
+      <created>1544050465227</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1544050465227</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33156000" />
+    <option name="totallyTimeSpent" value="29690000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="725" extended-state="6" />
+    <frame x="-6" y="-6" width="1453" height="783" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21163167" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20860215" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -487,13 +630,13 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294271" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49596122" visible="true" weight="0.28751975" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8752688" visible="true" weight="0.42331287" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50403875" side_tool="true" visible="true" weight="0.28751975" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.12473118" side_tool="true" visible="true" weight="0.42331287" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43727598" weight="0.24846625" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4983845" weight="0.19115324" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
@@ -523,7 +666,9 @@
     <MESSAGE value="parse method" />
     <MESSAGE value="Test Main method" />
     <MESSAGE value="class decl working, field test working, empty method working" />
-    <option name="LAST_COMMIT_MESSAGE" value="class decl working, field test working, empty method working" />
+    <MESSAGE value="edit parameter parsing" />
+    <MESSAGE value="nice parse primary supporting foo().foo()" />
+    <option name="LAST_COMMIT_MESSAGE" value="nice parse primary supporting foo().foo()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -539,7 +684,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java</url>
           <line>741</line>
-          <properties class="proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser" method="parseUnaryPostfix">
+          <properties class="proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="2" />
@@ -594,13 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
           <caret line="96" column="5" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/ErrorHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1700">
-          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -664,13 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="999">
           <caret line="89" column="12" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/SourceFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -871,35 +1002,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/SourceFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="74" column="10" selection-start-line="74" selection-start-column="10" selection-end-line="74" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/Scanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-43">
+        <state relative-caret-position="726">
           <caret line="459" column="32" selection-start-line="459" selection-start-column="28" selection-end-line="459" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
+    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Scanner/ErrorHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="538" column="42" selection-start-line="538" selection-start-column="42" selection-end-line="538" selection-end-column="42" />
-          <folding>
-            <element signature="e#33477#33478#0" expanded="true" />
-            <element signature="e#33517#33518#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/AssignExpr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        <state relative-caret-position="-2225">
+          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+        <state>
+          <caret column="231" selection-start-column="231" selection-end-column="231" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/AssignExpr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="1026" column="38" selection-start-line="1026" selection-start-column="38" selection-end-line="1026" selection-end-column="38" />
+          <folding>
+            <element signature="e#33590#33591#0" expanded="true" />
+            <element signature="e#33630#33631#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
