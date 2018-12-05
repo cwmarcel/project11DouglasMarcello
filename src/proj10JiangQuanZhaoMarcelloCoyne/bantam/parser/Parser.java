@@ -627,25 +627,28 @@ public class Parser
         Expr expr = null;
 
         // if this.currentToken is <PrefixOp>
-        while (this.currentToken.spelling.equals("-") || this.currentToken.spelling.equals("!")
-                || this.currentToken.spelling.equals("++") || this.currentToken.spelling.equals("--")){
+        if (this.currentToken.spelling.equals("-") || this.currentToken.spelling.equals("!")
+                || this.currentToken.spelling.equals("++") || this.currentToken.spelling.equals("--")) {
+            while (this.currentToken.spelling.equals("-") || this.currentToken.spelling.equals("!")
+                    || this.currentToken.spelling.equals("++") || this.currentToken.spelling.equals("--")) {
 
-            if (this.currentToken.spelling.equals("-")){
-                this.currentToken = this.scanner.scan();
-                expr = new UnaryNegExpr(this.currentToken.position, parseUnaryPrefix());
+                if (this.currentToken.spelling.equals("-")) {
+                    this.currentToken = this.scanner.scan();
+                    expr = new UnaryNegExpr(this.currentToken.position, parseUnaryPrefix());
+                } else if (this.currentToken.spelling.equals("!")) {
+                    this.currentToken = this.scanner.scan();
+                    expr = new UnaryNotExpr(this.currentToken.position, parseUnaryPrefix());
+                } else if (this.currentToken.spelling.equals("++")) {
+                    this.currentToken = this.scanner.scan();
+                    expr = new UnaryIncrExpr(this.currentToken.position, parseUnaryPrefix(), false);
+                } else if (this.currentToken.spelling.equals("--")) {
+                    this.currentToken = this.scanner.scan();
+                    expr = new UnaryDecrExpr(this.currentToken.position, parseUnaryPrefix(), false);
+                }
             }
-            else if (this.currentToken.spelling.equals("!")){
-                this.currentToken = this.scanner.scan();
-                expr = new UnaryNotExpr(this.currentToken.position, parseUnaryPrefix());
-            }
-            else if (this.currentToken.spelling.equals("++")){
-                this.currentToken = this.scanner.scan();
-                expr = new UnaryIncrExpr(this.currentToken.position, parseUnaryPrefix(), false);
-            }
-            else if (this.currentToken.spelling.equals("--")){
-                this.currentToken = this.scanner.scan();
-                expr = new UnaryDecrExpr(this.currentToken.position, parseUnaryPrefix(), false);
-            }
+        }
+        else {
+            expr = parseUnaryPostfix();
         }
 
         return expr;
@@ -897,7 +900,7 @@ public class Parser
         // test/test1.java test/test2.java test/test3.java test/test4.java test/badtest.java
         for (int i=0; i < args.length; i++) {
 
-            String filename = args[i];
+            String filename = "/Users/Quan/Desktop/CS361Project10/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm";
             System.out.println("\n------------------ " + filename + " ------------------" + "\n");
             try{
                 ErrorHandler handler = new ErrorHandler();
@@ -919,6 +922,7 @@ public class Parser
                     System.out.println("\n" + errorList.size() + " illegal tokens were found.");
                 }
             }catch (Exception e) {
+                    System.out.println(e);
                     System.out.println("ERROR: Parsing " + filename + " failed!");
                 }
             }
