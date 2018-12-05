@@ -6,7 +6,7 @@ class Main{
          var t = 0;
 
          for (t = 0; t < 5; t++) print("Hello test for loop");
-
+         while (t<5) print("Test while loop");
         }
 
 

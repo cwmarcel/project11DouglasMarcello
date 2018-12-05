@@ -229,7 +229,6 @@ public class Parser
         Stmt bodyStmt = parseStatement();
 
         stmt = new WhileStmt(position, preExpr, bodyStmt);
-        this.currentToken = this.scanner.scan();
         return stmt;
 
     }
