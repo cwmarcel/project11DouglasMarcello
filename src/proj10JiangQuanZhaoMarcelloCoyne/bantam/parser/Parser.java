@@ -912,14 +912,14 @@ public class Parser
                 }
 
                 if (errorList.size() == 0) {
-                    System.out.println("Scanning was successful!");
+                    System.out.println("Parsing was successful!");
                 } else if (errorList.size() == 1) {
                     System.out.println("\n1 illegal token was found.");
                 } else {
                     System.out.println("\n" + errorList.size() + " illegal tokens were found.");
                 }
             }catch (Exception e) {
-                    System.out.println("ERROR: Scanning " + filename + " failed!");
+                    System.out.println("ERROR: Parsing " + filename + " failed!");
                 }
             }
 
