@@ -11,13 +11,15 @@ class Main{
          var x = cast(int, t);
          var z = new Final();
          foo(z);
-         if (nobug) var g = 5;
+         if (nobug) var g = 5; else var d = 6;
 
         }
 
      void main(){
         var i = 0;
         this.x.foo();
+        animal[0] = new Bear();
+        if (i instanceof int) print("Hi Bear");
      }
 
 
