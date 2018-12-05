@@ -138,7 +138,7 @@ public class Parser
          // if <Field>
          else{
              System.out.println("parseField");
-             System.out.println(currentToken.spelling);
+             System.out.println("Field: " + currentToken.spelling);
              // if there is an initial value
              if (this.currentToken.spelling.equals("=")){
                  this.currentToken = this.scanner.scan();       // <InitialValue>
@@ -213,14 +213,18 @@ public class Parser
      * <WhileStmt> ::= WHILE ( <Expression> ) <Stmt>
      */
     private Stmt parseWhile() {
+        System.out.println("parseWhile---");
         Stmt stmt;
         int position = this.currentToken.position;
-
+        System.out.println("parseWhile1: " + currentToken.spelling);
         this.currentToken = scanner.scan();     // left paren
+        System.out.println("parseWhile2: " + currentToken.spelling);
         this.currentToken = scanner.scan();     // <Expression>
+        System.out.println("parseWhile3: " + currentToken.spelling);
         Expr preExpr = parseExpression();
-        this.currentToken = scanner.scan();     // right paren
+        System.out.println("parseWhile4: " + currentToken.spelling);
         this.currentToken = scanner.scan();     // <Stmt>
+        System.out.println("parseWhile5: " + currentToken.spelling);
         Stmt bodyStmt = parseStatement();
 
         stmt = new WhileStmt(position, preExpr, bodyStmt);
@@ -314,7 +318,6 @@ public class Parser
         }
         else {
             initExpr = parseExpression();
-            this.currentToken = this.scanner.scan();        // ";"
         }
 
         this.currentToken = this.scanner.scan();        // <Terminate> or ";"
@@ -324,7 +327,6 @@ public class Parser
         }
         else{
             predExpr = parseExpression();
-            this.currentToken = this.scanner.scan();        // ";"
         }
 
         this.currentToken = this.scanner.scan();        // <Increment> or ")"
@@ -334,13 +336,11 @@ public class Parser
         }
         else{
             updateExpr = parseExpression();
-            this.currentToken = this.scanner.scan();        // ")"
         }
 
         this.currentToken = this.scanner.scan();        //<STMT>
         Stmt bodyStmt = parseStatement();
 
-        this.currentToken = this.scanner.scan();
 
         return new ForStmt(position, initExpr, predExpr, updateExpr, bodyStmt);
     }
@@ -368,7 +368,7 @@ public class Parser
         }
 
         this.currentToken = this.scanner.scan();
-        System.out.println("parseBlock 3:" + currentToken.spelling);
+        System.out.println("parseBlock 4:" + currentToken.spelling);
         return  new BlockStmt(position, stmtList);
     }
 
@@ -378,11 +378,17 @@ public class Parser
      * <IfStmt> ::= IF ( <Expr> ) <Stmt> | IF ( <Expr> ) <Stmt> ELSE <Stmt>
      */
     private Stmt parseIf() {
+        System.out.println("parseIf---");
         int position = this.currentToken.position;
+        System.out.println("parseIf1: " + currentToken.spelling);
         this.currentToken = this.scanner.scan();    // "("
+        System.out.println("parseIf2: " + currentToken.spelling);
         this.currentToken = this.scanner.scan();    // <Expr>
+        System.out.println("parseIf3: " + currentToken.spelling);
         Expr predExpr = parseExpression();
+        System.out.println("parseIf4: " + currentToken.spelling);
         this.currentToken = this.scanner.scan();    // <Stmt>
+        System.out.println("parseIf5: " + currentToken.spelling + " shouldbe {");
         Stmt thenStmt = parseStatement();
         Stmt elseStmt = null;
         if (this.currentToken.kind == ELSE){
@@ -412,7 +418,7 @@ public class Parser
         Expr left = parseOrExpr();
         System.out.println("Expr: "+ currentToken.spelling);
         while (this.currentToken.spelling.equals("=")){
-            System.out.println(currentToken.spelling);
+            System.out.println("parseExpr" + currentToken.spelling);
             this.currentToken = this.scanner.scan();    // <LogicalOrExpr>
 
             Expr right = parseOrExpr();
@@ -724,10 +730,11 @@ public class Parser
         System.out.println("parsePostfix2: " + currentToken.spelling);
 
         if (this.currentToken.spelling.equals("++")){
-
+            this.currentToken = this.scanner.scan();        // TODO NOT SURE
             return new UnaryIncrExpr(position, expr, true);
         }
         else if (this.currentToken.spelling.equals("--")){
+            this.currentToken = this.scanner.scan();
             return new UnaryDecrExpr(position, expr, true);
         }
         else{
