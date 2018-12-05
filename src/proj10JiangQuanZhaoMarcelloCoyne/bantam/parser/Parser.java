@@ -57,6 +57,7 @@ public class Parser
      * <Program> ::= <Class> | <Class> <Program>
      */
     private Program parseProgram() {
+        System.out.println("parseProgram");
         int position = currentToken.position;
         ClassList classList = new ClassList(position);
 
@@ -75,6 +76,7 @@ public class Parser
      * <MemberList> ::= EMPTY | <Member> <MemberList>
      */
     private Class_ parseClass() {
+        System.out.println("parseClass");
         int position = this.currentToken.position;
 
         this.currentToken = this.scanner.scan();    // <Identifier>
@@ -90,9 +92,13 @@ public class Parser
         }
         this.currentToken = this.scanner.scan();    // <MemberList>
         MemberList memberList = new MemberList(this.currentToken.position);
-        while (!this.currentToken.spelling.equals("}")){
-            Member aMember = parseMember();
-            memberList.addElement(aMember);
+        System.out.println(currentToken.spelling);
+        if (this.currentToken.spelling.equals("}")){
+            while (!this.currentToken.spelling.equals("}")){
+                System.out.println("Hi");
+                Member aMember = parseMember();
+                memberList.addElement(aMember);
+            }
         }
 
         return new Class_(position, this.fileName, name, parentName, memberList);
@@ -106,6 +112,7 @@ public class Parser
      * <InitialValue> ::= EMPTY | = <Expression>
      */
      private Member parseMember() {
+         System.out.println("parseMember");
          int position = this.currentToken.position;
 
          String type = parseType();
