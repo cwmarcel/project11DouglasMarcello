@@ -786,6 +786,7 @@ public class Parser
             if (!currentToken.spelling.equals("(") && !currentToken.spelling.equals(("."))) {
                 if (!currentToken.spelling.equals("[")) {//not array member. like this.a
                     expr = new VarExpr(position, ref, name);
+                    return expr;
                 } else {//array member like this.a[2]
                     this.currentToken = scanner.scan();
                     Expr index = parseExpression();
@@ -795,18 +796,21 @@ public class Parser
                         this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
                                 "Non-Primary Found where Primary Expected");
                     }
+                    this.currentToken = scanner.scan();
+                    return expr;
                 }
             } else {//dispatch
                 System.out.println("parsePrimary-Dispatch1 : " + currentToken.spelling +" ?(");
                 if (currentToken.spelling.equals(("."))) { //like this.a.method1()
                     ref = new VarExpr(position, ref, name); //reference = this.a
-                    this.currentToken = this.scanner.scan();
+                    this.currentToken = this.scanner.scan();//this.a.method|()
+                    name = parseIdentifier(); // name = method1
                     if(!currentToken.spelling.equals("(")){//like this.a.b, not allowed
                         this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position, "Method not found");
                     }
-                    name = parseIdentifier(); // name = method1
+                    this.currentToken = this.scanner.scan();
                 } else if (currentToken.spelling.equals("(")) { //like this.method() or method()
-                    this.currentToken = scanner.scan();
+                    this.currentToken = this.scanner.scan();
 
                 }
                 System.out.println("parsePrimary-Dispatch2 : " + currentToken.spelling +" print stmt ");
@@ -1009,7 +1013,7 @@ public class Parser
         // test/test1.java test/test2.java test/test3.java test/test4.java test/badtest.java
         for (int i=0; i < args.length; i++) {
 
-            String filename = "/Users/Quan/Desktop/CS361Project10/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm";
+            String filename = "C:\\Users\\Danqing Zhao\\Desktop\\CS361\\proj10\\proj10JiangQuanZhaoMarcelloCoyne\\src\\proj10JiangQuanZhaoMarcelloCoyne\\bantam\\test.btm";
             System.out.println("\n------------------ " + filename + " ------------------" + "\n");
             try{
                 ErrorHandler handler = new ErrorHandler();
