@@ -133,7 +133,6 @@ public class Parser
              Stmt stmt = parseBlock();
              StmtList stmtList = new StmtList(this.currentToken.position);
              stmtList.addElement(stmt);
-             this.currentToken = this.scanner.scan();
              return new Method(position, type, identifier, parameter, stmtList);
          }
          // if <Field>
@@ -350,19 +349,22 @@ public class Parser
      * <Body> ::= EMPTY | <Stmt> <Body>
      */
     private Stmt parseBlock() {
+        System.out.println("parseBlock---");
         int position = this.currentToken.position;      // current toke: "{"
-
+        System.out.println("parseBlock 1:" + currentToken.spelling);
         this.currentToken = this.scanner.scan();        //<Body>
-        StmtList stmtList;
-        if (this.currentToken.spelling.equals("}")){
-            stmtList = null;
-        }
-        else{
-            int stmtListPos = this.currentToken.position;
-            stmtList = new StmtList(stmtListPos);
+        System.out.println("parseBlock 2:" + currentToken.spelling);
+
+        StmtList stmtList = new StmtList(position);
+        if (!this.currentToken.spelling.equals("}")){
+            while (!this.currentToken.spelling.equals("}")){
+                Stmt stmt = parseStatement();
+                stmtList.addElement(stmt);
+            }
         }
 
         this.currentToken = this.scanner.scan();
+        System.out.println("parseBlock 3:" + currentToken.spelling);
         return  new BlockStmt(position, stmtList);
     }
 
@@ -729,7 +731,7 @@ public class Parser
      * <DispatchExpr> ::= <DispatchExprPrefix> <Identifier> ( <Arguments> )
      * <DispatchExprPrefix> ::= <Primary> . | EMPTY
      */
-	private Expr parsePrimary() {
+    private Expr parsePrimary() {
         int position = currentToken.position;
         Expr expr;
         if(currentToken.kind ==  INTCONST) {
@@ -780,9 +782,22 @@ public class Parser
                             "Non-Primary Found where Primary Expected");
                 }
                 expr = new DispatchExpr(position, ref, name, paraList);
+                this.currentToken = this.scanner.scan();
+                if(this.currentToken.spelling.equals(".")){
+                    while(this.currentToken.spelling.equals(".")){
+                        ref = new DispatchExpr(position, ref, name, paraList);
+                        name = parseIdentifier();
+                        paraList = parseArguments();
+                        if (!this.currentToken.spelling.equals((")"))) {
+                            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
+                                    "Non-Primary Found where Primary Expected");
+                        }
+                        expr = new DispatchExpr(position, ref, name, paraList);
+                        this.currentToken = this.scanner.scan();
+                    }
+                }
             }
         }
-
         return expr;
     }
 

@@ -2,7 +2,7 @@ class Main{
     int x = 4;
     int y = 6;
 
-    void foo(){
+    void foo(int somenum, int y){
 
     }
 }
