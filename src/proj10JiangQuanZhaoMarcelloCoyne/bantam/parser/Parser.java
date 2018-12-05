@@ -788,21 +788,21 @@ public class Parser
         }
         return params;
     }
-        /*
-         * <Formal> ::= <Type> <Identifier>
-         */
-        private Formal parseFormal() {
-            int pos = currentToken.position;
-            String type = parseType();
-            String id = parseIdentifier();
-            //String identifier = scanner.scan().getSpelling();
-            return (new Formal(pos, type, id));
-        }
+    /*
+    * <Formal> ::= <Type> <Identifier>
+    */
+    private Formal parseFormal() {
+        int pos = currentToken.position;
+        String type = parseType();
+        String id = parseIdentifier();
+        //String identifier = scanner.scan().getSpelling();
+        return (new Formal(pos, type, id));
+    }
     /*
      * <Type> ::= <Identifier> <Brackets>
      * <Brackets> ::= EMPTY | [ ]
      */
-    //TODO - BRACKETS - how do
+    //TODO - BRACKETS - how do I do them
     private String parseType() {
         return parseIdentifier();
     }
@@ -812,87 +812,97 @@ public class Parser
     // JUST BEST GUESS
     //definitely not done or right
     private String parseOperator() {
-        switch (currentToken.getSpelling()) {
+        String spelling = currentToken.getSpelling();
+        Boolean error = false;
+        switch (spelling) {
             case "&&":
-                currentToken.kind = BINARYLOGIC;
+                if (currentToken.kind != BINARYLOGIC) { error = true; }
                 break;
             case "||":
-                currentToken.kind = BINARYLOGIC;
+                if (currentToken.kind != BINARYLOGIC) { error = true; }
                 break;
             case "+":
-                currentToken.kind = PLUSMINUS;
+                if (currentToken.kind != PLUSMINUS) { error = true; }
                 break;
             case "-":
-                currentToken.kind = PLUSMINUS;
+                if (currentToken.kind != PLUSMINUS) { error = true; }
                 break;
             case "*":
-                currentToken.kind = MULDIV;
+                if (currentToken.kind != MULDIV) { error = true; }
                 break;
             case "/":
-                currentToken.kind = MULDIV;
+                if (currentToken.kind != MULDIV) { error = true; }
                 break;
             case "==":
-                currentToken.kind = COMPARE;
+                if (currentToken.kind != COMPARE) { error = true; }
                 break;
             case "!=":
-                currentToken.kind = COMPARE;
+                if (currentToken.kind != COMPARE) { error = true; }
                 break;
             case "<":
-                currentToken.kind = COMPARE;
+                if (currentToken.kind != COMPARE) { error = true; }
                 break;
             case "<=":
-                currentToken.kind = COMPARE;
+                if (currentToken.kind != COMPARE) { error = true; }
                 break;
             case ">":
-                currentToken.kind = COMPARE;
+                if (currentToken.kind != COMPARE) { error = true; }
                 break;
             case ">=":
-                currentToken.kind = COMPARE;
+                if (currentToken.kind != COMPARE) { error = true; }
                 break;
             case "++":
-                currentToken.kind = UNARYINCR;
+                if (currentToken.kind != UNARYINCR) { error = true; }
                 break;
             case "--":
-                currentToken.kind = UNARYDECR;
+                if (currentToken.kind != UNARYDECR) { error = true; }
                 break;
         }
-        return currentToken.getSpelling();
+        if (error) {
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, currentToken.position,
+                    "Non-Identifier Found where Identifier expected.");
+        }
+        scanner.scan();
+        return spelling;
     }
     private String parseIdentifier() {
+        String spelling = currentToken.getSpelling();
         if (currentToken.kind != IDENTIFIER) {
-            //TODO - how to access sourceFile and what the error message should be
-            //idea: scanner.sourceFile.getFilename()
-            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, currentToken.position,
                                         "Non-Identifier Found where Identifier expected.");
         }
-        return currentToken.getSpelling();
+        scanner.scan();
+        return spelling;
     }
     private ConstStringExpr parseStringConst() {
+        String spelling = currentToken.getSpelling();
+        int position = currentToken.position;
         if (currentToken.kind != STRCONST) {
-            //TODO - how to access sourceFile and what the error message should be
-            //idea: scanner.sourceFile.getFilename()
-            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position,
                     "Non-String Found where String Literal Expected");
         }
-        return new ConstStringExpr(currentToken.position, currentToken.getSpelling());
+        scanner.scan();
+        return new ConstStringExpr(position, spelling);
     }
     private ConstIntExpr parseIntConst() {
+        String spelling = currentToken.getSpelling();
+        int position = currentToken.position;
         if (currentToken.kind != INTCONST) {
-            //TODO - how to access sourceFile and what the error message should be
-            //idea: scanner.sourceFile.getFilename()
-            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position,
                     "Non-Integer Found where Integer Literal Expected");
         }
-        return new ConstIntExpr(currentToken.position, currentToken.getSpelling());
+        scanner.scan();
+        return new ConstIntExpr(position, spelling);
     }
     private ConstBooleanExpr parseBoolean() {
+        String spelling = currentToken.getSpelling();
+        int position = currentToken.position;
         if (currentToken.kind != BOOLEAN) {
-            //TODO - how to access sourceFile and what the error message should be
-            //idea: scanner.sourceFile.getFilename()
-            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, currentToken.position,
+            this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position,
                     "Non-Boolean Found where Boolean Expected");
         }
-        return new ConstBooleanExpr(currentToken.position, currentToken.getSpelling());
+        scanner.scan();
+        return new ConstBooleanExpr(position, spelling);
     }
 
     public static void main(String[] args) {
