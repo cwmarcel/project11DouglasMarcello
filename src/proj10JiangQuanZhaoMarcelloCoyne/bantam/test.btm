@@ -1,0 +1,8 @@
+class Main{
+    int y=4;
+    void main(){
+        int x = 3;
+        while(x <= 5)
+            x =x+y;
+    }
+}
