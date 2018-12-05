@@ -46,13 +46,13 @@
           <entry key="btm" value="359" />
           <entry key="fxml" value="2" />
           <entry key="java" value="3035" />
-          <entry key="txt" value="223" />
+          <entry key="txt" value="243" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="3035" />
-          <entry key="PLAIN_TEXT" value="582" />
+          <entry key="PLAIN_TEXT" value="602" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -97,8 +97,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="1026" column="38" selection-start-line="1026" selection-start-column="38" selection-end-line="1026" selection-end-column="38" />
+            <state relative-caret-position="196">
+              <caret line="800" column="69" selection-start-line="800" selection-start-column="69" selection-end-line="800" selection-end-column="69" />
               <folding>
                 <element signature="e#33590#33591#0" expanded="true" />
                 <element signature="e#33630#33631#0" expanded="true" />
@@ -180,11 +180,11 @@
       <find>parseStatement()</find>
       <find>parsePo</find>
       <find>parseExpressionStm</find>
-      <find>parseExpression</find>
       <find>parseUnaryPostfix()</find>
       <find>parseExpressionStmt</find>
       <find>afterParseArg</find>
       <find>parseArguments</find>
+      <find>parseExpression</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -298,7 +298,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544050723415" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544051085746" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -610,7 +610,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544050465227</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="argument file reader">
+      <created>1544050749613</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1544050749613</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -630,13 +637,13 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294271" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8752688" visible="true" weight="0.42331287" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8752688" visible="true" weight="0.17944786" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.12473118" side_tool="true" visible="true" weight="0.42331287" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.12473118" side_tool="true" visible="true" weight="0.17944786" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43727598" weight="0.24846625" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4983845" weight="0.19115324" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
@@ -668,7 +675,8 @@
     <MESSAGE value="class decl working, field test working, empty method working" />
     <MESSAGE value="edit parameter parsing" />
     <MESSAGE value="nice parse primary supporting foo().foo()" />
-    <option name="LAST_COMMIT_MESSAGE" value="nice parse primary supporting foo().foo()" />
+    <MESSAGE value="argument file reader" />
+    <option name="LAST_COMMIT_MESSAGE" value="argument file reader" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1023,13 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="231" selection-start-column="231" selection-end-column="231" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/ast/AssignExpr.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -1037,10 +1038,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="231" selection-start-column="231" selection-end-column="231" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="1026" column="38" selection-start-line="1026" selection-start-column="38" selection-end-line="1026" selection-end-column="38" />
+        <state relative-caret-position="196">
+          <caret line="800" column="69" selection-start-line="800" selection-start-column="69" selection-end-line="800" selection-end-column="69" />
           <folding>
             <element signature="e#33590#33591#0" expanded="true" />
             <element signature="e#33630#33631#0" expanded="true" />

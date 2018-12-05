@@ -799,7 +799,6 @@ public class Parser
                     this.currentToken = scanner.scan();
                     Expr index = parseExpression();
                     expr = new ArrayExpr(position, ref, name, index);
-                    this.currentToken = scanner.scan();
                     if(!this.currentToken.spelling.equals("]")){
                         this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
                                 "Non-Primary Found where Primary Expected");
