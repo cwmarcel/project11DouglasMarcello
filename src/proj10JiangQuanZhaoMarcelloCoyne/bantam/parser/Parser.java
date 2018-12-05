@@ -62,8 +62,8 @@ public class Parser
         ClassList classList = new ClassList(position);
 
         while (currentToken.kind != EOF) {
-            Class_ aClass = parseClass();
-            classList.addElement(aClass);
+                Class_ aClass = parseClass();
+                classList.addElement(aClass);
         }
 
         return new Program(position, classList);
@@ -92,14 +92,15 @@ public class Parser
         }
         this.currentToken = this.scanner.scan();    // <MemberList>
         MemberList memberList = new MemberList(this.currentToken.position);
-        System.out.println(currentToken.spelling);
-        if (this.currentToken.spelling.equals("}")){
+        if (!this.currentToken.spelling.equals("}")){
             while (!this.currentToken.spelling.equals("}")){
-                System.out.println("Hi");
+                System.out.println("parseClassCheck: "+currentToken.spelling);
                 Member aMember = parseMember();
                 memberList.addElement(aMember);
             }
         }
+
+        this.currentToken = this.scanner.scan();
 
         return new Class_(position, this.fileName, name, parentName, memberList);
     }
@@ -112,15 +113,19 @@ public class Parser
      * <InitialValue> ::= EMPTY | = <Expression>
      */
      private Member parseMember() {
-         System.out.println("parseMember");
+         System.out.println("parseMember---");
          int position = this.currentToken.position;
 
          String type = parseType();
+         System.out.println("type "+type);
          String identifier = parseIdentifier();
-
+         System.out.println("id "+identifier);
          // if <Method>
          if (this.currentToken.spelling.equals("(")){
+             System.out.println("parseMember 1 : " + currentToken.spelling);
+             this.currentToken = this.scanner.scan();
              FormalList parameter = parseParameters();
+             System.out.println("parseMember 2 : " + currentToken.spelling);
              if (!this.currentToken.spelling.equals(")")){
                  // TODO-ILLEGAL
              }
@@ -128,26 +133,38 @@ public class Parser
              Stmt stmt = parseBlock();
              StmtList stmtList = new StmtList(this.currentToken.position);
              stmtList.addElement(stmt);
+             this.currentToken = this.scanner.scan();
              return new Method(position, type, identifier, parameter, stmtList);
          }
          // if <Field>
          else{
+             System.out.println("parseField");
+             System.out.println(currentToken.spelling);
              // if there is an initial value
              if (this.currentToken.spelling.equals("=")){
                  this.currentToken = this.scanner.scan();       // <InitialValue>
+                 System.out.println("1: " + currentToken.spelling);
                  Expr init = parseExpression();
+                 System.out.println("2: " + currentToken.spelling);
                  if (!this.currentToken.equals(";")){
                      // TODO- ERROR HANDLER
                  }
-                 return new Field(this.currentToken.position, type, identifier, init);
+                 int pos = this.currentToken.position;
+                 this.currentToken = this.scanner.scan();
+                 return new Field(pos, type, identifier, init);
              }
              else if (this.currentToken.spelling.equals(";")){
-                 return new Field(this.currentToken.position, type, identifier, null);
+                 int pos = this.currentToken.position;
+                 this.currentToken = this.scanner.scan();
+                 return new Field(pos, type, identifier, null);
              }
              else{
                  // TODO - ERROR HANDLER
              }
          }
+
+         this.currentToken = this.scanner.scan();
+
          return null;
      }
 
@@ -187,6 +204,7 @@ public class Parser
                     stmt = parseExpressionStmt();
             }
 
+            this.currentToken = this.scanner.scan();
             return stmt;
     }
 
@@ -206,6 +224,7 @@ public class Parser
         Stmt bodyStmt = parseStatement();
 
         stmt = new WhileStmt(position, preExpr, bodyStmt);
+        this.currentToken = this.scanner.scan();
         return stmt;
 
     }
@@ -229,6 +248,8 @@ public class Parser
             stmt = new ReturnStmt(position, returnExpr);
         }
 
+        this.currentToken = this.scanner.scan();
+
         return stmt;
     }
 
@@ -238,6 +259,7 @@ public class Parser
      */
     private Stmt parseBreak() {
         int position = this.currentToken.position;
+        this.currentToken = this.scanner.scan();
         return new BreakStmt(position);
     }
 
@@ -249,6 +271,7 @@ public class Parser
         int position = this.currentToken.position;
         this.currentToken = this.scanner.scan();        // <Expression>
         Expr expr = parseExpression();
+        this.currentToken = this.scanner.scan();
         return new ExprStmt(position, expr);
 
     }
@@ -265,6 +288,8 @@ public class Parser
         this.currentToken = scanner.scan();     // "="
         this.currentToken = scanner.scan();     // <Expression>
         Expr expr = parseExpression();
+
+        this.currentToken = this.scanner.scan();
         return new DeclStmt(position, name, expr);
 
     }
@@ -314,6 +339,8 @@ public class Parser
         this.currentToken = this.scanner.scan();        //<STMT>
         Stmt bodyStmt = parseStatement();
 
+        this.currentToken = this.scanner.scan();
+
         return new ForStmt(position, initExpr, predExpr, updateExpr, bodyStmt);
     }
 
@@ -335,6 +362,7 @@ public class Parser
             stmtList = new StmtList(stmtListPos);
         }
 
+        this.currentToken = this.scanner.scan();
         return  new BlockStmt(position, stmtList);
     }
 
@@ -355,6 +383,8 @@ public class Parser
             this.currentToken = this.scanner.scan();    // <Stmt>
             elseStmt = parseStatement();
         }
+
+        this.currentToken = this.scanner.scan();
         return new IfStmt(position, predExpr, thenStmt, elseStmt);
 
     }
@@ -369,12 +399,14 @@ public class Parser
      * <OptionalAssignment> ::= EMPTY | = <Expression>
      */
 	private Expr parseExpression() {
+	    System.out.println("parseExpression---");
         int position = this.currentToken.position;
 
         String name = this.currentToken.spelling;
         Expr left = parseOrExpr();
-
+        System.out.println("Expr: "+ currentToken.spelling);
         while (this.currentToken.spelling.equals("=")){
+            System.out.println(currentToken.spelling);
             this.currentToken = this.scanner.scan();    // <LogicalOrExpr>
             Expr right = parseOrExpr();
             left = new AssignExpr(position, null, name, right);
@@ -389,9 +421,11 @@ public class Parser
      * <LogicalORRest> ::= EMPTY |  || <LogicalAND> <LogicalORRest>
      */
 	private Expr parseOrExpr() {
+        System.out.println("parseOrExpr---");
         int position = currentToken.position;
 
         Expr left = parseAndExpr();
+        System.out.println("Or "+ currentToken.spelling);
         while (this.currentToken.spelling.equals("||")) {
             this.currentToken = scanner.scan();
             Expr right = parseAndExpr();
@@ -407,8 +441,10 @@ public class Parser
      * <LogicalANDRest> ::= EMPTY |  && <ComparisonExpr> <LogicalANDRest>
      */
 	private Expr parseAndExpr() {
+        System.out.println("parseAndExpr---");
         int position = this.currentToken.position;   // <ComparisonExpr>
-        Expr left = parseExpression();
+        Expr left = parseEqualityExpr();                  // TODO ERROR
+        System.out.println("And " + currentToken.spelling);
         while (this.currentToken.spelling.equals("&&")) {
             this.currentToken = this.scanner.scan();
             Expr right = parseExpression();
@@ -425,10 +461,12 @@ public class Parser
      * <equalOrNotEqual> ::=  == | !=
      */
 	private Expr parseEqualityExpr() {
+        System.out.println("parseEqualityExpr---");
         int position = this.currentToken.position;     // <RelationalExpr>
 
         Expr left = parseRelationalExpr();
         Expr right;
+        System.out.println("Equality: " + currentToken.spelling);
         if (this.currentToken.spelling.equals("==")){
             this.currentToken = this.scanner.scan();
             right = parseExpression();
@@ -744,6 +782,7 @@ public class Parser
                 expr = new DispatchExpr(position, ref, name, paraList);
             }
         }
+
         return expr;
     }
 
@@ -778,8 +817,10 @@ public class Parser
      */
     private FormalList parseParameters() {
         int pos = currentToken.position;
+
         FormalList params = new FormalList(pos);
         //checks for the empty parameters case
+        System.out.println("--parsePara: " + currentToken.spelling);
         if ( this.currentToken.spelling.equals(")") ) {
             return params;
         }
@@ -869,7 +910,7 @@ public class Parser
             this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, currentToken.position,
                     "Non-Identifier Found where Identifier expected.");
         }
-        scanner.scan();
+        this.currentToken = scanner.scan();
         return spelling;
     }
     private String parseIdentifier() {
@@ -878,7 +919,7 @@ public class Parser
             this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, currentToken.position,
                                         "Non-Identifier Found where Identifier expected.");
         }
-        scanner.scan();
+        this.currentToken = scanner.scan();
         return spelling;
     }
     private ConstStringExpr parseStringConst() {
@@ -888,7 +929,7 @@ public class Parser
             this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position,
                     "Non-String Found where String Literal Expected");
         }
-        scanner.scan();
+        this.currentToken = scanner.scan();
         return new ConstStringExpr(position, spelling);
     }
     private ConstIntExpr parseIntConst() {
@@ -898,7 +939,7 @@ public class Parser
             this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position,
                     "Non-Integer Found where Integer Literal Expected");
         }
-        scanner.scan();
+        this.currentToken = scanner.scan();
         return new ConstIntExpr(position, spelling);
     }
     private ConstBooleanExpr parseBoolean() {
@@ -908,7 +949,7 @@ public class Parser
             this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position,
                     "Non-Boolean Found where Boolean Expected");
         }
-        scanner.scan();
+        this.currentToken = scanner.scan();
         return new ConstBooleanExpr(position, spelling);
     }
 
