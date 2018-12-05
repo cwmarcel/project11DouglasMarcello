@@ -405,7 +405,7 @@ public class Parser
             elseStmt = parseStatement();
         }
 
-        this.currentToken = this.scanner.scan();
+
         return new IfStmt(position, predExpr, thenStmt, elseStmt);
 
     }
@@ -651,6 +651,11 @@ public class Parser
         if (this.currentToken.spelling.equals("[")){
             this.currentToken = this.scanner.scan();        // <Expression>
             Expr expr = parseExpression();
+            this.currentToken = this.scanner.scan();
+        }
+        else{
+            this.currentToken = this.scanner.scan();    // )
+            this.currentToken = this.scanner.scan();    // new
         }
 
         return new NewExpr(position,type);
@@ -661,6 +666,7 @@ public class Parser
 	 * <CastExpression> ::= CAST ( <Type> , <Expression> )
      */
 	private Expr parseCast() {
+	    System.out.println("parseCast----");
 	    int position = this.currentToken.position;      // CAST
         this.currentToken = this.scanner.scan();        // "("
         if ( !this.currentToken.spelling.equals("(") ){
@@ -684,6 +690,7 @@ public class Parser
         if (!this.currentToken.spelling.equals(")")){
             // TODO: ILLEGAL
         }
+        this.currentToken = this.scanner.scan();
 
         return new CastExpr(position, type, expr);
 

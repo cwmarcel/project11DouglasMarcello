@@ -8,10 +8,16 @@ class Main{
 
          for (t = 0; t < 5; t++) print("Hello test for loop");
          while (t<5) print("Test while loop");
+         var x = cast(int, t);
+         var z = new Final();
+         foo(z);
+         if (nobug) var g = 5;
+
         }
 
      void main(){
         var i = 0;
+        this.x.foo();
      }
 
 
