@@ -14,6 +14,7 @@ package proj10JiangQuanZhaoMarcelloCoyne.bantam.parser;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.*;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.Error;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
+import proj10JiangQuanZhaoMarcelloCoyne.bantam.treedrawer.Drawer;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.visitor.Visitor;
 
 import javax.management.MBeanAttributeInfo;
@@ -901,12 +902,8 @@ public class Parser
                 ErrorHandler handler = new ErrorHandler();
                 Parser parser = new Parser(handler);
                 Program program = parser.parse(filename);
-                program.accept(new Visitor() {
-                    @Override
-                    public Object visit(Program node) {
-                        return super.visit(node);
-                    }
-                });
+                Drawer drawer = new Drawer();
+                drawer.draw(filename, program);
 
                 List<Error> errorList = handler.getErrorList();
                 for (Error err : errorList) {
