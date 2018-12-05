@@ -176,6 +176,7 @@ public class Parser
      */
      private Stmt parseStatement() {
          System.out.println("parseStatement---");
+         System.out.println("parseStatement:" + currentToken.spelling);
             Stmt stmt;
 
             switch (currentToken.kind) {
@@ -276,7 +277,12 @@ public class Parser
         int position = this.currentToken.position;
         System.out.println("parseExpressionStmt 1: " + currentToken.spelling);
         Expr expr = parseExpression();
+        if (this.currentToken.equals(";")){
+            // TODO COMMA EXPECTED
 
+        }
+        System.out.println("parseExpressionStmt 2: " + currentToken.spelling);
+        this.currentToken = this.scanner.scan();
         return new ExprStmt(position, expr);
 
     }
@@ -307,10 +313,13 @@ public class Parser
      * <Increment> ::= EMPTY | <Expression>
      */
     private Stmt parseFor() {
+        System.out.println("parseFor---");
         int position = this.currentToken.position;
 
         this.currentToken = this.scanner.scan();        // "("
+        System.out.println("parseFor1: " + currentToken.spelling + " ?(");
         this.currentToken = this.scanner.scan();        // <Start> or ";"
+        System.out.println("parseFor2: " + currentToken.spelling + " ? var");
 
         Expr initExpr;
         if (this.currentToken.spelling.equals(";")){
@@ -361,6 +370,7 @@ public class Parser
         if (!this.currentToken.spelling.equals("}")){
             System.out.println("YAS");
             while (!this.currentToken.spelling.equals("}")){
+
                 Stmt stmt = parseStatement();
                 System.out.println("parseBlock 3:" + currentToken.spelling);
                 stmtList.addElement(stmt);
@@ -416,11 +426,11 @@ public class Parser
 
         String name = this.currentToken.spelling;
         Expr left = parseOrExpr();
-        System.out.println("Expr: "+ currentToken.spelling);
+        System.out.println("parseExpr: "+ currentToken.spelling);
         while (this.currentToken.spelling.equals("=")){
-            System.out.println("parseExpr" + currentToken.spelling);
+            System.out.println("parseExpr1: " + currentToken.spelling);
             this.currentToken = this.scanner.scan();    // <LogicalOrExpr>
-
+            System.out.println("parseExpr2: " + currentToken.spelling);
             Expr right = parseOrExpr();
             left = new AssignExpr(position, null, name, right);
         }
@@ -788,6 +798,7 @@ public class Parser
                     }
                 }
             } else {//dispatch
+                System.out.println("parsePrimary-Dispatch1 : " + currentToken.spelling +" ?(");
                 if (currentToken.spelling.equals(("."))) { //like this.a.method1()
                     ref = new VarExpr(position, ref, name); //reference = this.a
                     this.currentToken = this.scanner.scan();
@@ -797,8 +808,11 @@ public class Parser
                     name = parseIdentifier(); // name = method1
                 } else if (currentToken.spelling.equals("(")) { //like this.method() or method()
                     this.currentToken = scanner.scan();
+
                 }
+                System.out.println("parsePrimary-Dispatch2 : " + currentToken.spelling +" print stmt ");
                 ExprList paraList = parseArguments();
+                System.out.println("parsePrimary-afterParseArg: " + currentToken.spelling);
                 if (!this.currentToken.spelling.equals((")"))) {
                     this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
                             "Non-Primary Found where Primary Expected");

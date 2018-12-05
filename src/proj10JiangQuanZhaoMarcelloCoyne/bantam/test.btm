@@ -3,11 +3,9 @@ class Main{
     int y = 6;
 
     void foo(int somenum, int y){
+         var t = 0;
 
-         var i;
-         i = somenum ++ + 5;
-         this.x = somenum ++ + 5;
-         return i;
+         for (t = 0; t < 5; t++) print("Hello test for loop");
 
         }
 
