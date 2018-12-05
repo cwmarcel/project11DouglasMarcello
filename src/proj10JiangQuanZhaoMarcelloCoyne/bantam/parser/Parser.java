@@ -47,8 +47,9 @@ public class Parser
      */
     public Program parse(String filename) {
         this.fileName = filename;
-        //TODO - test code ONLY
-        return new Program(0, new ClassList(0));
+        this.scanner = new Scanner(filename, this.errorHandler);
+        this.currentToken = scanner.scan();
+        return parseProgram();
     }
 
 
