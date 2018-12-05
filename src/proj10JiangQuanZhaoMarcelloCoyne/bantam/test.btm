@@ -1,4 +1,5 @@
 class Main{
+    int i;
     int x = 4;
     int y = 6;
 
@@ -8,6 +9,10 @@ class Main{
          for (t = 0; t < 5; t++) print("Hello test for loop");
          while (t<5) print("Test while loop");
         }
+
+     void main(){
+        var i = 0;
+     }
 
 
 }
