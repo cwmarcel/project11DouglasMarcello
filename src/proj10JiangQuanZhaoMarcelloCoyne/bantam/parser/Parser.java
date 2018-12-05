@@ -93,7 +93,7 @@ public class Parser
             memberList.addElement(aMember);
         }
 
-        return new Class_(position, this.fileName, name, parentName, memberList);       
+        return new Class_(position, this.fileName, name, parentName, memberList);
     }
 
 
@@ -103,7 +103,44 @@ public class Parser
      * <Field> ::= <Type> <Identifier> <InitialValue> ;
      * <InitialValue> ::= EMPTY | = <Expression>
      */
-     private Member parseMember() { return null; }
+     private Member parseMember() {
+         int position = this.currentToken.position;
+
+         String type = parseType();
+         String identifier = parseIdentifier();
+
+         // if <Method>
+         if (this.currentToken.spelling.equals("(")){
+             FormalList parameter = parseParameters();
+             if (!this.currentToken.spelling.equals(")")){
+                 // TODO-ILLEGAL
+             }
+             this.currentToken = this.scanner.scan();   // <Block>
+             Stmt stmt = parseBlock();
+             StmtList stmtList = new StmtList(this.currentToken.position);
+             stmtList.addElement(stmt);
+             return new Method(position, type, identifier, parameter, stmtList);
+         }
+         // if <Field>
+         else{
+             // if there is an initial value
+             if (this.currentToken.spelling.equals("=")){
+                 this.currentToken = this.scanner.scan();       // <InitialValue>
+                 Expr init = parseExpression();
+                 if (!this.currentToken.equals(";")){
+                     // TODO- ERROR HANDLER
+                 }
+                 return new Field(this.currentToken.position, type, identifier, init);
+             }
+             else if (this.currentToken.spelling.equals(";")){
+                 return new Field(this.currentToken.position, type, identifier, null);
+             }
+             else{
+                 // TODO - ERROR HANDLER
+             }
+         }
+         return null;
+     }
 
 
     //-----------------------------------
