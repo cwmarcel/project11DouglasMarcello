@@ -1024,7 +1024,7 @@ public class Parser
         // test/test1.java test/test2.java test/test3.java test/test4.java test/badtest.java
         for (int i=0; i < args.length; i++) {
 
-            String filename = "/Users/Quan/Desktop/CS361Project10/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm";
+            String filename = "C:\\Users\\Danqing Zhao\\Desktop\\CS361\\proj10\\proj10JiangQuanZhaoMarcelloCoyne\\src\\proj10JiangQuanZhaoMarcelloCoyne\\bantam\\test.btm";
             System.out.println("\n------------------ " + filename + " ------------------" + "\n");
             try{
                 ErrorHandler handler = new ErrorHandler();
