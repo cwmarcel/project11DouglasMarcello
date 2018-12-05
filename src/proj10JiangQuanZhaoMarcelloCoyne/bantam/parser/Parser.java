@@ -16,6 +16,7 @@ import proj10JiangQuanZhaoMarcelloCoyne.Scanner.Error;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.visitor.Visitor;
 
+import javax.management.MBeanAttributeInfo;
 import java.util.List;
 
 import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.*;
@@ -71,7 +72,29 @@ public class Parser
      * <ExtendsClause> ::= EXTENDS <Identifier> | EMPTY
      * <MemberList> ::= EMPTY | <Member> <MemberList>
      */
-    private Class_ parseClass() { return null; }
+    private Class_ parseClass() {
+        int position = this.currentToken.position;
+
+        this.currentToken = this.scanner.scan();    // <Identifier>
+        String name = parseIdentifier();
+        String parentName;
+
+        if (this.currentToken.kind == EXTENDS){     // if there is <ExtendsClause>
+            this.currentToken = this.scanner.scan();
+            parentName = parseIdentifier();
+        }
+        else {                                      // if <ExtendsClause> is empty, currentToken: "{"
+            parentName = null;
+        }
+        this.currentToken = this.scanner.scan();    // <MemberList>
+        MemberList memberList = new MemberList(this.currentToken.position);
+        while (!this.currentToken.spelling.equals("}")){
+            Member aMember = parseMember();
+            memberList.addElement(aMember);
+        }
+
+        return new Class_(position, this.fileName, name, parentName, memberList);       
+    }
 
 
     /* Fields and Methods
