@@ -405,7 +405,7 @@ public class Parser
             elseStmt = parseStatement();
         }
 
-        this.currentToken = this.scanner.scan();
+
         return new IfStmt(position, predExpr, thenStmt, elseStmt);
 
     }
@@ -536,8 +536,9 @@ public class Parser
             left = new BinaryCompGeqExpr(position, left, right);
         }
         else if (this.currentToken.kind == INSTANCEOF){
+            System.out.println("INSTANCEOF");
             this.currentToken = this.scanner.scan();
-            String type = this.currentToken.spelling;
+            String type = parseType();
             left = new InstanceofExpr(position, left, type);
         }
 
@@ -651,6 +652,11 @@ public class Parser
         if (this.currentToken.spelling.equals("[")){
             this.currentToken = this.scanner.scan();        // <Expression>
             Expr expr = parseExpression();
+            this.currentToken = this.scanner.scan();
+        }
+        else{
+            this.currentToken = this.scanner.scan();    // )
+            this.currentToken = this.scanner.scan();    // new
         }
 
         return new NewExpr(position,type);
@@ -661,6 +667,7 @@ public class Parser
 	 * <CastExpression> ::= CAST ( <Type> , <Expression> )
      */
 	private Expr parseCast() {
+	    System.out.println("parseCast----");
 	    int position = this.currentToken.position;      // CAST
         this.currentToken = this.scanner.scan();        // "("
         if ( !this.currentToken.spelling.equals("(") ){
@@ -684,6 +691,7 @@ public class Parser
         if (!this.currentToken.spelling.equals(")")){
             // TODO: ILLEGAL
         }
+        this.currentToken = this.scanner.scan();
 
         return new CastExpr(position, type, expr);
 
@@ -1016,7 +1024,7 @@ public class Parser
         // test/test1.java test/test2.java test/test3.java test/test4.java test/badtest.java
         for (int i=0; i < args.length; i++) {
 
-            String filename = "C:\\Users\\Danqing Zhao\\Desktop\\CS361\\proj10\\proj10JiangQuanZhaoMarcelloCoyne\\src\\proj10JiangQuanZhaoMarcelloCoyne\\bantam\\test.btm";
+            String filename = "/Users/Quan/Desktop/CS361Project10/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/test.btm";
             System.out.println("\n------------------ " + filename + " ------------------" + "\n");
             try{
                 ErrorHandler handler = new ErrorHandler();
