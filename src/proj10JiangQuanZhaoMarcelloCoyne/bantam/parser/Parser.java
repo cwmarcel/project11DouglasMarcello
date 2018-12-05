@@ -14,6 +14,9 @@ package proj10JiangQuanZhaoMarcelloCoyne.bantam.parser;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.*;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.Error;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
+import proj10JiangQuanZhaoMarcelloCoyne.bantam.visitor.Visitor;
+
+import java.util.List;
 
 import static proj10JiangQuanZhaoMarcelloCoyne.Scanner.Token.Kind.*;
 
@@ -637,10 +640,10 @@ public class Parser
             }
             this.currentToken = scanner.scan();
             String name = parseIdentifier(); //parse name (variable or method)
-            if (!currentToken.spelling.equals("(") && !currentToken.spelling.equals(("."))) {//not dispatch (variable)
-                if (!currentToken.spelling.equals("[")) {//not array member
+            if (!currentToken.spelling.equals("(") && !currentToken.spelling.equals(("."))) {
+                if (!currentToken.spelling.equals("[")) {//not array member. like this.a
                     expr = new VarExpr(position, ref, name);
-                } else {//array member
+                } else {//array member like this.a[2]
                     this.currentToken = scanner.scan();
                     Expr index = parseExpression();
                     expr = new ArrayExpr(position, ref, name, index);
@@ -658,7 +661,7 @@ public class Parser
                         this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position, "Method not found");
                     }
                     name = parseIdentifier(); // name = method1
-                } else if (currentToken.spelling.equals("(")) {
+                } else if (currentToken.spelling.equals("(")) { //like this.method() or method()
                     this.currentToken = scanner.scan();
                 }
                 ExprList paraList = parseArguments();
@@ -826,4 +829,44 @@ public class Parser
         }
         return new ConstBooleanExpr(currentToken.position, currentToken.getSpelling());
     }
+
+    public static void main(String[] args) {
+        // command line arguments we used for testing purpose
+        // test/test1.java test/test2.java test/test3.java test/test4.java test/badtest.java
+        for (int i=0; i < args.length; i++) {
+
+            String filename = args[i];
+            System.out.println("\n------------------ " + filename + " ------------------" + "\n");
+            try{
+                ErrorHandler handler = new ErrorHandler();
+                Parser parser = new Parser(handler);
+                Program program = parser.parse(filename);
+                program.accept(new Visitor() {
+                    @Override
+                    public Object visit(Program node) {
+                        return super.visit(node);
+                    }
+                });
+
+                List<Error> errorList = handler.getErrorList();
+                for (Error err : errorList) {
+                    System.out.println(err.toString());
+                }
+
+                if (errorList.size() == 0) {
+                    System.out.println("Scanning was successful!");
+                } else if (errorList.size() == 1) {
+                    System.out.println("\n1 illegal token was found.");
+                } else {
+                    System.out.println("\n" + errorList.size() + " illegal tokens were found.");
+                }
+            }catch (Exception e) {
+                    System.out.println("ERROR: Scanning " + filename + " failed!");
+                }
+            }
+
+
+    }
 }
+
+
