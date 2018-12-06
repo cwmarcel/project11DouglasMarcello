@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd676c23-174a-42b1-a33e-6328b04f2458" name="Default Changelist" comment="">
+    <list default="true" id="fd676c23-174a-42b1-a33e-6328b04f2458" name="Default Changelist" comment="GUI Update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/proj10JiangQuanZhaoMarcelloCoyne/proj10JiangQuanZhaoMarcelloCoyne/fxml/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proj10JiangQuanZhaoMarcelloCoyne/proj10JiangQuanZhaoMarcelloCoyne/fxml/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proj10JiangQuanZhaoMarcelloCoyne.iml" beforeDir="false" afterPath="$PROJECT_DIR$/proj10JiangQuanZhaoMarcelloCoyne.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Controllers/DirectoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Controllers/DirectoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Controllers/StructureViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Controllers/StructureViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Controllers/ToolBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/Controllers/ToolBarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/fxml/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/fxml/Main.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -104,8 +98,8 @@
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="471" column="43" lean-forward="true" selection-start-line="471" selection-start-column="43" selection-end-line="471" selection-end-column="43" />
+            <state relative-caret-position="123">
+              <caret line="922" column="27" selection-start-line="922" selection-start-column="27" selection-end-line="922" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -443,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544050749613</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="GUI Update">
+      <created>1544065553921</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1544065553921</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -451,17 +452,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="11" y="24" width="1222" height="983" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.492635" weight="0.19031903" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4918167" weight="0.19031903" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.33224222" side_tool="true" visible="true" weight="0.35313532" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.33306056" side_tool="true" visible="true" weight="0.35313532" />
       <window_info anchor="right" id="Maven Projects" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.66775775" visible="true" weight="0.35313532" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.66693944" visible="true" weight="0.35313532" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43727598" weight="0.24846625" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="4" />
@@ -502,7 +502,8 @@
     <MESSAGE value="edit parameter parsing" />
     <MESSAGE value="nice parse primary supporting foo().foo()" />
     <MESSAGE value="argument file reader" />
-    <option name="LAST_COMMIT_MESSAGE" value="argument file reader" />
+    <MESSAGE value="GUI Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI Update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -860,8 +861,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/proj10JiangQuanZhaoMarcelloCoyne/bantam/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="471" column="43" lean-forward="true" selection-start-line="471" selection-start-column="43" selection-end-line="471" selection-end-column="43" />
+        <state relative-caret-position="123">
+          <caret line="922" column="27" selection-start-line="922" selection-start-column="27" selection-end-line="922" selection-end-column="27" />
         </state>
       </provider>
     </entry>
