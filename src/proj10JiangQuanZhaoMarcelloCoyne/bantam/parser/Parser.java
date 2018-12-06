@@ -923,15 +923,23 @@ public class Parser
     /*
      * <Type> ::= <Identifier> <Brackets>
      * <Brackets> ::= EMPTY | [ ]
+     * String
      */
     //TODO - BRACKETS - how do I do them
     private String parseType() {
         String id = parseIdentifier();
         if (this.currentToken.getSpelling() == "[") {
-            scanner.scan();
-            scanner.scan();
-            return (id + "[]");
+            this.currentToken = scanner.scan();
+            if(this.currentToken.getSpelling() == "]") {
+                this.currentToken = scanner.scan();
+                return (id + "[]");
+            }
+            else {
+                this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, currentToken.position,
+                        "Open Bracket found without Closing Bracket");
+            }
         }
+
         return id;
 
     }
