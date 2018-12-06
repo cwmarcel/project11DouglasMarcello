@@ -903,7 +903,16 @@ public class Parser
      */
     //TODO - BRACKETS - how do I do them
     private String parseType() {
-        return parseIdentifier();
+        String id = parseIdentifier();
+        /*
+        if (this.currentToken.getSpelling() == "[") {
+            scanner.scan();
+            scanner.scan();
+            return (id + "[]");
+        }
+        */
+        return id;
+
     }
     //----------------------------------------
     //Terminals

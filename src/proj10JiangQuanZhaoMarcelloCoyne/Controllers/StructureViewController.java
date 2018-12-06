@@ -203,7 +203,7 @@ public class StructureViewController {
         if (currentCodeArea != null) {
             if (currentFile != null) {
                 String fileName = currentFile.getName();
-                if (fileName.endsWith(".java")) {
+                if (fileName.endsWith(".java" )) {
                     this.generateStructureTree(currentCodeArea.getText());
                 }
             } else {

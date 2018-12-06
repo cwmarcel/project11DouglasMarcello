@@ -187,7 +187,7 @@ public class DirectoryController {
         if (event.getClickCount() == 2 && !event.isConsumed() && selectedItem.getChildren().size() == 0) {
             event.consume();
             String fileName = (String) selectedItem.getValue();
-            if (fileName.endsWith(".java")) {
+            if (fileName.endsWith(".java") || fileName.endsWith(".btm")) {
                 this.fileMenuController.handleOpenFile(this.treeItemFileMap.get(selectedItem));
             }
         }

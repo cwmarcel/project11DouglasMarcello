@@ -85,7 +85,7 @@
 
     <ToolBar fx:id="toolBar" VBox.vgrow="ALWAYS">
         <Button text="Scan" fx:id="scanButton" onAction="#handleScanButtonAction"/>
-        <Button text="Parse" fx:id="parseButton" onAction="#handleParseButtonAction"/>
+        <Button text="Scan &amp; Parse" fx:id="parseButton" onAction="#handleParseButtonAction"/>
         <CheckBox text="Display File Structure" fx:id="displayFileStructCheckBox" alignment="CENTER_RIGHT" mnemonicParsing="false" selected="true"/>
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="+" fx:id="addTabButton" styleClass="tabPaneButton" onAction="#handleNewAction"/>

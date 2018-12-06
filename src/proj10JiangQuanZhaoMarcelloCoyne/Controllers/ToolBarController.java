@@ -30,6 +30,7 @@ import proj10JiangQuanZhaoMarcelloCoyne.Scanner.ErrorHandler;
 import proj10JiangQuanZhaoMarcelloCoyne.Scanner.Scanner;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.parser.Parser;
 import proj10JiangQuanZhaoMarcelloCoyne.bantam.ast.*;
+import proj10JiangQuanZhaoMarcelloCoyne.bantam.treedrawer.Drawer;
 
 /**
  * ToolbarController handles Toolbar related actions.
@@ -85,6 +86,10 @@ public class ToolBarController {
      * A Program to store the parsed program.
      */
     private Program program;
+    /**
+     * A Drawer to draw the AST once the program has been parsed.
+     */
+    private Drawer drawer;
 
     /**
      * Initializes the ToolBarController controller.
@@ -95,6 +100,7 @@ public class ToolBarController {
         this.mutex = new Semaphore(1);
         this.scanWorker = new ScanWorker();
         this.parseWorker = new ParseWorker();
+        this.drawer = new Drawer();
         this.disableConsoleFocusMove();
     }
 
@@ -330,7 +336,8 @@ public class ToolBarController {
             ErrorHandler errorHandler = new ErrorHandler();
             this.parser = new Parser(errorHandler);
             this.program = this.parser.parse(filename); //TODO - test this once the parse works
-            this.outputToNewTab("Something got parsed i tell you hwat.");
+            this.drawer.draw(filename, this.program);
+            //this.outputToNewTab("Something got parsed i tell you hwat.");
             this.errorToConsole(errorHandler.getErrorList(), "Parsing");
             return true;
         } catch (Throwable e) {
