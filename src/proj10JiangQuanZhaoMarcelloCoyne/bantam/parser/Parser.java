@@ -925,7 +925,6 @@ public class Parser
      * <Brackets> ::= EMPTY | [ ]
      * String
      */
-    //TODO - BRACKETS - how do I do them
     private String parseType() {
         String id = parseIdentifier();
         if (this.currentToken.getSpelling() == "[") {
