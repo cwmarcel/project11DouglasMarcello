@@ -647,7 +647,7 @@ public class Parser
         this.currentToken = this.scanner.scan();        // <identifier>
 
         String type = parseIdentifier();
-
+        //TODO error handle to check "new"
         // if there is <Expression>
         if (this.currentToken.spelling.equals("[")){
             this.currentToken = this.scanner.scan();        // <Expression>
@@ -660,7 +660,7 @@ public class Parser
         }
 
         return new NewExpr(position,type);
-    }
+}
 
 
     /*
@@ -811,7 +811,27 @@ public class Parser
                 paraList = parseArguments();
                 expr = new DispatchExpr(position, ref, name, paraList);
             }
+            if(this.currentToken.spelling.equals(".")){
+                this.currentToken = this.scanner.scan();
+                name = parseIdentifier();
+                if(name.equals("length")){
+                    expr = new VarExpr(position, ref, name );
+                    if(this.currentToken.spelling.equals(".")||this.currentToken.spelling.equals("(")){
+                        this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
+                                "Cannot Call method on length");
+                    }
+                    return expr;
+                }
+                if (!this.currentToken.spelling.equals(("("))) {
+                    this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
+                            "Non-Primary Found where Primary Expected");
+                }
+                this.currentToken = this.scanner.scan();
+                paraList = parseArguments();
+                expr = new DispatchExpr(position, ref, name, paraList);
 
+
+            }
             while(this.currentToken.spelling.equals(".")){
                 this.currentToken = this.scanner.scan();
                 ref = expr;
