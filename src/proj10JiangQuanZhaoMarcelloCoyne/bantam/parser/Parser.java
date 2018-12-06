@@ -97,6 +97,9 @@ public class Parser
                 System.out.println("parseClassCheck: "+currentToken.spelling);
                 Member aMember = parseMember();
                 memberList.addElement(aMember);
+                if (this.currentToken.getKind().equals(EOF)) {
+                    break;
+                }
             }
         }
 
@@ -924,21 +927,16 @@ public class Parser
     //TODO - BRACKETS - how do I do them
     private String parseType() {
         String id = parseIdentifier();
-        /*
         if (this.currentToken.getSpelling() == "[") {
             scanner.scan();
             scanner.scan();
             return (id + "[]");
         }
-        */
         return id;
 
     }
     //----------------------------------------
     //Terminals
-    // I'M NOT SURE ABOUT THESE AT ALL
-    // JUST BEST GUESS
-    //definitely not done or right
     private String parseOperator() {
         String spelling = currentToken.getSpelling();
         Boolean error = false;
@@ -988,7 +986,7 @@ public class Parser
         }
         if (error) {
             this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, currentToken.position,
-                    "Non-Identifier Found where Identifier expected.");
+                    "Non-Operator Found where Operator expected.");
         }
         this.currentToken = scanner.scan();
         return spelling;
@@ -1064,8 +1062,6 @@ public class Parser
                     System.out.println("ERROR: Parsing " + filename + " failed!");
                 }
             }
-
-
     }
 }
 
