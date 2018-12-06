@@ -772,6 +772,8 @@ public class Parser
     private Expr parsePrimary() {
         int position = currentToken.position;
         Expr expr;
+        Expr ref = null;
+        ExprList paraList;
         if(currentToken.kind ==  INTCONST) {
             expr = parseIntConst();
         } else if (currentToken.kind == STRCONST) {
@@ -779,22 +781,20 @@ public class Parser
         } else if (currentToken.kind == BOOLEAN) {
             expr = parseBoolean();
         }else{
-            Expr ref = null;
+
             if(currentToken.spelling.equals("this")||currentToken.spelling.equals("super")){
-                ref = new VarExpr(position, null, currentToken.spelling);
-                this.currentToken=scanner.scan(); //"this." or "super."
-                if(!currentToken.spelling.equals(".")){ //"this" or "super"
-                    expr = ref;
+                expr = new VarExpr(position, null, currentToken.spelling);
+                this.currentToken = scanner.scan();
+                if(!this.currentToken.spelling.equals(".")){
                     return expr;
                 }
                 this.currentToken = scanner.scan();
+                ref = expr;
             }
-
             String name = parseIdentifier(); //parse name (variable or method)
-            if (!currentToken.spelling.equals("(") && !currentToken.spelling.equals(("."))) {
+            if (!currentToken.spelling.equals("(")) {
                 if (!currentToken.spelling.equals("[")) {//not array member. like this.a
                     expr = new VarExpr(position, ref, name);
-                    return expr;
                 } else {//array member like this.a[2]
                     this.currentToken = scanner.scan();
                     Expr index = parseExpression();
@@ -804,41 +804,27 @@ public class Parser
                                 "Non-Primary Found where Primary Expected");
                     }
                     this.currentToken = scanner.scan();
-                    return expr;
                 }
-            } else {//dispatch
-                System.out.println("parsePrimary-Dispatch1 : " + currentToken.spelling +" ?(");
-                if (currentToken.spelling.equals(("."))) { //like this.a.method1()
-                    ref = new VarExpr(position, ref, name); //reference = this.a
-                    this.currentToken = this.scanner.scan();//this.a.method|()
-                    name = parseIdentifier(); // name = method1
-                    if(!currentToken.spelling.equals("(")){//like this.a.b, not allowed
-                        this.errorHandler.register(Error.Kind.PARSE_ERROR, this.fileName, position, "Method not found");
-                    }
-                    this.currentToken = this.scanner.scan();
-                } else if (currentToken.spelling.equals("(")) { //like this.method() or method()
-                    this.currentToken = this.scanner.scan();
-
-                }
-                System.out.println("parsePrimary-Dispatch2 : " + currentToken.spelling +" print stmt ");
-                ExprList paraList = parseArguments();
-                System.out.println("parsePrimary-afterParseArg: " + currentToken.spelling);
+            } else {//dispatch like this.method() or method()
+                this.currentToken = this.scanner.scan();
+                System.out.println("parsePrimary-Dispatch : " + name +" print stmt ");
+                paraList = parseArguments();
                 expr = new DispatchExpr(position, ref, name, paraList);
-                if(this.currentToken.spelling.equals(".")){
-                    while(this.currentToken.spelling.equals(".")){
-                        this.currentToken = this.scanner.scan();
-                        ref = new DispatchExpr(position, ref, name, paraList);
-                        name = parseIdentifier();
-                        if (!this.currentToken.spelling.equals(("("))) {
-                            this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
-                                    "Non-Primary Found where Primary Expected");
-                        }
-                        this.currentToken = this.scanner.scan();
-                        paraList = parseArguments();
-                        expr = new DispatchExpr(position, ref, name, paraList);
-                    }
-                }
             }
+
+            while(this.currentToken.spelling.equals(".")){
+                this.currentToken = this.scanner.scan();
+                ref = expr;
+                name = parseIdentifier();
+                if (!this.currentToken.spelling.equals(("("))) {
+                    this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
+                            "Non-Primary Found where Primary Expected");
+                }
+                this.currentToken = this.scanner.scan();
+                paraList = parseArguments();
+                expr = new DispatchExpr(position, ref, name, paraList);
+            }
+
         }
 
         return expr;
