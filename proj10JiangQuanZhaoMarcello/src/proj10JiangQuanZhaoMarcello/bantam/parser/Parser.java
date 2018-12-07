@@ -594,33 +594,38 @@ public class Parser {
      * <ComparisonOp> ::=  < | > | <= | >= | INSTANCEOF
      */
     private Expr parseRelationalExpr() {
-        int position = this.currentToken.position;      // <AddExpr>
+        int position = this.currentToken.position;
 
-        Expr left = parseAddExpr();
-        System.out.println("Relational: " + currentToken.spelling);
+        // <AddExpr>
+        Expr left = this.parseAddExpr();
         Expr right;
+
+        // "<"
         if (this.currentToken.spelling.equals("<")){
             this.scan();
             right = parseAddExpr();
             left = new BinaryCompLtExpr(position, left, right);
         }
+        // ">"
         else if (this.currentToken.spelling.equals(">")){
             this.scan();
             right = parseAddExpr();
             left = new BinaryCompGtExpr(position, left, right);
         }
+        // "<="
         else if (this.currentToken.spelling.equals("<=")){
             this.scan();
             right = parseAddExpr();
             left = new BinaryCompLeqExpr(position, left, right);
         }
+        // ">="
         else if (this.currentToken.spelling.equals(">=")){
             this.scan();
             right = parseAddExpr();
             left = new BinaryCompGeqExpr(position, left, right);
         }
+        // INSTANCEOF
         else if (this.currentToken.kind == INSTANCEOF){
-            System.out.println("INSTANCEOF");
             this.scan();
             String type = parseType();
             left = new InstanceofExpr(position, left, type);
