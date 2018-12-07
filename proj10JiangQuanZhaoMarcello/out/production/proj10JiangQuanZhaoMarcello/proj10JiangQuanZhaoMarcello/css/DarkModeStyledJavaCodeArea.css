@@ -1,0 +1,87 @@
+/*
+ * File: DarkModeStyledJavaCodeArea.css
+ * F18 CS361 Project 10
+ * Names: Liwei Jiang, Tracy Quan, Danqing Zhao, Chris Marcello
+ * Cascading Style Sheet for DarkModeStyledJavaCodeArea.java, defining the design styles of the GUI elements.
+ * Date: 10/23/2018
+ */
+
+/* style of text area */
+.styled-text-area {
+    -fx-background-color: #282828;
+    -fx-cursor: text;
+    -fx-fill: red;
+}
+
+/* style of text area in paragraph box */
+.styled-text-area .paragraph-box {
+    -fx-padding: 0 2px;
+}
+
+/* style of text area in text */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .text{
+    -fx-fill: white;
+}
+
+/* style of text area in caret */
+.styled-text-area .caret {
+    -rtfx-blink-rate: 500ms;
+    -fx-stroke-width: 1.0;
+    -fx-background-color: darkgrey;
+}
+
+/* style of text area in selection */
+.styled-text-area .selection {
+    -fx-text-fill: dodgerblue;
+    -fx-stroke-width: 0;
+    -fx-background-color: darkgrey;
+}
+
+/* style of keywords */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .keyword {
+    -fx-fill: orange;
+    -fx-font-weight: bold;
+}
+
+/* style of semicolons */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .semicolon {
+    -fx-font-weight: bold;
+}
+
+/* style of parenthesis */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .paren {
+    -fx-fill: skyblue;
+    -fx-font-weight: bold;
+}
+
+/* style of brackets */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .bracket {
+    -fx-fill: skyblue;
+    -fx-font-weight: bold;
+}
+
+/* style of braces */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .brace {
+    -fx-fill: skyblue;
+    -fx-font-weight: bold;
+}
+
+/* style of strings */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .string {
+    -fx-fill: #2affe4;
+}
+
+/* style of integers */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .integer{
+    -fx-fill: #b92726;
+}
+
+/* style of comments */
+.styled-text-area .virtual-flow .paragraph-box .paragraph-text .comment {
+    -fx-fill: cadetblue;
+}
+
+/* style of paragraph boxes */
+.paragraph-box:has-caret {
+    -fx-background-color: #4b4d4f;
+}
