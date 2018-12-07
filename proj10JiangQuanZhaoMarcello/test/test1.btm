@@ -13,6 +13,8 @@ class Main1 {
          ++ts--;
          -ts++;
 
+         i = 3 * 5 / 10 % d * 10 + 90 - r;
+
          for (t = 0; t < 5; t++) print("Hello test for loop");
          while (t<5) {
             print("Test while loop");

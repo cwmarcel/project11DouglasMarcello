@@ -320,19 +320,19 @@ public class ToolBarController {
      *         false if scanning or scanning & parsing fails
      */
     private boolean scanParseJavaFile(File file, boolean scanAndParse) {
+        ErrorHandler errorHandler = new ErrorHandler();
         try {
             Platform.runLater(() -> {
                 this.console.clear();
             });
             String filename = file.getPath(); // get the filename(path) of the file
-            ErrorHandler errorHandler = new ErrorHandler();
             if (scanAndParse) {
                 this.parser = new Parser(errorHandler);
                 this.program = this.parser.parse(filename);
                 this.drawer.draw(filename, this.program);
                 this.errorToConsole(errorHandler.getErrorList(), "Parsing");
             } else {
-                this.scanner = new Scanner( filename, errorHandler);
+                this.scanner = new Scanner(filename, errorHandler);
                 this.tokenStr = this.scanner.scanFile();
                 this.outputToNewTab(this.tokenStr);
                 this.errorToConsole(errorHandler.getErrorList(), "Scanning");
@@ -341,7 +341,11 @@ public class ToolBarController {
         } catch (Throwable e) {
             Platform.runLater(() -> {
                 if (scanAndParse) {
-                    this.fileMenuController.createErrorDialog("File Parsing", "Error parsing.\nPlease try again with another valid Java File.");
+                    try {
+                        this.errorToConsole(errorHandler.getErrorList(), "Parsing");
+                    } catch (Exception err) {
+                        this.fileMenuController.createErrorDialog("File Parsing", "Error parsing.\nPlease try again with another valid Java File.");
+                    }
                 } else {
                     this.fileMenuController.createErrorDialog("File Scanning", "Error scanning.\nPlease try again with another valid Java File.");
                 }
@@ -392,16 +396,12 @@ public class ToolBarController {
      *
      * @param event Event object
      */
-    public void handleScanButtonAction(Event event) {
-        this.handleScanParseFile(event, false);
-    }
+    public void handleScanButtonAction(Event event) { this.handleScanParseFile(event, false); }
 
     /**
      * Handles the Parse button action.
      *
      * @param event Event object
      */
-    public void handleParseButtonAction(Event event) {
-        this.handleScanParseFile(event, true);
-    }
+    public void handleParseButtonAction(Event event) { this.handleScanParseFile(event, true); }
 }

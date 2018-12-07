@@ -600,62 +600,41 @@ public class Parser {
         Expr left = this.parseAddExpr();
         Expr right;
 
+        // <ComparisonOp>
         // "<"
         if (this.currentToken.spelling.equals("<")){
             this.scan();
-            right = parseAddExpr();
+            // <AddExpr>
+            right = this.parseAddExpr();
             left = new BinaryCompLtExpr(position, left, right);
         }
         // ">"
         else if (this.currentToken.spelling.equals(">")){
             this.scan();
-            right = parseAddExpr();
+            // <AddExpr>
+            right = this.parseAddExpr();
             left = new BinaryCompGtExpr(position, left, right);
         }
         // "<="
         else if (this.currentToken.spelling.equals("<=")){
             this.scan();
-            right = parseAddExpr();
+            // <AddExpr>
+            right = this.parseAddExpr();
             left = new BinaryCompLeqExpr(position, left, right);
         }
         // ">="
         else if (this.currentToken.spelling.equals(">=")){
             this.scan();
-            right = parseAddExpr();
+            // <AddExpr>
+            right = this.parseAddExpr();
             left = new BinaryCompGeqExpr(position, left, right);
         }
         // INSTANCEOF
         else if (this.currentToken.kind == INSTANCEOF){
             this.scan();
-            String type = parseType();
+            // <AddExpr>
+            String type = this.parseType();
             left = new InstanceofExpr(position, left, type);
-        }
-
-        return left;
-    }
-
-
-    /*
-     * <AddExpr>::＝ <MultExpr> <MoreMultExpr>
-     * <MoreMultExpr> ::= EMPTY | + <MultExpr> <MoreMultExpr> | - <MultExpr> <MoreMultExpr>
-     */
-    private Expr parseAddExpr() {
-        System.out.println("parseAddExpr---");
-        int position = this.currentToken.position;      // <MultExpr>
-
-        Expr left = parseMultExpr();
-        Expr right;
-        while (this.currentToken.spelling.equals("+") || this.currentToken.spelling.equals("-") ){
-            if (this.currentToken.spelling.equals("+")){
-                this.scan();
-                right = parseMultExpr();
-                left = new BinaryArithPlusExpr(position, left, right);
-            }
-            if (this.currentToken.spelling.equals("-")){
-                this.scan();
-                right = parseMultExpr();
-                left = new BinaryArithMinusExpr(position, left, right);
-            }
         }
 
         return left;
@@ -673,29 +652,63 @@ public class Parser {
         int position = this.currentToken.position;
 
         // <NewCastOrUnary>
-        Expr left = parseNewCastOrUnary();
+        Expr left = this.parseNewCastOrUnary();
         Expr right;
 
         while (this.currentToken.spelling.equals("*") ||
                 this.currentToken.spelling.equals("/") ||
                 this.currentToken.spelling.equals("%")) {
 
-            this.scan();
-            right = this.parseNewCastOrUnary();
-
             if (this.currentToken.spelling.equals("*")) {
+                this.scan();
+                // <NewCastOrUnary>
+                right = this.parseNewCastOrUnary();
                 left = new BinaryArithTimesExpr(position, left, right);
             }
             else if (this.currentToken.spelling.equals("/")){
+                this.scan();
+                // <NewCastOrUnary>
+                right = this.parseNewCastOrUnary();
                 left = new BinaryArithDivideExpr(position, left, right);
             }
             else if (this.currentToken.spelling.equals("%")){
+                this.scan();
+                // <NewCastOrUnary>
+                right = this.parseNewCastOrUnary();
                 left = new BinaryArithModulusExpr(position, left, right);
             }
         }
-
         return left;
+    }
 
+    /*
+     * <AddExpr>::＝ <MultExpr> <MoreMultExpr>
+     * <MoreMultExpr> ::= EMPTY | + <MultExpr> <MoreMultExpr> | - <MultExpr> <MoreMultExpr>
+     */
+    private Expr parseAddExpr() {
+        int position = this.currentToken.position;
+
+        // <MultExpr>
+        Expr left = this.parseMultExpr();
+        Expr right;
+
+        // <MoreMultExpr>
+        while (this.currentToken.spelling.equals("+") || this.currentToken.spelling.equals("-") ) {
+
+            // + <MultExpr> <MoreMultExpr>
+            if (this.currentToken.spelling.equals("+")) {
+                this.scan();
+                right = parseMultExpr();
+                left = new BinaryArithPlusExpr(position, left, right);
+            }
+            // - <MultExpr> <MoreMultExpr>
+            else if (this.currentToken.spelling.equals("-")){
+                this.scan();
+                right = parseMultExpr();
+                left = new BinaryArithMinusExpr(position, left, right);
+            }
+        }
+        return left;
     }
 
     /*
@@ -1069,8 +1082,10 @@ public class Parser {
         for (int i=0; i < args.length; i++) {
             String filename = args[i];
             System.out.println("\n------------------ " + filename + " ------------------" + "\n");
+
             ErrorHandler handler = new ErrorHandler();
             Parser parser = new Parser(handler);
+
             try{
                 Program program = parser.parse(filename);
                 Drawer drawer = new Drawer();
