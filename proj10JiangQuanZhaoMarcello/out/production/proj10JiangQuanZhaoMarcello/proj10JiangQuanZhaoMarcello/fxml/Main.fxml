@@ -103,7 +103,7 @@
             <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS"/>
             <VirtualizedScrollPane fx:id="virtualizedScrollPane">
                 <content>
-                    <StyleClassedTextArea fx:id="console"/>
+                    <StyleClassedTextArea fx:id="console" wrapText="true"/>
                 </content>
             </VirtualizedScrollPane>
         </SplitPane>

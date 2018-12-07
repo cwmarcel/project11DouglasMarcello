@@ -66,21 +66,22 @@ public class Parser {
         return parseProgram();
     }
 
-
     /**
      * Gets the next Token from the scanner and assigns it to the currentToken field.
      * Skips the COMMENT Tokens.
+     * Throws a compilation error when encountering illegal Tokens.
      */
     private void scan() {
         this.currentToken = this.scanner.scan();
-        if (this.currentToken.kind == ERROR) {
-            throw new CompilationException("Illegal token " + this.currentToken.spelling + " was found.");
-        }
+        // skip the comments
         while (this.currentToken.kind == COMMENT) {
             this.currentToken = this.scanner.scan();
         }
+        // throw a CompilationException if the current Token is an illegal Token
+        if (this.currentToken.kind == ERROR) {
+            throw new CompilationException("Illegal token " + this.currentToken.spelling + " was found.");
+        }
     }
-
 
     /**
      * Helper method to register an error to the error handler.
@@ -92,13 +93,12 @@ public class Parser {
         throw new CompilationException(message);
     }
 
-
     /**
      * Helper method to check whether the current token matches to the target string.
-     * If does not match, then registers an error indicating the mismatch.
+     * If the current Token does not match, then registers an error indicating the mismatch.
      *
      * @param targetStr a String that we want to check whether it matches to the current token
-     * @param errorMsg error message if mismatch happens
+     * @param errorMsg s String of error message to notify a mismatch happens
      */
     private void checkCurrentTokenMatched(String targetStr, String errorMsg) {
         if (!this.currentToken.spelling.equals(targetStr)) {
@@ -114,63 +114,76 @@ public class Parser {
         ClassList classList = new ClassList(position);
 
         while (currentToken.kind != EOF) {
-            Class_ aClass = parseClass();
+            Class_ aClass = this.parseClass();
             classList.addElement(aClass);
         }
         return new Program(position, classList);
     }
-
 
     /*
      * <ExtendsClause> ::= EXTENDS <Identifier> | EMPTY
      */
     private String parseExtendsClause() {
         String parentName;
-        if (this.currentToken.kind == EXTENDS) {     // if there is <ExtendsClause>
+        // <ExtendsClause>
+        if (this.currentToken.kind == EXTENDS) {
             this.scan();
-            parentName = this.parseIdentifier();
+            // <Identifier>
+            parentName = this.parseIdentifier("Illegal extended class name.");
         }
-        else {                                      // if <ExtendsClause> is empty
+        // EMPTY
+        else {
             parentName = null;
         }
         return parentName;
     }
 
     /*
-     * <Class> ::= CLASS <Identifier> <ExtendsClause> { <MemberList> }
-     * <ExtendsClause> ::= EXTENDS <Identifier> | EMPTY
      * <MemberList> ::= EMPTY | <Member> <MemberList>
      */
-    private Class_ parseClass() {
-        int position = this.currentToken.position;
-        String name;
-        String parentName;
-        MemberList memberList;
-
-        // if the class keyword is illegal
-        this.checkCurrentTokenMatched("class", "The class definition is illegal");
-
-        this.scan(); // <Identifier>
-        name = this.parseIdentifier();
-
-        parentName = this.parseExtendsClause();
-
-        // if missing the left curly bracket {
-        this.checkCurrentTokenMatched("{", "Class definition missing the left {.");
-
-        this.scan();
-        memberList = new MemberList(this.currentToken.position); // <MemberList>
+    private MemberList parseMemberList() {
+        MemberList memberList = new MemberList(this.currentToken.position);
         if (!this.currentToken.spelling.equals("}")) {
             while (!this.currentToken.spelling.equals("}")){
                 Member aMember = this.parseMember();
                 memberList.addElement(aMember);
-                // if missing the right curly bracket }
+                // if missing the right curly brace "}"
                 if (this.currentToken.getKind().equals(EOF)) {
-                    this.registerError("Class definition missing the right }.");
+                    this.registerError("Class definition missing the right curly brace }.");
                     break;
                 }
             }
         }
+        return memberList;
+    }
+
+    /*
+     * <Class> ::= CLASS <Identifier> <ExtendsClause> { <MemberList> }
+     */
+    private Class_ parseClass() {
+        int position = this.currentToken.position;
+
+        // CLASS
+        // if the class keyword is illegal
+        this.checkCurrentTokenMatched("class", "The class definition is illegal.");
+
+        // <Identifier>
+        this.scan();
+        String name = this.parseIdentifier("Illegal class name.");
+
+        // <ExtendsClause>
+        String parentName = this.parseExtendsClause();
+
+        // "{"
+        this.checkCurrentTokenMatched("{", "Class definition missing the left curly brace {.");
+
+        // <MemberList>
+        this.scan();
+       MemberList memberList = this.parseMemberList();
+
+        // "}"
+        this.checkCurrentTokenMatched("}", "Class definition missing the right curly brace }.");
+
         this.scan();
         return new Class_(position, this.fileName, name, parentName, memberList);
     }
@@ -180,15 +193,19 @@ public class Parser {
      */
     private Method parseMethod(int position, String type, String identifier) {
         this.scan();
+        // <Parameters>
         FormalList parameter = this.parseParameters();
+
+        // ")"
         this.checkCurrentTokenMatched(")", "Method declaration missing the right parenthesis ).");
-        this.scan();   // <Block>
+
+        // <Block>
+        this.scan();
         Stmt stmt = this.parseBlock();
         StmtList stmtList = new StmtList(this.currentToken.position);
         stmtList.addElement(stmt);
         return new Method(position, type, identifier, parameter, stmtList);
     }
-
 
     /*
      * <Field> ::= <Type> <Identifier> <InitialValue> ;
@@ -196,16 +213,21 @@ public class Parser {
      */
     private Field parseField(String type, String identifier) {
         // if the field is initialized
+        // "="
         if (this.currentToken.spelling.equals("=")){
-            this.scan();       // <InitialValue>
+            // <InitialValue>
+            this.scan();
             Expr init = this.parseExpression();
-            // if missing ;
+
+            // ";"
             this.checkCurrentTokenMatched(";", "Field declaration missing a semicolon ;.");
+
             int position = this.currentToken.position;
             this.scan();
             return new Field(position, type, identifier, init);
         }
         // if the field is declared but not initialized
+        // EMPTY
         else if (this.currentToken.spelling.equals(";")){
             int position = this.currentToken.position;
             this.scan();
@@ -219,14 +241,18 @@ public class Parser {
         }
     }
 
-
     /* Fields and Methods
      * <Member> ::= <Field> | <Method>
+     * <Field> ::= <Type> <Identifier> <InitialValue> ;
+     * <Method> ::= <Type> <Identifier> ( <Parameters> ) <Block>
+     * <InitialValue> ::= EMPTY | = <Expression>;
      */
     private Member parseMember() {
         int position = this.currentToken.position;
+        // <Type>
         String type = this.parseType();
-        String identifier = this.parseIdentifier();
+        // <Identifier>
+        String identifier = this.parseIdentifier("Illegal member name.");
 
         // if <Method>
         if (this.currentToken.spelling.equals("(")){
@@ -237,7 +263,6 @@ public class Parser {
             return this.parseField(type, identifier);
         }
     }
-
 
     // ----------------------------------- Statements -----------------------------------
 
@@ -306,16 +331,16 @@ public class Parser {
      * <ReturnStmt> ::= RETURN <Expression> ; | RETURN ;
      */
     private Stmt parseReturn() {
-        Stmt stmt;
         int position = this.currentToken.position;
-
+        Stmt stmt;
         this.scan();
+
         // RETURN ;
-        if (this.currentToken.spelling.equals(";")){
+        if (this.currentToken.spelling.equals(";")) {
             stmt = new ReturnStmt(position, null);
         }
         // RETURN <Expression> ;
-        else{
+        else {
             // <Expression>
             Expr returnExpr = this.parseExpression();
 
@@ -332,9 +357,11 @@ public class Parser {
      * BreakStmt> ::= BREAK ;
      */
     private Stmt parseBreak() {
-        int position = this.currentToken.position;
+        Token tmpToken = this.currentToken;
         this.scan();
-        return new BreakStmt(position);
+        this.checkCurrentTokenMatched(";", "Break statement missing a semicolon ;.");
+        this.scan();
+        return new BreakStmt(tmpToken.position);
     }
 
 
@@ -363,9 +390,7 @@ public class Parser {
         int position = this.currentToken.position;
         // <Identifier>
         this.scan();
-
-        // <Identifier>
-        String name = this.parseIdentifier();
+        String name = this.parseIdentifier("Illegal local variable name.");
 
         // "="
         this.checkCurrentTokenMatched("=", "Declaration statement missing the = sign for assignment.");
@@ -443,22 +468,17 @@ public class Parser {
         //<Body>
         this.scan();
         StmtList stmtList = new StmtList(position);
-        if (!this.currentToken.spelling.equals("}")){
-            while (!this.currentToken.spelling.equals("}")){
-                Stmt stmt = this.parseStatement();
-                stmtList.addElement(stmt);
-                if (this.currentToken.getKind().equals(EOF)) {
-                    this.registerError("Block missing the right }.");
-                    break;
-                }
+        while (!this.currentToken.spelling.equals("}")){
+            Stmt stmt = this.parseStatement();
+            stmtList.addElement(stmt);
+            if (this.currentToken.getKind().equals(EOF)) {
+                this.registerError("Block missing the right curly brace }.");
+                break;
             }
         }
-
         this.scan();
         return  new BlockStmt(position, stmtList);
     }
-
-
 
     /*
      * <IfStmt> ::= IF ( <Expr> ) <Stmt> | IF ( <Expr> ) <Stmt> ELSE <Stmt>
@@ -480,7 +500,7 @@ public class Parser {
         this.scan();
         Stmt thenStmt = this.parseStatement();
 
-        // ELSE / EMPTY
+        // ELSE
         Stmt elseStmt = null;
         if (this.currentToken.kind == ELSE){
             // <Stmt>
@@ -490,7 +510,6 @@ public class Parser {
 
         return new IfStmt(position, predExpr, thenStmt, elseStmt);
     }
-
 
     // ----------------------------------------- Expressions -----------------------------------------
     // Here we introduce the precedence to operations
@@ -516,7 +535,6 @@ public class Parser {
         }
         return left;
     }
-
 
     /*
      * <LogicalOR> ::= <logicalAND> <LogicalORRest>
@@ -576,12 +594,14 @@ public class Parser {
         // "=="
         if (this.currentToken.spelling.equals("==")){
             this.scan();
+            // <RelationalExpr>
             right = this.parseRelationalExpr();
             left = new BinaryCompEqExpr(position, left, right);
         }
         // "!="
         else if (this.currentToken.spelling.equals("!=")){
             this.scan();
+            // <RelationalExpr>
             right = this.parseRelationalExpr();
             left = new BinaryCompNeExpr(position, left, right);
         }
@@ -698,12 +718,14 @@ public class Parser {
             // + <MultExpr> <MoreMultExpr>
             if (this.currentToken.spelling.equals("+")) {
                 this.scan();
+                // <MultExpr>
                 right = parseMultExpr();
                 left = new BinaryArithPlusExpr(position, left, right);
             }
             // - <MultExpr> <MoreMultExpr>
             else if (this.currentToken.spelling.equals("-")){
                 this.scan();
+                // <MultExpr>
                 right = parseMultExpr();
                 left = new BinaryArithMinusExpr(position, left, right);
             }
@@ -740,32 +762,35 @@ public class Parser {
 
         // <identifier>
         this.scan();
-        String type = this.parseIdentifier();
+        String type = this.parseIdentifier("Illegal new object/array name.");
 
         // if creating a new array [<Expression>]
         if (this.currentToken.spelling.equals("[")){
-            // <Expression>
             this.scan();
-            Expr expr = this.parseExpression();
-
+            // <Expression>
+            Expr exp = this.parseExpression();
             // "]"
             this.checkCurrentTokenMatched("]", "New statement for an array missing a right bracket ].");
+            this.scan();
+
+            return new NewArrayExpr(position, type, exp);
         }
         // if creating a new object ()
         else if (this.currentToken.spelling.equals("(")) {
             // )
             this.scan();
             this.checkCurrentTokenMatched(")", "New statement for an object missing a right parenthesis ).");
+            this.scan();
+
+            return new NewExpr(position, type);
         }
         // illegal new statement
         else {
             this.registerError("Illegal new statement for objects or arrays.");
+            return null;
         }
 
-        this.scan();
-        return new NewExpr(position,type);
     }
-
 
     /*
      * <CastExpression> ::= CAST ( <Type> , <Expression> )
@@ -782,7 +807,7 @@ public class Parser {
         String type = this.parseType();
 
         // ","
-        this.checkCurrentTokenMatched(",", "Cast expression have illegal arguments.");
+        this.checkCurrentTokenMatched(",", "Cast expression has illegal arguments.");
 
         // <Expression>
         this.scan();
@@ -795,12 +820,11 @@ public class Parser {
         return new CastExpr(position, type, expr);
     }
 
-
-    /*
+    /**
      * Checks whether the current token is a PrefixOp.
      *
      * @return true if the current token is one of the PrefixOp.
-     *         false if the current token is not one of the PreficOp
+     *         false if the current token is not one of the PrefixOp
      */
     private boolean isPrefixOp() {
         return this.currentToken.spelling.equals("-") || this.currentToken.spelling.equals("!")
@@ -833,11 +857,11 @@ public class Parser {
             }
         }
         else {
+            // <UnaryPostfix>
             expr = this.parseUnaryPostfix();
         }
         return expr;
     }
-
 
     /*
      * <UnaryPostfix> ::= <Primary> <PostfixOp>
@@ -862,8 +886,7 @@ public class Parser {
             return expr;
         }
     }
-
-
+    
     /*
      * <Primary> ::= ( <Expression> ) | <IntegerConst> | <BooleanConst> | <StringConst> | <VarExpr> | <DispatchExpr>
      * <VarExpr> ::= <VarExprPrefix> <Identifier> <VarExprSuffix>
@@ -878,17 +901,19 @@ public class Parser {
         Expr ref = null;
         ExprList paraList;
 
+        // <IntegerConst>
         if (currentToken.kind ==  INTCONST) {
-            expr = parseIntConst();
+            expr = this.parseIntConst();
         }
+        // <BooleanConst>
         else if (currentToken.kind == STRCONST) {
-            expr = parseStringConst();
+            expr = this.parseStringConst();
         }
+        // <StringConst>
         else if (currentToken.kind == BOOLEAN) {
-            expr = parseBoolean();
+            expr = this.parseBoolean();
         }
         else {
-
             if (currentToken.spelling.equals("this") || currentToken.spelling.equals("super")) {
                 expr = new VarExpr(position, null, currentToken.spelling);
                 this.scan();
@@ -899,7 +924,7 @@ public class Parser {
                 ref = expr;
             }
 
-            String name = parseIdentifier(); // parse name (variable or method)
+            String name = this.parseIdentifier("Non-identifier " + this.currentToken.spelling + " was found where identifier expected."); // parse name (variable or method)
 
             if (!currentToken.spelling.equals("(")) {
                 if (!currentToken.spelling.equals("[")) {//not array member. like this.a
@@ -910,53 +935,48 @@ public class Parser {
                     this.scan();
                     Expr index = parseExpression();
                     expr = new ArrayExpr(position, ref, name, index);
-                    if(!this.currentToken.spelling.equals("]")){
-                        this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
-                                "Non-Primary Found where Primary Expected");
-                    }
+                    this.checkCurrentTokenMatched("]", "Non-primary found where primary expected");
                     this.scan();
                 }
             } else {//dispatch like this.method() or method()
                 this.scan();
-                System.out.println("parsePrimary-Dispatch : " + name +" print stmt ");
                 paraList = this.parseArguments();
                 expr = new DispatchExpr(position, ref, name, paraList);
             }
             if(this.currentToken.spelling.equals(".")){
                 this.scan();
-                name = parseIdentifier();
-                if(name.equals("length")){
-                    expr = new VarExpr(position, ref, name );
-                    if(this.currentToken.spelling.equals(".")||this.currentToken.spelling.equals("(")){
-                        this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
-                                "Cannot Call method on length");
+
+                if(this.currentToken.spelling.equals("length")){
+                    expr = new VarExpr(position, ref, "length" );
+                    if (this.currentToken.spelling.equals(".")||this.currentToken.spelling.equals("(")) {
+                        this.registerError("Cannot call method on length");
                     }
+                    this.scan();
                     return expr;
                 }
-                if (!this.currentToken.spelling.equals(("("))) {
-                    this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
-                            "Non-Primary Found where Primary Expected");
-                }
-                this.scan();
-                paraList = this.parseArguments();
-                expr = new DispatchExpr(position, ref, name, paraList);
-
+                expr = parseMethod(ref, position);
             }
             while(this.currentToken.spelling.equals(".")){
                 this.scan();
-                ref = expr;
-                name = parseIdentifier();
-                if (!this.currentToken.spelling.equals(("("))) {
-                    this.errorHandler.register(Error.Kind.PARSE_ERROR, null, position,
-                            "Non-Primary Found where Primary Expected");
-                }
-                this.scan();
-                paraList = this.parseArguments();
-                expr = new DispatchExpr(position, ref, name, paraList);
+                expr = parseMethod(expr, position);
             }
-
         }
+        return expr;
+    }
 
+    /**
+     * Helper method to parse method.
+     *
+     * @param ref reference expression
+     * @param position the position of the expression node
+     * @return the expression node
+     */
+    private DispatchExpr parseMethod(Expr ref, int position) {
+        String name = parseIdentifier("Non-identifier " + this.currentToken.spelling + " was found where identifier expected.");
+        this.checkCurrentTokenMatched("(", "Non-primary found where primary expected.");
+        this.scan();
+        ExprList paraList = this.parseArguments();
+        DispatchExpr expr = new DispatchExpr(position, ref, name, paraList);
         return expr;
     }
 
@@ -997,16 +1017,17 @@ public class Parser {
         int position = this.currentToken.position;
         FormalList params = new FormalList(position);
 
-        //checks for the empty parameters case
+        // checks for the empty parameters case
         if ( this.currentToken.spelling.equals(")") ) {
             return params;
         }
 
-        //if not empty, parse the first parameter and add it
+        // if not empty, parse the first parameter
+        // and add it to the formal list
         Formal param = this.parseFormal();
         params.addElement(param);
 
-        //continue parsing parameters and adding them to the list
+        // continue parsing parameters and adding them to the list
         while (this.currentToken.spelling.equals(",")) {
             this.scan();
             param = this.parseFormal();
@@ -1019,8 +1040,8 @@ public class Parser {
      * <Formal> ::= <Type> <Identifier>
      */
     private Formal parseFormal() {
-        int position = this.currentToken.position;
-        return (new Formal(position, this.parseType(), this.parseIdentifier()));
+        return (new Formal(this.currentToken.position, this.parseType(),
+                this.parseIdentifier("Illegal formal name.")));
     }
 
     /*
@@ -1028,49 +1049,68 @@ public class Parser {
      * <Brackets> ::= EMPTY | [ ]
      */
     private String parseType() {
-        String identifier = parseIdentifier();
+        // <Identifier>
+        String type = this.parseIdentifier("Illegal type name.");
+        // <Brackets>
         if (this.currentToken.getSpelling() == "[") {
             this.scan();
             if(this.currentToken.getSpelling() == "]") {
                 this.scan();
-                return (identifier + "[]");
-            }
-            else {
-                this.registerError("Open Bracket found without closing bracket.");
+                return (type + "[]");
+            } else {
+                this.registerError("Open bracket found without closing bracket for an array type.");
             }
         }
-        return identifier;
+        return type;
     }
 
     // ---------------------------------------- Terminals ----------------------------------------
-    private String parseIdentifier() {
-        String spelling = currentToken.getSpelling();
-        if (currentToken.kind != IDENTIFIER) {
-            this.registerError("Non-identifier " + this.currentToken.spelling + " was found where identifier expected.");
+    /**
+     * Parses the identifier terminal.
+     * Throws an error if the current Token is not an identifier.
+     *
+     * @return the spelling of the terminal
+     */
+    private String parseIdentifier(String errorMsg) {
+        if (this.currentToken.kind != IDENTIFIER) {
+            this.registerError(errorMsg);
         }
+        Token tmpToken = this.currentToken;
         this.scan();
-        return spelling;
+        return tmpToken.spelling;
     }
 
+    /**
+     * Parses the String Constant terminal.
+     *
+     * @return a ConstStringExpr object.
+     */
     private ConstStringExpr parseStringConst() {
-        String spelling = currentToken.getSpelling();
-        int position = currentToken.position;
+        Token tmpToken = this.currentToken;
         this.scan();
-        return new ConstStringExpr(position, spelling);
+        return new ConstStringExpr(tmpToken.position, tmpToken.spelling);
     }
 
+    /**
+     * Parses the Integer Constant terminal.
+     *
+     * @return a ConstIntExpr object.
+     */
     private ConstIntExpr parseIntConst() {
-        String spelling = currentToken.getSpelling();
-        int position = currentToken.position;
+        Token tmpToken = this.currentToken;
         this.scan();
-        return new ConstIntExpr(position, spelling);
+        return new ConstIntExpr(tmpToken.position, tmpToken.spelling);
     }
 
+    /**
+     * Parses the Boolean Constant terminal.
+     *
+     * @return a ConstBooleanExpr object.
+     */
     private ConstBooleanExpr parseBoolean() {
-        String spelling = currentToken.getSpelling();
-        int position = currentToken.position;
+        Token tmpToken = this.currentToken;
         this.scan();
-        return new ConstBooleanExpr(position, spelling);
+        return new ConstBooleanExpr(tmpToken.position, tmpToken.spelling);
     }
 
     /**
