@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--File: Main.fxml-->
+<!--F18 CS361 Project 10-->
+<!--Names: Liwei Jiang, Tracy Quan, Danqing Zhao, Chris Marcello-->
+<!--JXML file, laying out GUI elements of Main.java-->
+<!--Date: 11/19/2018-->
+
+<!--imported packages-->
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeView?>
+<?import org.fxmisc.flowless.VirtualizedScrollPane?>
+<?import org.fxmisc.richtext.StyleClassedTextArea?>
+
+<VBox fx:id="VBox" stylesheets="@../css/Main.css" fx:controller="project11DouglasMarcello.Controller" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <Menu text="File" fx:id="fileMenu">
+            <MenuItem text="About..." fx:id="aboutMenuItem" onAction="#handleAboutAction"/>
+            <SeparatorMenuItem />
+            <MenuItem text="New" fx:id="newMenuItem" onAction="#handleNewAction" accelerator="Shortcut+N"/>
+            <MenuItem text="Open..." fx:id="openMenuItem" onAction="#handleOpenAction" accelerator="Shortcut+O"/>
+            <MenuItem text="Close" fx:id="closeMenuItem" onAction="#handleCloseAction" accelerator="Shortcut+W"/>
+            <MenuItem text="Save" fx:id="saveMenuItem" onAction="#handleSaveAction" accelerator="Shortcut+S"/>
+            <MenuItem text="Save as..." fx:id="saveAsMenuItem" onAction="#handleSaveAsAction" accelerator="Shortcut+Shift+S"/>
+            <SeparatorMenuItem />
+            <MenuItem text="Exit" fx:id="exitMenuItem" onAction="#handleExitAction" accelerator="Shortcut+Shift+W"/>
+        </Menu>
+
+        <Menu text="Edit" fx:id="editMenu">
+            <MenuItem text="Undo" fx:id="undoMenuItem" onAction="#handleEditMenuAction" accelerator="Shortcut+Z"/>
+            <MenuItem text="Redo" fx:id="redoMenuItem" onAction="#handleEditMenuAction" accelerator="Shortcut+Y"/>
+            <MenuItem text="Cut" fx:id="cutMenuItem" onAction="#handleEditMenuAction" accelerator="Shortcut+X"/>
+            <MenuItem text="Copy" fx:id="copyMenuItem" onAction="#handleEditMenuAction" accelerator="Shortcut+C"/>
+            <MenuItem text="Paste" fx:id="pasteMenuItem" onAction="#handleEditMenuAction" accelerator="Shortcut+V"/>
+            <MenuItem text="Select all" fx:id="selectMenuItem" onAction="#handleEditMenuAction" accelerator="Shortcut+A"/>
+            <SeparatorMenuItem />
+            <MenuItem text="Toggle Comment" fx:id="commentMenuItem" onAction="#handleToggleCommentAction" accelerator="Shortcut+/"/>
+            <MenuItem text="Toggle Block Comment" fx:id="blockCommentMenuItem" onAction="#handleToggleBlockCommentAction" accelerator="Shortcut+Alt+/"/>
+            <SeparatorMenuItem />
+            <MenuItem text="Indent" fx:id="indentMenuItem" onAction="#handleIndentAction" accelerator="Shortcut+]"/>
+            <MenuItem text="Unindent" fx:id="unindentMenuItem" onAction="#handleUnindentAction" accelerator="Shortcut+["/>
+        </Menu>
+
+        <Menu text="Find" fx:id="findMenu">
+            <MenuItem text="Find &amp; Replace" fx:id="findMenuItem" onAction="#handleFindReplaceAction" accelerator="Shortcut+F"/>
+        </Menu>
+
+        <Menu text="Setting" fx:id="preferenceMenu">
+            <Menu fx:id="colorPreferenceMenu" text="Color Preference">
+                <MenuItem text="Keyword" fx:id="keywordsPreItem" onAction="#handleKeywordColorAction"/>
+                <MenuItem text="Parentheses/Brackets" fx:id="parenPreItem" onAction="#handleParenColorAction"/>
+                <MenuItem text="String" fx:id="strPreItem" onAction="#handleStrColorAction"/>
+                <MenuItem text="Integer" fx:id="intPreItem" onAction="#handleIntColorAction"/>
+            </Menu>
+            <Menu text="Mode">
+                <fx:define>
+                    <ToggleGroup fx:id="darkModeToggle"/>
+                </fx:define>
+                <RadioMenuItem text="Light" onAction="#handleLightMode" toggleGroup="$darkModeToggle" selected="true"/>
+                <RadioMenuItem text="Dark" fx:id="darkModeMenuItem" onAction="#handleDarkMode" toggleGroup="$darkModeToggle"/>
+            </Menu>
+        </Menu>
+
+        <Menu text="Help" fx:id="helpMenu">
+            <MenuItem text="User Manual" fx:id="guidHelpItem" onAction="#handleUserManualAction"/>
+            <MenuItem text="Documentation" fx:id="docHelpItem" onAction="#handleJavaDocAction"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="About Java" fx:id="javaHelpMenuItem" onAction="#handleJavaHelpMenuItemAction"></MenuItem>
+            <MenuItem text="Reference: Open Url" fx:id="urlHelpMenuItem" onAction="#handleUrlMenuItemAction"></MenuItem>
+        </Menu>
+    </MenuBar>
+
+    <ToolBar fx:id="toolBar" VBox.vgrow="ALWAYS">
+        <Button text="Scan" fx:id="scanButton" onAction="#handleScanButtonAction"/>
+        <Button text="Scan &amp; Parse" fx:id="parseButton" onAction="#handleParseButtonAction"/>
+        <CheckBox text="Display File Structure" fx:id="displayFileStructCheckBox" alignment="CENTER_RIGHT" mnemonicParsing="false" selected="true"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button text="+" fx:id="addTabButton" styleClass="tabPaneButton" onAction="#handleNewAction"/>
+        <Button text="-" fx:id="deleteTabButton" styleClass="tabPaneButton" onAction="#handleCloseAction"/>
+    </ToolBar>
+
+    <Separator/>
+    <SplitPane dividerPositions="0.2" maxHeight="Infinity" maxWidth="Infinity" VBox.vgrow="ALWAYS">
+        <SplitPane fx:id="treeSplitPane" dividerPositions="0.5" orientation="VERTICAL">
+            <TreeView fx:id="fileStructTree" onMouseClicked="#handleFileStructTreeItemClicked"/>
+            <TreeView fx:id="directoryTree"/>
+        </SplitPane>
+
+        <SplitPane dividerPositions="0.8" orientation="VERTICAL">
+            <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS"/>
+            <VirtualizedScrollPane fx:id="virtualizedScrollPane">
+                <content>
+                    <StyleClassedTextArea fx:id="console" wrapText="true"/>
+                </content>
+            </VirtualizedScrollPane>
+        </SplitPane>
+    </SplitPane>
+</VBox>

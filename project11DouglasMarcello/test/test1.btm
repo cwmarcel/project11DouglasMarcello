@@ -1,0 +1,57 @@
+class Main1 {
+    int i;
+    int x = 4;
+    int y = 6;
+
+    void foo1(int somenum, int y){
+         var t = 0;
+
+         !ts;
+         ++ts--;
+         -ts++;
+
+         i = 3 * 5 / 10 % d * 10 + 90 - r;
+
+         for (t = 0; t < 5;) print("Hello test for loop");
+         while (t<5) {
+            var a = 9;
+            print("Test while loop");
+            this.foo();
+            break;
+         }
+         var x = cast(int, t);
+         var z = new Final();
+         foo(z, x);
+         if (nobug || t && !t || o == t) var g = 5; else var d = 6;
+         return;
+    }
+
+    object[] foo2(int somenum, int y) {
+        return;
+    }
+
+    /*
+     * multi-line comment
+     */
+
+     // single-line comment
+
+     void main(){
+        var i = 0;
+        i = a && c || b && c || c && d || d && e;
+
+        this.x.foo(a , b);
+        animal = new Bear();
+
+        if (i instanceof int) {
+            print("Hi Bear");
+        }
+        var z = new Final[0];
+        return null;
+     }
+}
+
+
+class Main2 extends object  {
+    int u = 1;
+}
