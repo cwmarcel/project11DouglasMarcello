@@ -9,6 +9,7 @@
 package project11DouglasMarcello.controllers;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.concurrent.*;
@@ -23,6 +24,10 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Service;
 import javafx.application.Platform;
 import org.fxmisc.richtext.StyleClassedTextArea;
+import project11DouglasMarcello.bantam.visitor.MainMainVisitor;
+import project11DouglasMarcello.bantam.visitor.NumLocalVarsVisitor;
+import project11DouglasMarcello.bantam.visitor.StringConstantsVisitor;
+import project11DouglasMarcello.bantam.visitor.Visitor;
 import project11DouglasMarcello.java.*;
 import project11DouglasMarcello.bantam.parser.Parser;
 import project11DouglasMarcello.bantam.ast.*;
@@ -88,6 +93,18 @@ public class ToolBarController {
      * A Drawer to draw the AST once the program has been parsed.
      */
     private Drawer drawer;
+    /**
+     * A MainMainVisitor to traverse the AST once the program has been parsed.
+     */
+    private MainMainVisitor mainMainVisitor;
+    /**
+     * A StringConstantVisitor to traverse the AST once the program has been parsed.
+     */
+    private StringConstantsVisitor stringConstantsVisitor;
+    /**
+     * A NumLocalVarsVisitor to traverse the AST once the program has been parsed.
+     */
+    private NumLocalVarsVisitor numLocalVarsVisitor;
 
     /**
      * Initializes the ToolBarController controller.
@@ -99,6 +116,9 @@ public class ToolBarController {
         this.scanWorker = new ScanWorker();
         this.parseWorker = new ParseWorker();
         this.drawer = new Drawer();
+        this.mainMainVisitor = new MainMainVisitor();
+        this.stringConstantsVisitor = new StringConstantsVisitor();
+        this.numLocalVarsVisitor = new NumLocalVarsVisitor();
         this.disableConsoleFocusMove();
     }
 
@@ -192,7 +212,7 @@ public class ToolBarController {
     }
 
     /**
-     * Helper method for displaying scanner the errors in the console.
+     * Helper method for displaying scanning and parsing errors in the console.
      *
      * @param errorList a list of errors
      * @param runType the String describing the type of the running program (scanning or parsing)
@@ -218,6 +238,37 @@ public class ToolBarController {
                 this.console.appendText(errorList.size()+" errors were found.");
                 this.console.setStyleClass(0, this.console.getText().length(), "err");
             }
+        });
+        Thread.sleep(1);
+        this.mutex.release();
+    }
+
+    /**
+     * Helper method for displaying output in the console.
+     *
+     * @param output a string to output to the console
+     * @throws java.lang.InterruptedException
+     */
+    private void stringToConsole(String output) throws java.lang.InterruptedException {
+        this.mutex.tryAcquire();
+        Platform.runLater(() ->{
+            this.console.appendText(output + "\n");
+        });
+        Thread.sleep(1);
+        this.mutex.release();
+    }
+
+    /**
+     * Helper method for displaying output in the console.
+     *
+     * @param output a string to output to the console
+     * @throws java.lang.InterruptedException
+     */
+    private void mapToConsole(Map output) throws java.lang.InterruptedException {
+        this.mutex.tryAcquire();
+        Platform.runLater(() ->{
+            output.forEach((key, value) -> this.console.appendText(key + ": " + value + "\n"));
+            this.console.appendText(output + "\n");
         });
         Thread.sleep(1);
         this.mutex.release();
@@ -392,6 +443,52 @@ public class ToolBarController {
     }
 
     /**
+     * Helper method to check for a main method
+     * @param event
+     */
+    private void handleCheckMain(Event event) {
+        handleScanParseFile(event, true);
+        String isMain = String.valueOf(mainMainVisitor.hasMain(this.program));
+        try {
+            this.stringToConsole(isMain);
+        } catch (Throwable e) {
+            this.fileMenuController.createErrorDialog("Printing to Console",
+                    "Error Printing Results to Console.");
+        }
+    }
+
+    /**
+     * Helper method to check for a main method
+     * @param event
+     */
+    private void handleCheckStringConstants(Event event) {
+        handleScanParseFile(event, true);
+        Map<String, String> stringConstants = stringConstantsVisitor.getStringConstants(this.program);
+        try {
+            this.mapToConsole(stringConstants);
+        } catch (Throwable e) {
+            this.fileMenuController.createErrorDialog("Printing to Console",
+                    "Error Printing Results to Console.");
+        }
+    }
+
+    /**
+     * Helper method to check for a main method
+     * @param event
+     */
+    private void handleCheckNumLocalVars(Event event) {
+        handleScanParseFile(event, true);
+        Map<String, Integer> numLocalVars = numLocalVarsVisitor.getNumLocalVars(this.program);
+        try {
+            this.mapToConsole(numLocalVars);
+        } catch (Throwable e) {
+            this.fileMenuController.createErrorDialog("Printing to Console",
+                    "Error Printing Results to Console.");
+        }
+    }
+
+
+    /**
      * Handles the Scan button action.
      *
      * @param event Event object
@@ -404,4 +501,25 @@ public class ToolBarController {
      * @param event Event object
      */
     public void handleParseButtonAction(Event event) { this.handleScanParseFile(event, true); }
+
+    /**
+     * Handles the Check Main button action.
+     *
+     * @param event Event object
+     */
+    public void handleCheckMainButtonAction(Event event) { this.handleCheckMain(event); }
+
+    /**
+     * Handles the Check String Constants button action.
+     *
+     * @param event Event object
+     */
+    public void handleCheckStringConstantsButtonAction(Event event) { this.handleCheckStringConstants(event); }
+
+    /**
+     * Handles the Check Number of Local Variables action.
+     *
+     * @param event Event object
+     */
+    public void handleCheckNumLocalVarsButtonAction(Event event) { this.handleCheckNumLocalVars(event); }
 }

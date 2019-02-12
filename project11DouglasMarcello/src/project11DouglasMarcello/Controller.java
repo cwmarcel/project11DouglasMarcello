@@ -85,6 +85,18 @@ public class Controller {
      */
     @FXML private Button parseButton;
     /**
+     * Check Main button defined in Main.fxml
+     */
+    @FXML private Button checkMainButton;
+    /**
+     * Check String Constants button defined in Main.fxml
+     */
+    @FXML private Button checkStringConstants;
+    /**
+     * Check Number of Local Variables button defined in Main.fxml
+     */
+    @FXML private Button checkNumLocalVars;
+    /**
      * DeleteTab button defined in Main.fxml
      */
     @FXML private Button deleteTabButton;
@@ -333,6 +345,27 @@ public class Controller {
     @FXML private void handleParseButtonAction(Event event) {
         this.toolbarController.handleParseButtonAction(event);
     }
+
+    /**
+     * Calls the method that handles the Check Main button action from the toolbarController.
+     *
+     * @param event Event object
+     */
+    @FXML private void handleCheckMainButtonAction(Event event) { this.toolbarController.handleCheckMainButtonAction(event); }
+
+    /**
+     * Calls the method that handles the Check String Constants button action from the toolbarController.
+     *
+     * @param event Event object
+     */
+    @FXML private void handleCheckStringConstantsButtonAction(Event event) { this.toolbarController.handleCheckStringConstantsButtonAction(event); }
+
+    /**
+     * Calls the method that handles the Check NumLocalVars button action from the toolbarController.
+     *
+     * @param event Event object
+     */
+    @FXML private void handleCheckNumLocalVarsButtonAction(Event event) { this.toolbarController.handleCheckNumLocalVarsButtonAction(event); }
 
     /**
      * Calls the method that handles About menu item action from the fileMenuController.

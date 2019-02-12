@@ -87,6 +87,9 @@
         <Button text="Scan" fx:id="scanButton" onAction="#handleScanButtonAction"/>
         <Button text="Scan &amp; Parse" fx:id="parseButton" onAction="#handleParseButtonAction"/>
         <CheckBox text="Display File Structure" fx:id="displayFileStructCheckBox" alignment="CENTER_RIGHT" mnemonicParsing="false" selected="true"/>
+        <Button text="Check Main" fx:id="checkMainButton" onAction="#handleCheckMainButtonAction"/>
+        <Button text="Check String Constants" fx:id="checkStringConstantsButton" onAction="#handleCheckStringConstantsButtonAction"/>
+        <Button text="Check Number of Local Variables" fx:id="checkNumLocalVarsButton" onAction="handleNumLocalVarsButtonAction"/>
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="+" fx:id="addTabButton" styleClass="tabPaneButton" onAction="#handleNewAction"/>
         <Button text="-" fx:id="deleteTabButton" styleClass="tabPaneButton" onAction="#handleCloseAction"/>
