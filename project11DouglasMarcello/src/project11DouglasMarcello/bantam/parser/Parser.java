@@ -888,27 +888,30 @@ public class Parser {
     }
 
     /*
-        DOUGLAS VERSION
-     * <Primary> ::= ( <Expression> ) <ExprSuffix> | <IntegerConst> | <BooleanConst> |
-     *								 <StringConst> <IdSuffix> | <Identifier> <Suffix>
-     * <IdSuffix>	 ::=  . <Identifier> <Suffix> | EMPTY
-     * <IndexSuffix> ::=  [ <Expression> ] <IdSuffix> | EMPTY
-     * <DispSuffix>	 ::=  ( <Arguments> ) <IdSuffix> | EMPTY
-     * <ExprSuffix>	 ::=  <IdSuffix> | <IndexSuffix>
-     * <Suffix>		 ::=  <IdSuffix> | <DispSuffix> | <IndexSuffix>
+        L1 Version - Commented as it runs incorrectly
+     <Primary> ::=  <IntegerConst>
+             | <BooleanConst>
+             | <StringConst> <Suffix>
+             | <Identifier> <Suffix>
+             | ( <Expression> ) <Suffix>
+    <Suffix> ::=   . <Identifier> <Suffix>
+             | [ <Expression> ] <Suffix>
+             | ( <Arguments> ) <Suffix>
+             | EMPTY
      */
+    /*
     private Expr parsePrimary() {
-        Expr expr;
+        Expr expr = null;
+        String id = null;
 
         int position = currentToken.position;
-//	  System.out.println(currentToken.kind);
+        System.out.println(currentToken.kind);
 
         if( currentToken.kind == Token.Kind.LPAREN) {
-            currentToken = scanner.scan();
+            //currentToken = scanner.scan();
             expr = parseExpression();
             if (currentToken.kind != Token.Kind.RPAREN) {
-                String message = "Missing right parenthesis";
-                notifyErrorHandler(new Error(Error.Kind.PARSE_ERROR, filename, position, message));
+                this.registerError("Missing right parenthesis");
             }
         }
 
@@ -923,57 +926,49 @@ public class Parser {
 
         }
         else if(currentToken.kind == Token.Kind.IDENTIFIER){
-            String methodName = parseVarOrDispatchIdentifier();
-            expr = parseIdentifier();
+            //String methodName = parseVarOrDispatchIdentifier();
+            id = parseIdentifier("Non-identifier " + this.currentToken.spelling + " was found where identifier expected."); // parse name (variable or method)
         }
 
         while( currentToken.kind == Token.Kind.LPAREN || currentToken.kind == Token.Kind.DOT || currentToken.kind == Token.Kind.LBRACKET) {
 
             if( currentToken.kind == Token.Kind.LPAREN) {
                 currentToken = scanner.scan();
-
-                expr = parseArguments();
-                ExprList args = processDispatchArgs();
-                expr = new DispatchExpr(position, expr, null, args);
+                //expr = parseExpression();
+                ExprList args = parseArguments();
+                expr = new DispatchExpr(position, expr, id, args);
                 if (currentToken.kind != Token.Kind.RPAREN) {
-                    String message = "Missing right parenthesis";
-                    notifyErrorHandler(new Error(Error.Kind.PARSE_ERROR, filename, position, message));
+                    this.registerError("Missing right parenthesis");
                 }
             }
             else if(currentToken.kind == Token.Kind.DOT){
-                String methodName = parseVarOrDispatchIdentifier();
-                expr = parseIdentifier();
-                ExprList args = processDispatchArgs();
-                expr = new DispatchExpr(position, expr, methodName, args);
+                //String methodName = parseVarOrDispatchIdentifier();
+                id = parseIdentifier("Non-identifier " + this.currentToken.spelling + " was found where identifier expected."); // parse name (variable or method)
+                ExprList args = parseArguments();
+                expr = new DispatchExpr(position, expr, id, args);
             }
             else if( currentToken.kind == Token.Kind.LBRACKET){
                 currentToken = scanner.scan();
                 expr = parseExpression();
                 if(currentToken.kind != Token.Kind.RBRACKET){
-                    String message = "Missing right bracket";
-                    notifyErrorHandler(new Error(Error.Kind.PARSE_ERROR, filename, position, message));
+                    this.registerError("Missing right bracket");
                 }
             }
         }
 
-//		  else {
-//			  String message = "Token is not a primary";
-//			  notifyErrorHandler(new Error(Error.Kind.PARSE_ERROR, filename, currentToken.position, message));
-//			  expr = null;
-//		  }
-
         return expr;
     }
-
+    */
 
     /*
-        MARCELLO VERSION
+        Old VERSION
      * <Primary> ::= ( <Expression> ) | <IntegerConst> | <BooleanConst> | <StringConst> | <VarExpr> | <DispatchExpr>
      * <VarExpr> ::= <VarExprPrefix> <Identifier> <VarExprSuffix>
      * <VarExprPrefix> ::= SUPER . | THIS . | EMPTY
      * <VarExprSuffix> ::= [ <Expr> ] | EMPTY
      * <DispatchExpr> ::= <DispatchExprPrefix> <Identifier> ( <Arguments> )
      * <DispatchExprPrefix> ::= <Primary> . | EMPTY
+    */
 
     private Expr parsePrimary() {
         int position = currentToken.position;
@@ -1050,7 +1045,6 @@ public class Parser {
         }
         return expr;
     }
-    */
 
     /**
      * Helper method to parse method.
