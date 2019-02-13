@@ -91,11 +91,11 @@ public class Controller {
     /**
      * Check String Constants button defined in Main.fxml
      */
-    @FXML private Button checkStringConstants;
+    @FXML private Button checkStringConstantsButton;
     /**
      * Check Number of Local Variables button defined in Main.fxml
      */
-    @FXML private Button checkNumLocalVars;
+    @FXML private Button checkNumLocalVarsButton;
     /**
      * DeleteTab button defined in Main.fxml
      */
@@ -307,6 +307,9 @@ public class Controller {
 
         this.scanButton.disableProperty().bind(this.ifScanning.or(this.ifTabPaneEmpty));
         this.parseButton.disableProperty().bind(this.ifParsing.or(this.ifTabPaneEmpty));
+        this.checkMainButton.disableProperty().bind(this.ifParsing.or(this.ifTabPaneEmpty));
+        this.checkStringConstantsButton.disableProperty().bind(this.ifParsing.or(this.ifTabPaneEmpty));
+        this.checkNumLocalVarsButton.disableProperty().bind(this.ifParsing.or(this.ifTabPaneEmpty));
 
         this.colorPreferenceMenu.disableProperty().bind(ifNightModeSelected);
     }

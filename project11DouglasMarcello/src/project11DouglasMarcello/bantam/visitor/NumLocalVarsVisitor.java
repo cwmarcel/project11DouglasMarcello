@@ -2,6 +2,7 @@ package project11DouglasMarcello.bantam.visitor;
 
 import project11DouglasMarcello.bantam.ast.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class NumLocalVarsVisitor extends Visitor {
@@ -12,6 +13,10 @@ public class NumLocalVarsVisitor extends Visitor {
     private int count;
 
     public Map<String, Integer> getNumLocalVars(Program ast) {
+        className = "";
+        key = "";
+        count = 0;
+        localVars = new HashMap<String, Integer>();
         ast.accept(this); //starts visitation
         return localVars;
     }

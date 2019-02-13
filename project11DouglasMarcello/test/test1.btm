@@ -1,4 +1,4 @@
-class Main1 {
+class Main {
     int i;
     int x = 4;
     int y = 6;
@@ -54,4 +54,8 @@ class Main1 {
 
 class Main2 extends object  {
     int u = 1;
+
+    void foo() {
+        print("testing second class");
+    }
 }

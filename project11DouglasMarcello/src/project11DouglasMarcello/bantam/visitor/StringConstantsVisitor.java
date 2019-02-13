@@ -3,14 +3,17 @@ package project11DouglasMarcello.bantam.visitor;
 import project11DouglasMarcello.bantam.ast.ConstStringExpr;
 import project11DouglasMarcello.bantam.ast.Program;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class StringConstantsVisitor extends Visitor{
 
     private Map<String, String> stringConstants;
-    private int count = 0;
+    private int count;
 
     public Map<String, String> getStringConstants(Program ast) {
+        stringConstants = new HashMap<String, String>();
+        count = 0;
         ast.accept(this); //starts visitation
         return stringConstants;
     }

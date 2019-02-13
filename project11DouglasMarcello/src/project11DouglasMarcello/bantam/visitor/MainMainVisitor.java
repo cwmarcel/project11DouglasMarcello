@@ -3,22 +3,22 @@ package project11DouglasMarcello.bantam.visitor;
 import project11DouglasMarcello.bantam.ast.*;
 
 public class MainMainVisitor extends Visitor {
-    private boolean hasMain = false;
+    private boolean hasMain;
 
     public boolean hasMain(Program ast) {
+        hasMain = false;
         ast.accept(this); //starts visitation
         return hasMain;
     }
 
-    //only visits a class if it has the name Main
+    //only visits a class's member list if it has the name Main
     //should it return after we find Main?
     @Override
-    public Object visit(ClassList node) {
-        for (ASTNode aNode : node)
-            if (node.getClass().getName().equals("Main")) {
-                aNode.accept(this);
-                return null;
-            }
+    public Object visit(Class_ node) {
+        if (node.getName().equals("Main")) {
+            node.getMemberList().accept(this);
+            return null;
+        }
         return null;
     }
 

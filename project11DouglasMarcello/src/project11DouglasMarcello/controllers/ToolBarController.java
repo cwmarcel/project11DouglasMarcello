@@ -94,6 +94,10 @@ public class ToolBarController {
      */
     private Drawer drawer;
     /**
+     * A boolean to keep track of whether or not the program should be drawing the AST.
+     */
+    private Boolean drawAST;
+    /**
      * A MainMainVisitor to traverse the AST once the program has been parsed.
      */
     private MainMainVisitor mainMainVisitor;
@@ -106,6 +110,7 @@ public class ToolBarController {
      */
     private NumLocalVarsVisitor numLocalVarsVisitor;
 
+
     /**
      * Initializes the ToolBarController controller.
      * Sets the Semaphore, the CompileWorker and the CompileRunWorker.
@@ -116,6 +121,7 @@ public class ToolBarController {
         this.scanWorker = new ScanWorker();
         this.parseWorker = new ParseWorker();
         this.drawer = new Drawer();
+        this.drawAST = false;
         this.mainMainVisitor = new MainMainVisitor();
         this.stringConstantsVisitor = new StringConstantsVisitor();
         this.numLocalVarsVisitor = new NumLocalVarsVisitor();
@@ -225,7 +231,7 @@ public class ToolBarController {
                 this.console.appendText(err.toString()+"\n");
             }
             if (errorList.size()==0){
-                this.console.appendText(runType + " was successful!");
+                this.console.appendText(runType + " was successful!\n");
                 this.console.setStyleClass(0, this.console.getText().length(), "cons");
             }
             else if (errorList.size()==1){
@@ -250,12 +256,10 @@ public class ToolBarController {
      * @throws java.lang.InterruptedException
      */
     private void stringToConsole(String output) throws java.lang.InterruptedException {
-        this.mutex.tryAcquire();
         Platform.runLater(() ->{
             this.console.appendText(output + "\n");
         });
         Thread.sleep(1);
-        this.mutex.release();
     }
 
     /**
@@ -380,7 +384,9 @@ public class ToolBarController {
             if (scanAndParse) {
                 this.parser = new Parser(errorHandler);
                 this.program = this.parser.parse(filename);
-                this.drawer.draw(filename, this.program);
+                if (this.drawAST) {
+                    this.drawer.draw(filename, this.program);
+                }
                 this.errorToConsole(errorHandler.getErrorList(), "Parsing");
             } else {
                 this.scanner = new Scanner(filename, errorHandler);
@@ -447,14 +453,16 @@ public class ToolBarController {
      * @param event
      */
     private void handleCheckMain(Event event) {
+        this.drawAST = false;
         handleScanParseFile(event, true);
-        String isMain = String.valueOf(mainMainVisitor.hasMain(this.program));
-        try {
-            this.stringToConsole(isMain);
-        } catch (Throwable e) {
-            this.fileMenuController.createErrorDialog("Printing to Console",
-                    "Error Printing Results to Console.");
-        }
+        Platform.runLater(() -> {
+            try {
+                this.stringToConsole(String.valueOf(mainMainVisitor.hasMain(this.program)));
+            } catch (Throwable e) {
+                this.fileMenuController.createErrorDialog("Printing to Console",
+                        "Error printing results to Console, please try again.");
+            }
+        });
     }
 
     /**
@@ -462,14 +470,16 @@ public class ToolBarController {
      * @param event
      */
     private void handleCheckStringConstants(Event event) {
+        this.drawAST = false;
         handleScanParseFile(event, true);
-        Map<String, String> stringConstants = stringConstantsVisitor.getStringConstants(this.program);
-        try {
-            this.mapToConsole(stringConstants);
-        } catch (Throwable e) {
-            this.fileMenuController.createErrorDialog("Printing to Console",
-                    "Error Printing Results to Console.");
-        }
+        Platform.runLater(() -> {
+            try {
+                this.mapToConsole(stringConstantsVisitor.getStringConstants(this.program));
+            } catch (Throwable e) {
+                this.fileMenuController.createErrorDialog("Printing to Console",
+                        "Error printing results to Console, please try again.");
+            }
+        });
     }
 
     /**
@@ -477,30 +487,37 @@ public class ToolBarController {
      * @param event
      */
     private void handleCheckNumLocalVars(Event event) {
+        this.drawAST = false;
         handleScanParseFile(event, true);
-        Map<String, Integer> numLocalVars = numLocalVarsVisitor.getNumLocalVars(this.program);
-        try {
-            this.mapToConsole(numLocalVars);
-        } catch (Throwable e) {
-            this.fileMenuController.createErrorDialog("Printing to Console",
-                    "Error Printing Results to Console.");
-        }
+        Platform.runLater(() -> {
+            try {
+                this.mapToConsole(numLocalVarsVisitor.getNumLocalVars(this.program));
+            } catch (Throwable e) {
+                this.fileMenuController.createErrorDialog("Printing to Console",
+                        "Error Printing Results to Console.");
+            }
+        });
     }
-
 
     /**
      * Handles the Scan button action.
      *
      * @param event Event object
      */
-    public void handleScanButtonAction(Event event) { this.handleScanParseFile(event, false); }
+    public void handleScanButtonAction(Event event) {
+        this.drawAST = false;
+        this.handleScanParseFile(event, false);
+    }
 
     /**
      * Handles the Parse button action.
      *
      * @param event Event object
      */
-    public void handleParseButtonAction(Event event) { this.handleScanParseFile(event, true); }
+    public void handleParseButtonAction(Event event) {
+        this.drawAST = true;
+        this.handleScanParseFile(event, true);
+    }
 
     /**
      * Handles the Check Main button action.
