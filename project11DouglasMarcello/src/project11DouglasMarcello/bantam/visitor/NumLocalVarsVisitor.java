@@ -12,6 +12,15 @@ public class NumLocalVarsVisitor extends Visitor {
     private String key;
     private int count;
 
+    /**
+     * Returns a Map of the number of local variables and parameters present in
+     * the AST, on a method level.
+     * Key - Class.Method
+     * Value - Number of local variables and parameters present (integer)
+     *
+     *@param ast the AST node
+     *@return Map the map of local variables
+     */
     public Map<String, Integer> getNumLocalVars(Program ast) {
         className = "";
         key = "";
@@ -21,16 +30,31 @@ public class NumLocalVarsVisitor extends Visitor {
         return localVars;
     }
 
+
+    /**
+     * Visit a class node
+     * sets the current class name each time the visitor enters a new class
+     *
+     * @param node the class node
+     * @return result of the visit
+     */
     @Override
-    //sets the current class name each time we enter a new class
     public Object visit(Class_ node) {
         className = node.getName();
         return super.visit(node);
     }
 
+
+    /**
+     * Visit a method node
+     *
+     * sets the current key name each time we enter a new method
+     * resets the counter to 0 and then adds the number of parameters
+     *
+     * @param node the method node
+     * @return result of the visit
+     */
     @Override
-    //sets the current key name each time we enter a new method
-    //resets the counter to 0 and then adds the number of parameters
     public Object visit(Method node) {
         key = className + "." + node.getName();
         count = node.getFormalList().getSize();
@@ -40,8 +64,15 @@ public class NumLocalVarsVisitor extends Visitor {
         return null;
     }
 
+
+    /**
+     * Visit a declaration statement node
+     * adds to the local variable counter each time a new Declaration Statement is made
+     *
+     * @param node the declaration statement node
+     * @return result of the visit
+     */
     @Override
-    //adds to the local variable counter each time a new Declaration Statement is made
     public Object visit(DeclStmt node) {
         count += 1;
         return super.visit(node);
